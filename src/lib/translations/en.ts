@@ -85,6 +85,7 @@ export const en = {
     learnMore:"LEARN MORE",
     tag:"WHAT WE OFFER",
     title:"IT Services for\nthe Healthcare Sector",
+    sub:"From practice software to IT security — every service from a single partner.",
     items:[
       { slug:"it-sicherheit", t:"Cybersecurity & Compliance", d:"Comprehensive security audits, penetration testing, vulnerability assessments, firewall management, EDR, SIEM integration, and FMH IT-Grundschutz, DSG and GDPR compliance." },
       { slug:"netzwerk", t:"Network & Infrastructure", d:"Enterprise network design with VLAN segmentation, SD-WAN, redundant connections, Wi-Fi planning, structured cabling, OPNsense/WireGuard VPN for multi-site practices." },

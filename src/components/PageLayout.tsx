@@ -2,22 +2,35 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-const B = "#2563EB";
+const B   = "#2563EB";
+const BD  = "#1d4ed8";
+const INK = "#0A0A0A";
 
 export default function PageLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div style={{ background: "#fff", color: "#1e293b", fontFamily: "'Plus Jakarta Sans','DM Sans',system-ui,sans-serif", overflowX: "hidden" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
-
+    <div style={{ background: "#fff", color: INK, fontFamily: "'Inter',system-ui,sans-serif", overflowX: "clip" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Navbar />
       {children}
 
-      {/* CTA banner before footer */}
-      <div style={{ background: B, padding: "48px 32px", textAlign: "center" }}>
-        <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".12em", color: "rgba(255,255,255,.6)", textTransform: "uppercase", marginBottom: 12 }}>JERUMED NEXUS</p>
-        <h2 style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: "clamp(22px,3vw,32px)", fontWeight: 700, color: "#fff", marginBottom: 20 }}>Bereit für eine bessere Praxis-IT?</h2>
-        <a href="kontakt" style={{ display: "inline-block", background: "#fff", color: B, padding: "14px 36px", borderRadius: 8, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>Beratung anfragen →</a>
-      </div>
+      {/* CTA before footer */}
+      <section style={{ background: INK, padding: "100px 40px", borderTop: "1px solid rgba(255,255,255,.06)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 32 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>Kontakt</span>
+            </div>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", lineHeight: 1.05 }}>Bereit für eine bessere<br />Praxis-IT?</h2>
+          </div>
+          <a href="kontakt"
+            style={{ background: B, padding: "15px 36px", color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: "'Inter',sans-serif", textDecoration: "none", letterSpacing: ".04em", transition: "background .2s", display: "inline-block" }}
+            onMouseOver={(e) => (e.currentTarget.style.background = BD)}
+            onMouseOut={(e) => (e.currentTarget.style.background = B)}>
+            Beratung anfragen →
+          </a>
+        </div>
+      </section>
 
       <Footer />
     </div>

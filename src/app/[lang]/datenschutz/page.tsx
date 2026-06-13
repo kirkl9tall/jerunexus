@@ -1,24 +1,34 @@
 "use client";
-import { useParams } from 'next/navigation';
-import { getDictionary } from '@/lib/translations';
-import PageLayout from '@/components/PageLayout';
+import { useParams } from "next/navigation";
+import { getDictionary } from "@/lib/translations";
+import PageLayout from "@/components/PageLayout";
 
-const B = "#2563EB";
+const B   = "#2563EB";
+const INK = "#0A0A0A";
 
 export default function PrivacyPage() {
   const params = useParams();
   const t = getDictionary(params.lang as string);
-
   const p = t.pages.datenschutz;
+
   return (
     <PageLayout>
-      <section style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", padding: "120px 32px 60px", textAlign: "center" }}>
-        <h1 style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 40, fontWeight: 700, color: "#fff" }}>{p.title}</h1>
+      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+            <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>Legal</span>
+          </div>
+          <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(40px,6vw,80px)", fontWeight: 700, color: "#fff", lineHeight: .95, letterSpacing: "-.04em" }}>{p.title}</h1>
+        </div>
       </section>
-      <section style={{ padding: "60px 32px", maxWidth: 700, margin: "0 auto" }}>
-        <div style={{ padding: 32, borderRadius: 16, background: "#f8fafc", border: "1px solid #e2e8f0" }}>
-          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569" }}>{p.intro}</p>
-          <p style={{ fontSize: 16, lineHeight: 1.8, color: "#475569", marginTop: 20 }}>Diese Seite wird noch vervollständigt.</p>
+
+      <section style={{ padding: "80px 40px" }}>
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <div style={{ borderLeft: "3px solid #E5E7EB", paddingLeft: 32 }}>
+            <p style={{ fontSize: 16, lineHeight: 1.85, color: "#374151", marginBottom: 24 }}>{p.intro}</p>
+            <p style={{ fontSize: 16, lineHeight: 1.85, color: "#6B7280" }}>Diese Seite wird noch vervollständigt.</p>
+          </div>
         </div>
       </section>
     </PageLayout>

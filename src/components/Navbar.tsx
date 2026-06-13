@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getDictionary, locales } from "@/lib/translations";
 
-const B = "#2563EB";
+const B  = "#2563EB";
 const BD = "#1d4ed8";
-const BG = "#0f172a";
+const INK = "#0A0A0A";
 
 export default function Navbar() {
   const params = useParams();
@@ -14,7 +14,7 @@ export default function Navbar() {
   const t = getDictionary(lang);
 
   const [menu, setMenu] = useState(false);
-  const [lm, setLm] = useState(false);
+  const [lm,   setLm]   = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,98 +24,84 @@ export default function Navbar() {
   }, []);
 
   return (
-    <>
-      {/* Top bar */}
-      <div style={{ background: BG, padding: "8px 0", fontSize: 13, color: "rgba(255,255,255,.6)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ color: B }}>●</span> {t.top.addr}
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: scrolled ? "rgba(10,10,10,.97)" : INK, backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: "1px solid rgba(255,255,255,.07)", transition: "all .3s" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+
+        <a href={`/${lang}`} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: "#fff", letterSpacing: "-.01em" }}>
+            jerumed<span style={{ color: B }}>nexus</span>
+          </span>
+        </a>
+
+        {/* Desktop links */}
+        <div className="hide-m show-d" style={{ display: "none", alignItems: "center", gap: 36 }}>
+          {t.nav.items.map((n, i) => (
+            <a key={n} href={i === 0 ? `/${lang}` : `/${lang}/${t.nav.links[i]}`}
+              style={{ color: "rgba(255,255,255,.55)", fontSize: 14, fontFamily: "'Inter',sans-serif", textDecoration: "none", letterSpacing: ".01em", transition: "color .2s" }}
+              onMouseOver={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onFocus={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseOut={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)")}
+              onBlur={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)")}>{n}</a>
+          ))}
+
+          <div style={{ position: "relative" }}>
+            <button onClick={() => setLm(!lm)}
+              style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.1)", padding: "6px 14px", color: "rgba(255,255,255,.7)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
+              {t.langLabel} <span style={{ fontSize: 8 }}>▾</span>
+            </button>
+            {lm && (
+              <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, background: "#1a1a1a", border: "1px solid rgba(255,255,255,.1)", padding: 4, minWidth: 160, zIndex: 10 }}>
+                {locales.map((l) => {
+                  const ld = getDictionary(l);
+                  return (
+                    <button key={l} onClick={() => { router.push(`/${l}`); setLm(false); }}
+                      style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", background: lang === l ? "rgba(37,99,235,.15)" : "none", border: "none", color: lang === l ? B : "rgba(255,255,255,.6)", fontSize: 13, fontFamily: "'Inter',sans-serif", cursor: "pointer" }}>
+                      {ld.langFull}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
-          <div style={{ display: "flex", gap: 24 }}>
-            <span><span style={{ color: B }}>☎</span> {t.top.phone}</span>
-            <span><span style={{ color: B }}>✉</span> {t.top.email}</span>
-          </div>
+
+          <a href="/portal/login"
+            style={{ background: B, border: "none", padding: "10px 24px", color: "#fff", fontSize: 13, fontWeight: 600, fontFamily: "'Inter',sans-serif", textDecoration: "none", letterSpacing: ".04em", transition: "background .2s", display: "inline-block" }}
+            onMouseOver={(e) => (e.currentTarget.style.background = BD)}
+            onFocus={(e) => (e.currentTarget.style.background = BD)}
+            onMouseOut={(e) => (e.currentTarget.style.background = B)}
+            onBlur={(e) => (e.currentTarget.style.background = B)}>{t.nav.cta}</a>
         </div>
+
+        {/* Hamburger — mobile only */}
+        <button className="show-m" style={{ background: "none", border: "none", padding: 8, cursor: "pointer" }} onClick={() => setMenu(!menu)} aria-label="Menu">
+          {[0, 1, 2].map((i) => (
+            <div key={i} style={{ width: 22, height: 1.5, background: "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
+              opacity: menu && i === 1 ? 0 : 1,
+              transform: menu && i === 0 ? "rotate(45deg) translateY(7.5px)" : menu && i === 2 ? "rotate(-45deg) translateY(-7.5px)" : "none"
+            }} />
+          ))}
+        </button>
       </div>
 
-      {/* Nav */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 1000, background: scrolled ? "rgba(255,255,255,.95)" : "#fff", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: "1px solid #f0f0f0", transition: "all .3s" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-          <a href={`/${lang}`} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-            <div style={{ width: 38, height: 38, borderRadius: 8, background: `linear-gradient(135deg,${B},#06b6d4)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ color: "#fff", fontWeight: 800, fontSize: 14 }}>JN</span>
-            </div>
-            <span style={{ fontWeight: 700, fontSize: 19, color: BG }}>jerumed<span style={{ color: B }}>nexus</span></span>
-          </a>
-
-          {/* Desktop */}
-          <div className="hide-m show-d" style={{ display: "none", alignItems: "center", gap: 28 }}>
-            {t.nav.items.map((n, i) => (
-              <a key={t.nav.links[i]} href={i === 0 ? `/${lang}` : `/${lang}/${t.nav.links[i]}`}
-                style={{ color: "#64748b", fontSize: 15, fontWeight: 500, textDecoration: "none", transition: "color .2s" }}
-                onMouseOver={(e) => ((e.target as HTMLElement).style.color = B)}
-                onFocus={(e) => ((e.target as HTMLElement).style.color = B)}
-                onMouseOut={(e) => ((e.target as HTMLElement).style.color = "#64748b")}
-                onBlur={(e) => ((e.target as HTMLElement).style.color = "#64748b")}>{n}</a>
-            ))}
-
-            {/* Language switcher */}
-            <div style={{ position: "relative" }}>
-              <button onClick={() => setLm(!lm)}
-                style={{ background: "#f1f5f9", border: "none", borderRadius: 8, padding: "7px 14px", color: "#475569", fontSize: 13, fontWeight: 600, fontFamily: "inherit", display: "flex", alignItems: "center", gap: 5, cursor: "pointer" }}>
-                {t.langLabel} <span style={{ fontSize: 9 }}>▾</span>
-              </button>
-              {lm && (
-                <div style={{ position: "absolute", top: "calc(100% + 6px)", right: 0, background: "#fff", borderRadius: 10, boxShadow: "0 10px 36px rgba(0,0,0,.1)", padding: 5, minWidth: 150, border: "1px solid #eee", zIndex: 100 }}>
-                  {locales.map((l) => {
-                    const ld = getDictionary(l);
-                    return (
-                      <button key={l} onClick={() => { router.push(`/${l}`); setLm(false); }}
-                        style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", background: lang === l ? "#f0f4ff" : "none", border: "none", borderRadius: 7, color: lang === l ? B : "#475569", fontSize: 14, fontWeight: lang === l ? 600 : 400, fontFamily: "inherit", cursor: "pointer" }}>
-                        {ld.langFull}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            <a href={`/${lang}/kontakt`}
-              style={{ background: B, borderRadius: 8, padding: "10px 24px", color: "#fff", fontSize: 14, fontWeight: 600, textDecoration: "none", transition: "all .3s" }}
-              onMouseOver={(e) => (e.currentTarget.style.background = BD)}
-              onFocus={(e) => (e.currentTarget.style.background = BD)}
-              onMouseOut={(e) => (e.currentTarget.style.background = B)}
-              onBlur={(e) => (e.currentTarget.style.background = B)}>{t.nav.cta}</a>
+      {menu && (
+        <div style={{ background: INK, padding: "20px 40px 28px", borderTop: "1px solid rgba(255,255,255,.07)" }}>
+          {t.nav.items.map((n, i) => (
+            <a key={n} href={i === 0 ? `/${lang}` : `/${lang}/${t.nav.links[i]}`}
+              style={{ display: "block", padding: "13px 0", borderBottom: "1px solid rgba(255,255,255,.06)", color: "#fff", fontSize: 15, fontFamily: "'Inter',sans-serif", textDecoration: "none" }}>{n}</a>
+          ))}
+          <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+            {locales.map((l) => {
+              const ld = getDictionary(l);
+              return (
+                <button key={l} onClick={() => { router.push(`/${l}`); setMenu(false); }}
+                  style={{ padding: "7px 14px", border: `1px solid ${lang === l ? B : "rgba(255,255,255,.15)"}`, background: "none", color: lang === l ? B : "rgba(255,255,255,.5)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>
+                  {ld.langLabel}
+                </button>
+              );
+            })}
           </div>
-
-          {/* Mobile toggle */}
-          <button className="hide-m" style={{ display: "block", background: "none", border: "none", padding: 8, cursor: "pointer" }} onClick={() => setMenu(!menu)}>
-            <div style={{ width: 22, height: 2, background: "#1e293b", transition: "all .3s", transform: menu ? "rotate(45deg) translateY(7px)" : "none" }} />
-            <div style={{ width: 22, height: 2, background: "#1e293b", margin: "5px 0", opacity: menu ? 0 : 1, transition: "all .3s" }} />
-            <div style={{ width: 22, height: 2, background: "#1e293b", transition: "all .3s", transform: menu ? "rotate(-45deg) translateY(-7px)" : "none" }} />
-          </button>
         </div>
-
-        {menu && (
-          <div style={{ padding: "16px 32px 24px", borderTop: "1px solid #f0f0f0" }}>
-            {t.nav.items.map((n, i) => (
-              <a key={t.nav.links[i]} href={i === 0 ? `/${lang}` : `/${lang}/${t.nav.links[i]}`}
-                style={{ display: "block", padding: "12px 0", borderBottom: "1px solid #f5f5f5", color: "#1e293b", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>{n}</a>
-            ))}
-            <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-              {locales.map((l) => {
-                const ld = getDictionary(l);
-                return (
-                  <button key={l} onClick={() => { router.push(`/${l}`); setMenu(false); }}
-                    style={{ padding: "7px 14px", borderRadius: 7, border: `1px solid ${lang === l ? B : "#e2e8f0"}`, background: lang === l ? "#f0f4ff" : "#fff", color: lang === l ? B : "#64748b", fontSize: 13, fontWeight: 600, fontFamily: "inherit", cursor: "pointer" }}>
-                    {ld.langLabel}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </nav>
-    </>
+      )}
+    </nav>
   );
 }

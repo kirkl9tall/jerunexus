@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         String        @default("client")
+  practiceName String?
+  phone        String?
+  avatarUrl    String?
+  createdAt    DateTime      @default(now())
+  subscription Subscription?
+  tickets      Ticket[]
+  healthItems  HealthItem[]
+}
+
+model Plan {
+  id            String         @id @default(cuid())
+  key           String         @unique
+  name          String
+  priceChf      Int
+  description   String
+  features      String[]
+  sortOrder     Int
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  planId          String
+  status          String    @default("active")
+  requestedPlanId String?
+  renewsAt        DateTime?
+  createdAt       DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan            Plan      @relation(fields: [planId], references: [id])
+}
+
+model Ticket {
+  id        String    @id @default(cuid())
+  userId    String
+  subject   String
+  channel   String
+  status    String    @default("open")
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  Message[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  ticketId  String
+  sender    String
+  body      String
+  createdAt DateTime @default(now())
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+}
+
+model HealthItem {
+  id        String   @id @default(cuid())
+  userId    String
+  component String
+  status    String
+  detail    String?
+  checkedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

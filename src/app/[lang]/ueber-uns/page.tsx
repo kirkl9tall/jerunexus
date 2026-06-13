@@ -1,9 +1,10 @@
 "use client";
-import { useParams } from 'next/navigation';
-import { getDictionary } from '@/lib/translations';
-import PageLayout from '@/components/PageLayout';
+import { useParams } from "next/navigation";
+import { getDictionary } from "@/lib/translations";
+import PageLayout from "@/components/PageLayout";
 
-const B = "#2563EB";
+const B   = "#2563EB";
+const INK = "#0A0A0A";
 
 export default function AboutPage() {
   const params = useParams();
@@ -13,57 +14,63 @@ export default function AboutPage() {
 
   return (
     <PageLayout>
-      <section style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)", padding: "120px 32px 80px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "-30%", left: "-10%", width: "50vw", height: "50vw", borderRadius: "50%", background: "radial-gradient(circle, rgba(37,99,235,.08), transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "relative" }}>
-          <h1 style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: "clamp(36px,5vw,56px)", fontWeight: 700, color: "#fff", lineHeight: 1.1, marginBottom: 12 }}>{p.heroTitle}</h1>
-          <p style={{ fontSize: 18, color: "rgba(255,255,255,.55)" }}>{p.heroSub}</p>
+      {/* Hero */}
+      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+            <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{p.story.tag}</span>
+          </div>
+          <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(40px,6vw,80px)", fontWeight: 700, color: "#fff", lineHeight: .95, letterSpacing: "-.04em", marginBottom: 20 }}>{p.heroTitle}</h1>
+          <p style={{ fontSize: 18, color: "rgba(255,255,255,.4)", maxWidth: 560 }}>{p.heroSub}</p>
         </div>
       </section>
 
-      <section style={{ padding: "80px 32px", maxWidth: 900, margin: "0 auto" }}>
-        <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".15em", color: B }}>{p.story.tag}</span>
-        <h2 style={{ fontSize: "clamp(28px,3vw,40px)", fontWeight: 700, marginTop: 10, marginBottom: 24, color: "#0f172a", whiteSpace: "pre-line" }}>{p.story.title}</h2>
-        <p style={{ fontSize: 16, lineHeight: 1.85, color: "#475569", marginBottom: 16 }}>{p.story.p1}</p>
-        <p style={{ fontSize: 16, lineHeight: 1.85, color: "#475569" }}>{p.story.p2}</p>
-      </section>
-
-      <section style={{ background: "#f8fafc", padding: "80px 32px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
-          <div style={{ padding: 32, borderRadius: 16, background: "#fff", border: "1px solid #e2e8f0" }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".15em", color: B }}>{p.mission.tag}</span>
-            <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 8, marginBottom: 12, color: "#0f172a" }}>{p.mission.title}</h3>
-            <p style={{ fontSize: 15, lineHeight: 1.7, color: "#475569" }}>{p.mission.p}</p>
-          </div>
-          <div style={{ padding: 32, borderRadius: 16, background: "#fff", border: "1px solid #e2e8f0" }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".15em", color: B }}>{p.vision.tag}</span>
-            <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 8, marginBottom: 12, color: "#0f172a" }}>{p.vision.title}</h3>
-            <p style={{ fontSize: 15, lineHeight: 1.7, color: "#475569" }}>{p.vision.p}</p>
+      {/* Story */}
+      <section style={{ padding: "100px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div className="hp" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+            <div>
+              <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 28, whiteSpace: "pre-line" }}>{p.story.title}</h2>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: "#6B7280", marginBottom: 20 }}>{p.story.p1}</p>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: "#6B7280" }}>{p.story.p2}</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+              {[
+                { tag: p.mission.tag, title: p.mission.title, body: p.mission.p, dark: true },
+                { tag: p.vision.tag,  title: p.vision.title,  body: p.vision.p,  dark: false },
+              ].map((card) => (
+                <div key={card.tag} style={{ padding: "36px 28px", background: card.dark ? INK : "#F5F5F3", border: card.dark ? "none" : "1px solid #E5E7EB" }}>
+                  <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, color: B, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: 14 }}>{card.tag}</p>
+                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 18, fontWeight: 700, color: card.dark ? "#fff" : INK, marginBottom: 12 }}>{card.title}</h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.7, color: card.dark ? "rgba(255,255,255,.5)" : "#6B7280" }}>{card.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Team */}
-      <section style={{ padding: "80px 32px", maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".15em", color: B }}>{t.team.tag}</span>
-          <h2 style={{ fontSize: 36, fontWeight: 700, marginTop: 10, color: "#0f172a", whiteSpace: "pre-line" }}>{t.team.title}</h2>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 24 }}>
-          {t.team.members.map((m) => (
-            <div key={m.name} style={{ textAlign: "center", padding: "36px 24px", borderRadius: 16, border: "1px solid #eee", background: "#fff" }}>
-              <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#f0f4ff", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px", fontSize: 24, fontWeight: 700, color: B }}>{m.img}</div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", marginBottom: 4 }}>{m.name}</h3>
-              <p style={{ fontSize: 13, fontWeight: 600, color: B, marginBottom: 12 }}>{m.role}</p>
-              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#64748b" }}>{m.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "100px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+            <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.team.tag}</span>
+          </div>
+          <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 56, whiteSpace: "pre-line" }}>{t.team.title}</h2>
 
-      <section style={{ background: B, padding: "70px 32px", textAlign: "center" }}>
-        <h2 style={{ fontSize: 32, fontWeight: 700, color: "#fff", marginBottom: 24 }}>{t.ctaBanner.title.replace("\n"," ")}</h2>
-        <a href={`/${lang}/kontakt`} style={{ display: "inline-block", background: "#fff", color: B, padding: "16px 40px", borderRadius: 10, fontWeight: 700, textDecoration: "none", fontSize: 15 }}>Kontakt →</a>
+          <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
+            {t.team.members.map((m, i) => (
+              <div key={m.name} style={{ padding: "36px 28px", borderRight: i < 3 ? "1px solid #E5E7EB" : "none", background: "#fff" }}>
+                <div style={{ width: 56, height: 56, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: B }}>{m.img}</div>
+                <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 17, fontWeight: 700, color: INK, marginBottom: 4 }}>{m.name}</h3>
+                <p style={{ fontSize: 12, fontWeight: 600, color: B, marginBottom: 12, letterSpacing: ".04em", textTransform: "uppercase" }}>{m.role}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.65, color: "#6B7280" }}>{m.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </PageLayout>
   );

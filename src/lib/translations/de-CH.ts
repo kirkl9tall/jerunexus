@@ -87,6 +87,7 @@ export const deCH = {
     learnMore:"MEHR ERFAHREN",
     tag:"UNSERE LEISTUNGEN",
     title:"IT-Dienstleistungen für\ndas Gesundheitswesen",
+    sub:"Von der Praxissoftware bis zur IT-Sicherheit — alle Leistungen aus einer Hand.",
     items:[
       { slug:"it-sicherheit", t:"Cybersecurity & Compliance", d:"Umfassende Sicherheitsaudits, Penetration Testing, Schwachstellenanalysen, Firewall-Management, Endpoint Detection & Response (EDR), SIEM-Integration und Einhaltung von FMH IT-Grundschutz, DSG und DSGVO." },
       { slug:"netzwerk", t:"Netzwerk & Infrastruktur", d:"Enterprise-Netzwerkdesign mit VLAN-Segmentierung, SD-WAN, redundante Anbindungen, WLAN-Ausleuchtung, strukturierte Verkabelung nach EN 50173, OPNsense/WireGuard VPN für Multi-Standort-Praxen." },
