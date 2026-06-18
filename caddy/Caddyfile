@@ -1,0 +1,59 @@
+###############################################################################
+# Jerumed Nexus — Caddy entrypoint
+#
+# Caddy is the single public entrypoint. It automatically provisions and renews
+# TLS certificates from Let's Encrypt, terminates HTTPS, adds security headers,
+# rate-limits, and reverse-proxies to the Next.js app.
+#
+# Set via environment (see .env.production):
+#   SITE_ADDRESS  the public hostname, e.g. portal.example.com
+#                 (use `localhost` for local testing → Caddy's internal CA)
+#   ACME_EMAIL    contact email for Let's Encrypt notifications
+###############################################################################
+{
+	email {$ACME_EMAIL}
+}
+
+{$SITE_ADDRESS} {
+	# Compression
+	encode gzip zstd
+
+	# ---- security headers --------------------------------------------------
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		# CSP tuned for Next.js (inline bootstrap scripts/styles) + Unsplash images.
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://images.unsplash.com; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+		# Don't advertise the server software.
+		-Server
+	}
+
+	# ---- long-cache immutable Next.js build assets -------------------------
+	@static path /_next/static/*
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# ---- rate limiting (caddy-ratelimit plugin) ----------------------------
+	# `auth` zone: tight cap on login/registration/verify (anti brute-force/spam).
+	# `general` zone: looser cap on everything else.
+	rate_limit {
+		zone auth {
+			match {
+				path /api/auth/*
+			}
+			key {remote_host}
+			events 5
+			window 1s
+		}
+		zone general {
+			key {remote_host}
+			events 30
+			window 1s
+		}
+	}
+
+	# ---- reverse proxy to the Next.js standalone server --------------------
+	reverse_proxy app:3000
+}

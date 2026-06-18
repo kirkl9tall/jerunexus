@@ -12,11 +12,12 @@ export default async function HealthPage() {
   const lang = getPortalLang();
   const t = getPortalDict(lang).health;
 
-  const items = await prisma.healthItem.findMany({
-    where: { userId: user.id },
-    orderBy: { component: "asc" },
-  });
+  const [items, sub] = await Promise.all([
+    prisma.healthItem.findMany({ where: { userId: user.id }, orderBy: { component: "asc" } }),
+    prisma.subscription.findUnique({ where: { userId: user.id }, include: { plan: true } }),
+  ]);
 
+  const isFree = !sub || sub.plan.priceChf === 0;
   const issues = items.filter((i) => i.status !== "ok").length;
   const statusLabel: Record<string, string> = { ok: t.statusOk, warn: t.statusWarn, crit: t.statusCrit };
   const statusColor: Record<string, string> = { ok: "var(--green-dark)", warn: "var(--warn)", crit: "var(--crit)" };
@@ -30,6 +31,16 @@ export default async function HealthPage() {
       <p style={{ fontSize: 15, color: "var(--gray)", margin: "20px 0 36px", lineHeight: 1.65, maxWidth: 560 }}>
         {issues === 0 ? t.introOk : t.introIssue(issues)}
       </p>
+
+      {isFree && (
+        <div style={{ background: "var(--green-dark)", color: "#fff", padding: "28px 32px", marginBottom: 28, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
+          <div style={{ maxWidth: 620 }}>
+            <h3 style={{ fontFamily: "'Libre Franklin',sans-serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t.subscribeTitle}</h3>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,.8)", lineHeight: 1.6 }}>{t.subscribeBody}</p>
+          </div>
+          <a href="/portal/upgrade" className="p-btn" style={{ background: "#fff", color: "var(--green-dark)", borderColor: "#fff", whiteSpace: "nowrap" }}>{t.subscribeCta}</a>
+        </div>
+      )}
 
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {items.map((item) => {

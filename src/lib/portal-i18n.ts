@@ -18,6 +18,11 @@ type PlanText = { name: string; description: string; features: string[] };
 
 const PLAN_TEXT: Record<PortalLang, Record<string, PlanText>> = {
   de: {
+    free: {
+      name: "Free",
+      description: "Kostenloser Zugang zum Kundenportal.",
+      features: ["Portal-Zugang", "System-Übersicht", "1 kostenloser Service"],
+    },
     starter: {
       name: "Einzelpraxis",
       description: "Für Einzelpraxen, die zuverlässigen IT-Support brauchen.",
@@ -35,6 +40,11 @@ const PLAN_TEXT: Record<PortalLang, Record<string, PlanText>> = {
     },
   },
   en: {
+    free: {
+      name: "Free",
+      description: "Free access to the client portal.",
+      features: ["Portal access", "System overview", "1 free service"],
+    },
     starter: {
       name: "Single Practice",
       description: "For single practices that need reliable IT support.",
@@ -70,6 +80,7 @@ export function localizePlanName(lang: PortalLang, plan: { key: string; name: st
    known component names and detail messages to English, matched by the German source
    string. Falls back to the stored text for anything not in the map. */
 const HEALTH_COMPONENT_EN: Record<string, string> = {
+  "Portal-Dashboard": "Portal Dashboard",
   "Server & Infrastruktur": "Server & Infrastructure",
   "Backup": "Backup",
   "Netzwerk & VPN": "Network & VPN",
@@ -80,6 +91,7 @@ const HEALTH_COMPONENT_EN: Record<string, string> = {
 };
 
 const HEALTH_DETAIL_EN: Record<string, string> = {
+  "Kostenloser Service — aktiv.": "Free service — active.",
   "Alle Systeme laufen normal.": "All systems running normally.",
   "Letztes Backup erfolgreich abgeschlossen.": "Last backup completed successfully.",
   "Letztes Backup heute 03:00 Uhr erfolgreich.": "Last backup today at 03:00 successful.",
@@ -189,6 +201,9 @@ export const PORTAL_DICT = {
       statusCrit: "Kritisch",
       checked: "Geprüft",
       empty: "Noch keine Komponenten konfiguriert. Unser Team richtet Ihr Monitoring ein.",
+      subscribeTitle: "Schalten Sie die volle IT-Überwachung frei",
+      subscribeBody: "Ihr kostenloser Zugang umfasst das Portal-Dashboard. Abonnieren Sie ein Paket, um Server, Backup, Netzwerk, IT-Sicherheit und mehr rund um die Uhr überwachen zu lassen.",
+      subscribeCta: "Pakete ansehen →",
     },
     plan: {
       label: "Ihr Plan",
@@ -450,6 +465,9 @@ export const PORTAL_DICT = {
       statusCrit: "Critical",
       checked: "Checked",
       empty: "No components configured yet. Our team is setting up your monitoring.",
+      subscribeTitle: "Unlock full IT monitoring",
+      subscribeBody: "Your free access includes the portal dashboard. Subscribe to a plan to get 24/7 monitoring of your servers, backup, network, IT security and more.",
+      subscribeCta: "View packages →",
     },
     plan: {
       label: "Your Plan",

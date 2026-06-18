@@ -1,0 +1,102 @@
+###############################################################################
+# Jerumed Nexus — production stack
+#
+#   caddy  → public entrypoint (80/443): auto-HTTPS + security + reverse proxy
+#   app    → Next.js standalone server (internal only, never exposed directly)
+#   db     → PostgreSQL 16 (internal only)
+#   migrate→ one-shot: applies Prisma migrations, then exits
+#
+# Only caddy publishes ports. app + db live on the private `jerumed` network.
+# Caddy obtains and auto-renews Let's Encrypt certificates on its own — no cert
+# files to manage. Issued certs persist in the `caddy_data` volume.
+#
+# Usage:
+#   cp .env.production.example .env.production   # then fill in secrets + domain
+#   docker compose up -d --build
+###############################################################################
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - jerumed
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # One-shot: build from the `builder` stage (it still has the Prisma CLI),
+  # apply pending migrations, then exit. The app waits for this to finish.
+  migrate:
+    build:
+      context: .
+      target: builder
+    command: ["npx", "prisma", "migrate", "deploy"]
+    env_file:
+      - .env.production
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - jerumed
+    restart: "no"
+
+  app:
+    build:
+      context: .
+      target: runner
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    networks:
+      - jerumed
+    expose:
+      - "3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok||r.status<500?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  caddy:
+    build:
+      context: ./caddy
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"   # HTTP/3 (QUIC)
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS}
+      ACME_EMAIL: ${ACME_EMAIL}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data      # certificates + ACME account (persist across restarts)
+      - caddy_config:/config
+    networks:
+      - jerumed
+
+networks:
+  jerumed:
+    driver: bridge
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

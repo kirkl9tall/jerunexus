@@ -14,10 +14,12 @@ export default async function UpgradePage() {
   const t = getPortalDict(lang).upgrade;
   const locale = lang === "de" ? "de-CH" : "en-GB";
 
-  const [plans, sub] = await Promise.all([
+  const [allPlans, sub] = await Promise.all([
     prisma.plan.findMany({ orderBy: { sortOrder: "asc" } }),
     prisma.subscription.findUnique({ where: { userId: user.id }, include: { plan: true } }),
   ]);
+  // The free tier isn't something you "upgrade to" — only show paid plans.
+  const plans = allPlans.filter((p) => p.priceChf > 0);
 
   const pendingPlan = sub?.requestedPlanId
     ? plans.find((p) => p.id === sub.requestedPlanId)

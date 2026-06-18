@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getAdminUser } from "@/lib/auth";
+import { ensureMonitoringItems } from "@/lib/health";
 
 /**
  * Admin actions on a client subscription:
@@ -36,15 +37,18 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
         },
       });
     }
+    if (plan.priceChf > 0) await ensureMonitoringItems(params.id);
     return NextResponse.json({ ok: true });
   }
 
   if (action === "approveUpgrade") {
     if (!sub?.requestedPlanId) return NextResponse.json({ error: "No pending upgrade" }, { status: 400 });
+    const requested = await prisma.plan.findUnique({ where: { id: sub.requestedPlanId } });
     await prisma.subscription.update({
       where: { userId: params.id },
       data: { planId: sub.requestedPlanId, status: "active", requestedPlanId: null },
     });
+    if (requested && requested.priceChf > 0) await ensureMonitoringItems(params.id);
     return NextResponse.json({ ok: true });
   }
 

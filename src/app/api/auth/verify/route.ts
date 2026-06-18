@@ -30,7 +30,9 @@ export async function GET(req: Request) {
     return NextResponse.redirect(`${origin}/portal/login?verify=already`);
   }
 
-  const starter = await prisma.plan.findUnique({ where: { key: "starter" } });
+  // New accounts start on the free tier: portal access + one free service.
+  // Paid IT monitoring is unlocked when they subscribe to a plan.
+  const free = await prisma.plan.findUnique({ where: { key: "free" } });
 
   const user = await prisma.user.create({
     data: {
@@ -38,23 +40,14 @@ export async function GET(req: Request) {
       passwordHash: pending.passwordHash,
       name: pending.name,
       practiceName: pending.practiceName,
-      ...(starter && {
+      ...(free && {
         subscription: {
-          create: {
-            planId: starter.id,
-            status: "active",
-            renewsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-          },
+          create: { planId: free.id, status: "active" },
         },
       }),
       healthItems: {
         create: [
-          { component: "Server & Infrastruktur", status: "ok", detail: "Alle Systeme laufen normal." },
-          { component: "Backup", status: "ok", detail: "Letztes Backup erfolgreich abgeschlossen." },
-          { component: "Netzwerk & VPN", status: "ok", detail: "Verbindung stabil." },
-          { component: "IT-Sicherheit", status: "ok", detail: "Keine Bedrohungen erkannt." },
-          { component: "Praxissoftware", status: "ok", detail: "Version aktuell." },
-          { component: "E-Mail (HIN)", status: "ok", detail: "Versand und Empfang funktionieren." },
+          { component: "Portal-Dashboard", status: "ok", detail: "Kostenloser Service — aktiv." },
         ],
       },
     },
