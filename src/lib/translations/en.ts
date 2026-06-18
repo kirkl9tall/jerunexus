@@ -6,10 +6,16 @@ export const en = {
   nav: {
     items: ["Home","Services","About","Technology","Pricing","Contact"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
-    cta: "Get Started",
+    cta: "Get Started / Login",
   },
 
   top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"info@jerumed-nexus.ch" },
+
+  finalCta: {
+    tag:"Contact",
+    title:"Ready for better\npractice IT?",
+    btn:"Request a consultation →",
+  },
 
   hero: {
     pre:"We provide professional",
@@ -86,6 +92,7 @@ export const en = {
     tag:"WHAT WE OFFER",
     title:"IT Services for\nthe Healthcare Sector",
     sub:"From practice software to IT security — every service from a single partner.",
+    allBtn:"All services →",
     items:[
       { slug:"it-sicherheit", t:"Cybersecurity & Compliance", d:"Comprehensive security audits, penetration testing, vulnerability assessments, firewall management, EDR, SIEM integration, and FMH IT-Grundschutz, DSG and GDPR compliance." },
       { slug:"netzwerk", t:"Network & Infrastructure", d:"Enterprise network design with VLAN segmentation, SD-WAN, redundant connections, Wi-Fi planning, structured cabling, OPNsense/WireGuard VPN for multi-site practices." },
@@ -198,6 +205,23 @@ export const en = {
     title:"Talk to us",
     sub:"We look forward to hearing from you. Fill out the form or contact us directly.",
     form:{ name:"Name", email:"Email", phone:"Phone", company:"Practice name", message:"Your message", service:"Desired service", send:"Send message" },
+    infoTitle:"Contact info",
+    responseTitle:"Response times",
+    priorities:[
+      { label:"Critical", time:"≤ 1 h" },
+      { label:"High",     time:"≤ 4 h" },
+      { label:"Normal",   time:"≤ 8 h" },
+    ],
+    successTitle:"Message sent!",
+    successSub:"We'll get back to you within 24 hours.",
+    errorMsg:"Something went wrong. Please try again.",
+    sending:"Sending…",
+  },
+
+  servicePageCta: {
+    title:"Get in touch",
+    sub:"Schedule a free initial consultation.",
+    btn:"Get in touch →",
   },
 
   footer: {
@@ -211,6 +235,8 @@ export const en = {
   },
 
   pages: {
+    legalTag:"Legal",
+    notFound:"Page not found",
     about: {
       heroTitle:"About Jerumed Nexus",
       heroSub:"Where healthcare meets technology",
@@ -234,7 +260,7 @@ export const en = {
       ],
     },
     impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"info@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
-    datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website." },
+    datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website.", note:"This page is being finalized." },
   },
 
   servicePages: {

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getAdminUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizePlanName } from "@/lib/portal-i18n";
 import AdminClientList from "@/components/portal/AdminClientList";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +37,7 @@ export default async function AdminClientsPage() {
           name: c.name,
           email: c.email,
           practiceName: c.practiceName,
-          planName: c.subscription?.plan.name ?? null,
+          planName: c.subscription ? localizePlanName(lang, c.subscription.plan) : null,
           openCount: c._count.tickets,
           since: c.createdAt.toLocaleDateString(locale),
         }))}

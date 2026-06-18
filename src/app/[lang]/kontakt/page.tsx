@@ -67,7 +67,7 @@ export default function ContactPage() {
 
             {/* Info column */}
             <div>
-              <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: INK, marginBottom: 32, letterSpacing: "-.02em" }}>Kontakt Info</h2>
+              <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: INK, marginBottom: 32, letterSpacing: "-.02em" }}>{t.contact.infoTitle}</h2>
 
               {[
                 { label: t.help.phone.label, value: t.help.phone.value },
@@ -85,12 +85,8 @@ export default function ContactPage() {
               </div>
 
               <div style={{ marginTop: 40, borderTop: "1px solid #E5E7EB", paddingTop: 32 }}>
-                <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#9CA3AF", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 12 }}>Reaktionszeiten</p>
-                {[
-                  { label: "Kritisch", time: "≤ 1 Std", color: "#EF4444" },
-                  { label: "Hoch",     time: "≤ 4 Std", color: "#F59E0B" },
-                  { label: "Normal",   time: "≤ 8 Std", color: "#10B981" },
-                ].map((r) => (
+                <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#9CA3AF", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 12 }}>{t.contact.responseTitle}</p>
+                {t.contact.priorities.map((r, i) => ({ ...r, color: ["#EF4444", "#F59E0B", "#10B981"][i] })).map((r) => (
                   <div key={r.label} style={{ display: "flex", justifyContent: "space-between", padding: "10px 0", borderBottom: "1px solid #F3F4F6" }}>
                     <span style={{ fontSize: 14, color: "#374151" }}>{r.label}</span>
                     <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, fontWeight: 500, color: r.color }}>{r.time}</span>
@@ -104,8 +100,8 @@ export default function ContactPage() {
               {state === "sent" ? (
                 <div style={{ textAlign: "center", padding: "60px 0" }}>
                   <div style={{ width: 56, height: 56, background: "#10B981", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", fontSize: 22, color: "#fff", fontWeight: 700 }}>✓</div>
-                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: INK, marginBottom: 10 }}>Nachricht gesendet!</h3>
-                  <p style={{ fontSize: 14, color: "#6B7280" }}>Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: INK, marginBottom: 10 }}>{t.contact.successTitle}</h3>
+                  <p style={{ fontSize: 14, color: "#6B7280" }}>{t.contact.successSub}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
@@ -136,13 +132,13 @@ export default function ContactPage() {
                         style={{ ...inp, resize: "none" }} />
                     </div>
                     {state === "error" && (
-                      <p style={{ fontSize: 13, color: "#EF4444" }}>Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.</p>
+                      <p style={{ fontSize: 13, color: "#EF4444" }}>{t.contact.errorMsg}</p>
                     )}
                     <button type="submit" disabled={state === "sending"}
                       style={{ background: state === "sending" ? "#9CA3AF" : B, border: "none", padding: "16px", color: "#fff", fontSize: 14, fontWeight: 600, cursor: state === "sending" ? "not-allowed" : "pointer", letterSpacing: ".04em", fontFamily: "inherit", transition: "background .2s" }}
                       onMouseOver={(e) => { if (state !== "sending") e.currentTarget.style.background = BD; }}
                       onMouseOut={(e) => { if (state !== "sending") e.currentTarget.style.background = B; }}>
-                      {state === "sending" ? "Senden..." : `${t.contact.form.send} →`}
+                      {state === "sending" ? t.contact.sending : `${t.contact.form.send} →`}
                     </button>
                   </div>
                 </form>

@@ -14,7 +14,15 @@ export async function POST(req: Request) {
   }
 
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+  if (!user) {
+    // Distinguish "awaiting confirmation" from "wrong credentials" for a clearer hint.
+    const pending = await prisma.pendingRegistration.findUnique({ where: { email } });
+    if (pending && pending.expiresAt > new Date()) {
+      return NextResponse.json({ error: apiMsg("verifyEmailFirst") }, { status: 403 });
+    }
+    return NextResponse.json({ error: apiMsg("wrongCredentials") }, { status: 401 });
+  }
+  if (!(await bcrypt.compare(password, user.passwordHash))) {
     return NextResponse.json({ error: apiMsg("wrongCredentials") }, { status: 401 });
   }
 

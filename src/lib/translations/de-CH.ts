@@ -6,10 +6,16 @@ export const deCH = {
   nav: {
     items: ["Home","Leistungen","Über uns","Technologie","Preise","Kontakt"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
-    cta: "Beratung anfragen",
+    cta: "Loslegen / Login",
   },
 
   top: { addr:"Zürich, Schweiz", phone:"+41 XX XXX XX XX", email:"info@jerumed-nexus.ch" },
+
+  finalCta: {
+    tag:"Kontakt",
+    title:"Bereit für eine bessere\nPraxis-IT?",
+    btn:"Beratung anfragen →",
+  },
 
   hero: {
     pre:"Wir bieten professionelle",
@@ -88,6 +94,7 @@ export const deCH = {
     tag:"UNSERE LEISTUNGEN",
     title:"IT-Dienstleistungen für\ndas Gesundheitswesen",
     sub:"Von der Praxissoftware bis zur IT-Sicherheit — alle Leistungen aus einer Hand.",
+    allBtn:"Alle Leistungen →",
     items:[
       { slug:"it-sicherheit", t:"Cybersecurity & Compliance", d:"Umfassende Sicherheitsaudits, Penetration Testing, Schwachstellenanalysen, Firewall-Management, Endpoint Detection & Response (EDR), SIEM-Integration und Einhaltung von FMH IT-Grundschutz, DSG und DSGVO." },
       { slug:"netzwerk", t:"Netzwerk & Infrastruktur", d:"Enterprise-Netzwerkdesign mit VLAN-Segmentierung, SD-WAN, redundante Anbindungen, WLAN-Ausleuchtung, strukturierte Verkabelung nach EN 50173, OPNsense/WireGuard VPN für Multi-Standort-Praxen." },
@@ -200,6 +207,23 @@ export const deCH = {
     title:"Sprechen Sie mit uns",
     sub:"Wir freuen uns auf Ihre Anfrage. Füllen Sie das Formular aus oder kontaktieren Sie uns direkt.",
     form:{ name:"Name", email:"E-Mail", phone:"Telefon", company:"Praxisname", message:"Ihre Nachricht", service:"Gewünschte Leistung", send:"Nachricht senden" },
+    infoTitle:"Kontakt-Infos",
+    responseTitle:"Reaktionszeiten",
+    priorities:[
+      { label:"Kritisch", time:"≤ 1 Std" },
+      { label:"Hoch",     time:"≤ 4 Std" },
+      { label:"Normal",   time:"≤ 8 Std" },
+    ],
+    successTitle:"Nachricht gesendet!",
+    successSub:"Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
+    errorMsg:"Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    sending:"Senden…",
+  },
+
+  servicePageCta: {
+    title:"Kontaktieren Sie uns",
+    sub:"Vereinbaren Sie ein kostenloses Erstgespräch.",
+    btn:"Kontakt aufnehmen →",
   },
 
   footer: {
@@ -213,6 +237,8 @@ export const deCH = {
   },
 
   pages: {
+    legalTag:"Rechtliches",
+    notFound:"Seite nicht gefunden",
     about: {
       heroTitle:"Über Jerumed Nexus",
       heroSub:"Wo Gesundheitswesen auf Technologie trifft",
@@ -247,6 +273,7 @@ export const deCH = {
     datenschutz: {
       title:"Datenschutzerklärung",
       intro:"Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. In dieser Datenschutzerklärung informieren wir Sie über die Verarbeitung personenbezogener Daten bei der Nutzung unserer Website.",
+      note:"Diese Seite wird noch vervollständigt.",
     },
   },
 

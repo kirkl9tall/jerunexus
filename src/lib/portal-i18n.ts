@@ -10,6 +10,99 @@ export function getPortalDict(lang: PortalLang) {
   return PORTAL_DICT[lang];
 }
 
+/* ── Plan data localization ──
+   The DB stores plans in German (canonical). This overlays an English
+   translation, matched by plan key. Falls back to the DB values if a
+   key is missing, so a new plan still renders (just untranslated). */
+type PlanText = { name: string; description: string; features: string[] };
+
+const PLAN_TEXT: Record<PortalLang, Record<string, PlanText>> = {
+  de: {
+    starter: {
+      name: "Einzelpraxis",
+      description: "Für Einzelpraxen, die zuverlässigen IT-Support brauchen.",
+      features: ["Remote IT-Support", "Basis-Monitoring", "E-Mail-Konfiguration", "Monatlicher Statusbericht", "Backup-Management"],
+    },
+    professional: {
+      name: "Gemeinschaftspraxis",
+      description: "Für Gemeinschaftspraxen mit erweiterten Anforderungen.",
+      features: ["Alles aus Starter", "Vor-Ort-Support", "VLAN & VPN Setup", "tomedo-Integration", "Cybersecurity-Audit"],
+    },
+    enterprise: {
+      name: "Ärztezentrum",
+      description: "Für Ärztezentren mit mehreren Standorten.",
+      features: ["Alles aus Professional", "Multi-Standort-VPN", "Labor-Middleware", "24/7 Priority-Support", "Dedizierter Ansprechpartner"],
+    },
+  },
+  en: {
+    starter: {
+      name: "Single Practice",
+      description: "For single practices that need reliable IT support.",
+      features: ["Remote IT support", "Basic monitoring", "Email configuration", "Monthly status report", "Backup management"],
+    },
+    professional: {
+      name: "Group Practice",
+      description: "For group practices with advanced requirements.",
+      features: ["Everything in Starter", "On-site support", "VLAN & VPN setup", "tomedo integration", "Cybersecurity audit"],
+    },
+    enterprise: {
+      name: "Medical Center",
+      description: "For medical centers with multiple locations.",
+      features: ["Everything in Professional", "Multi-site VPN", "Lab middleware", "24/7 priority support", "Dedicated contact person"],
+    },
+  },
+};
+
+export function localizePlan(
+  lang: PortalLang,
+  plan: { key: string; name: string; description: string; features: string[] },
+): PlanText {
+  return PLAN_TEXT[lang]?.[plan.key] ?? { name: plan.name, description: plan.description, features: plan.features };
+}
+
+/** Localize just a plan name (for places that only need the name). */
+export function localizePlanName(lang: PortalLang, plan: { key: string; name: string }): string {
+  return PLAN_TEXT[lang]?.[plan.key]?.name ?? plan.name;
+}
+
+/* ── Health-status localization ──
+   Health items are stored in German (the canonical seed language). This maps the
+   known component names and detail messages to English, matched by the German source
+   string. Falls back to the stored text for anything not in the map. */
+const HEALTH_COMPONENT_EN: Record<string, string> = {
+  "Server & Infrastruktur": "Server & Infrastructure",
+  "Backup": "Backup",
+  "Netzwerk & VPN": "Network & VPN",
+  "IT-Sicherheit": "IT Security",
+  "Praxissoftware": "Practice Software",
+  "Praxissoftware (tomedo)": "Practice Software (tomedo)",
+  "E-Mail (HIN)": "Email (HIN)",
+};
+
+const HEALTH_DETAIL_EN: Record<string, string> = {
+  "Alle Systeme laufen normal.": "All systems running normally.",
+  "Letztes Backup erfolgreich abgeschlossen.": "Last backup completed successfully.",
+  "Letztes Backup heute 03:00 Uhr erfolgreich.": "Last backup today at 03:00 successful.",
+  "Verbindung stabil.": "Connection stable.",
+  "Verbindung stabil, Latenz 4 ms.": "Connection stable, latency 4 ms.",
+  "Keine Bedrohungen erkannt.": "No threats detected.",
+  "Windows-Updates auf 2 Arbeitsstationen ausstehend.": "Windows updates pending on 2 workstations.",
+  "Version aktuell.": "Version up to date.",
+  "Version 1.144 — aktuell.": "Version 1.144 — up to date.",
+  "Versand und Empfang funktionieren.": "Sending and receiving working.",
+};
+
+export function localizeHealth(
+  lang: PortalLang,
+  item: { component: string; detail: string | null },
+): { component: string; detail: string | null } {
+  if (lang === "de") return { component: item.component, detail: item.detail };
+  return {
+    component: HEALTH_COMPONENT_EN[item.component] ?? item.component,
+    detail: item.detail ? (HEALTH_DETAIL_EN[item.detail] ?? item.detail) : item.detail,
+  };
+}
+
 export const PORTAL_DICT = {
   de: {
     shell: {
@@ -40,6 +133,8 @@ export const PORTAL_DICT = {
       fallbackError: "Anmeldung fehlgeschlagen.",
       sideTitle: "Ihre Praxis-IT.\nImmer im Blick.",
       sideItems: ["System-Status in Echtzeit", "Direkter Draht zum Support", "Plan und Rechnungen verwalten"],
+      verifyInvalid: "Der Bestätigungslink ist ungültig oder abgelaufen. Bitte registrieren Sie sich erneut.",
+      verifyAlready: "Ihr Konto ist bereits bestätigt. Sie können sich jetzt anmelden.",
     },
     register: {
       home: "← Startseite",
@@ -56,6 +151,10 @@ export const PORTAL_DICT = {
       fallbackError: "Registrierung fehlgeschlagen.",
       sideTitle: "Willkommen bei\nJerumed Nexus.",
       sideItems: ["Kostenloses Kundenkonto", "Support per Chat oder E-Mail", "Transparente Plan-Übersicht"],
+      checkInboxTitle: "Bestätigen Sie Ihre E-Mail",
+      checkInboxBody: "Wir haben einen Bestätigungslink an Ihre E-Mail-Adresse gesendet. Klicken Sie darauf, um Ihr Konto zu aktivieren.",
+      checkInboxHint: "Keine E-Mail erhalten? Prüfen Sie Ihren Spam-Ordner oder registrieren Sie sich erneut.",
+      devLink: "Dev-Link (keine E-Mail konfiguriert):",
     },
     dash: {
       label: "Übersicht",
@@ -295,6 +394,8 @@ export const PORTAL_DICT = {
       fallbackError: "Sign-in failed.",
       sideTitle: "Your practice IT.\nAlways in view.",
       sideItems: ["Real-time system status", "Direct line to support", "Manage plan and invoices"],
+      verifyInvalid: "The confirmation link is invalid or expired. Please register again.",
+      verifyAlready: "Your account is already confirmed. You can sign in now.",
     },
     register: {
       home: "← Home",
@@ -311,6 +412,10 @@ export const PORTAL_DICT = {
       fallbackError: "Registration failed.",
       sideTitle: "Welcome to\nJerumed Nexus.",
       sideItems: ["Free client account", "Support via chat or email", "Transparent plan overview"],
+      checkInboxTitle: "Confirm your email",
+      checkInboxBody: "We've sent a confirmation link to your email address. Click it to activate your account.",
+      checkInboxHint: "No email? Check your spam folder or register again.",
+      devLink: "Dev link (no email configured):",
     },
     dash: {
       label: "Overview",
@@ -546,6 +651,8 @@ const API_MSG = {
     planNotFound: "Plan nicht gefunden.",
     noSubscription: "Kein aktives Abonnement.",
     alreadyOnPlan: "Sie nutzen diesen Plan bereits.",
+    emailSendFailed: "Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.",
+    verifyEmailFirst: "Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Prüfen Sie Ihren Posteingang.",
   },
   en: {
     invalidEmail: "Invalid email address.",
@@ -566,6 +673,8 @@ const API_MSG = {
     planNotFound: "Plan not found.",
     noSubscription: "No active subscription.",
     alreadyOnPlan: "You are already on this plan.",
+    emailSendFailed: "Couldn't send the confirmation email. Please try again later.",
+    verifyEmailFirst: "Please confirm your email address first. Check your inbox.",
   },
 } as const;
 

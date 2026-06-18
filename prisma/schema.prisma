@@ -22,6 +22,20 @@ model User {
   healthItems  HealthItem[]
 }
 
+/// Sign-ups awaiting email confirmation. No real User row exists until the
+/// link is clicked, so unverified/spam registrations never touch the User table.
+/// Rows are unique per email and purged once expired or confirmed.
+model PendingRegistration {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  practiceName String?
+  token        String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}
+
 model Plan {
   id            String         @id @default(cuid())
   key           String         @unique

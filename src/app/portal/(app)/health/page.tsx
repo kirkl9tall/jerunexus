@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizeHealth } from "@/lib/portal-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -32,13 +32,15 @@ export default async function HealthPage() {
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {items.map((item) => (
+        {items.map((item) => {
+          const loc = localizeHealth(lang, item);
+          return (
           <div key={item.id} className="p-card" style={{ display: "flex", alignItems: "center", gap: 20 }}>
             <span className={`p-dot ${item.status}`} style={{ width: 12, height: 12 }} />
             <div style={{ flex: 1 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 700 }}>{item.component}</h3>
-              {item.detail && (
-                <p style={{ fontSize: 13, color: "var(--gray)", marginTop: 4 }}>{item.detail}</p>
+              <h3 style={{ fontSize: 16, fontWeight: 700 }}>{loc.component}</h3>
+              {loc.detail && (
+                <p style={{ fontSize: 13, color: "var(--gray)", marginTop: 4 }}>{loc.detail}</p>
               )}
             </div>
             <div style={{ textAlign: "right" }}>
@@ -50,7 +52,8 @@ export default async function HealthPage() {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
         {items.length === 0 && (
           <div className="p-card" style={{ textAlign: "center", padding: "48px 28px", color: "var(--gray-light)" }}>
             {t.empty}

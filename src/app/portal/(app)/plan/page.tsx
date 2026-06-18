@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizePlan, localizePlanName } from "@/lib/portal-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +22,8 @@ export default async function PlanPage() {
     ? await prisma.plan.findUnique({ where: { id: sub.requestedPlanId } })
     : null;
 
+  const planText = sub ? localizePlan(lang, sub.plan) : null;
+
   return (
     <>
       <div className="p-label">{t.label}</div>
@@ -37,7 +39,7 @@ export default async function PlanPage() {
         <>
           {sub.status === "pending_upgrade" && requestedPlan && (
             <div className="p-success" style={{ marginTop: 28 }}>
-              {t.pendingBanner(requestedPlan.name)}
+              {t.pendingBanner(localizePlanName(lang, requestedPlan))}
             </div>
           )}
 
@@ -45,18 +47,18 @@ export default async function PlanPage() {
             <div style={{ background: "var(--green-dark)", color: "#fff", padding: "32px 32px 28px" }}>
               <div className="p-label" style={{ color: "rgba(255,255,255,.6)" }}>{t.activePlan}</div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 18, flexWrap: "wrap", marginTop: 10 }}>
-                <h2 style={{ fontSize: 30, fontWeight: 700, color: "#fff" }}>{sub.plan.name}</h2>
+                <h2 style={{ fontSize: 30, fontWeight: 700, color: "#fff" }}>{planText!.name}</h2>
                 <span style={{ fontFamily: "'Libre Franklin',sans-serif", fontSize: 18, fontWeight: 600, color: "#7BC5A3" }}>
                   {t.perMonth(sub.plan.priceChf.toLocaleString(locale))}
                 </span>
               </div>
-              <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", marginTop: 8 }}>{sub.plan.description}</p>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", marginTop: 8 }}>{planText!.description}</p>
             </div>
 
             <div style={{ padding: 32 }}>
               <div className="p-label" style={{ marginBottom: 16 }}>{t.included}</div>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                {sub.plan.features.map((f) => (
+                {planText!.features.map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14 }}>
                     <span style={{ color: "var(--green)", fontWeight: 700 }}>✓</span> {f}
                   </li>

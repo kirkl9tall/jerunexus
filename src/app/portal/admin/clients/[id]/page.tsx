@@ -1,7 +1,7 @@
 import { redirect, notFound } from "next/navigation";
 import { getAdminUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizePlanName } from "@/lib/portal-i18n";
 import AdminSubscriptionPanel from "@/components/portal/AdminSubscriptionPanel";
 
 export const dynamic = "force-dynamic";
@@ -69,7 +69,7 @@ export default async function AdminClientDetail({ params }: Readonly<{ params: {
           {client.subscription ? (
             <dl style={{ margin: 0, display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <div style={{ fontSize: 22, fontWeight: 700, fontFamily: "'Libre Franklin',sans-serif" }}>{client.subscription.plan.name}</div>
+                <div style={{ fontSize: 22, fontWeight: 700, fontFamily: "'Libre Franklin',sans-serif" }}>{localizePlanName(lang, client.subscription.plan)}</div>
                 <div style={{ fontSize: 14, color: "var(--green)", fontWeight: 600, marginTop: 2 }}>
                   {t.perMonth(client.subscription.plan.priceChf.toLocaleString(locale))}
                 </div>
@@ -99,8 +99,8 @@ export default async function AdminClientDetail({ params }: Readonly<{ params: {
           clientId={client.id}
           currentPlanKey={client.subscription?.plan.key ?? null}
           status={client.subscription?.status ?? null}
-          requestedPlanName={requestedPlan?.name ?? null}
-          plans={plans.map((p) => ({ key: p.key, name: p.name, priceLabel: t.perMonth(p.priceChf.toLocaleString(locale)) }))}
+          requestedPlanName={requestedPlan ? localizePlanName(lang, requestedPlan) : null}
+          plans={plans.map((p) => ({ key: p.key, name: localizePlanName(lang, p), priceLabel: t.perMonth(p.priceChf.toLocaleString(locale)) }))}
           t={{
             subscription: t.subscription,
             pendingUpgrade: t.pendingUpgrade,

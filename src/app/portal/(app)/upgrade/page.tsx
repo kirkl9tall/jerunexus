@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizePlan } from "@/lib/portal-i18n";
 import UpgradeGrid from "@/components/portal/UpgradeGrid";
 
 export const dynamic = "force-dynamic";
@@ -33,13 +33,16 @@ export default async function UpgradePage() {
       </p>
 
       <UpgradeGrid
-        plans={plans.map((p) => ({
-          key: p.key,
-          name: p.name,
-          priceLabel: t.perMonth(p.priceChf.toLocaleString(locale)),
-          description: p.description,
-          features: p.features,
-        }))}
+        plans={plans.map((p) => {
+          const text = localizePlan(lang, p);
+          return {
+            key: p.key,
+            name: text.name,
+            priceLabel: t.perMonth(p.priceChf.toLocaleString(locale)),
+            description: text.description,
+            features: text.features,
+          };
+        })}
         currentKey={sub?.plan.key ?? null}
         pendingKey={pendingPlan?.key ?? null}
         t={{

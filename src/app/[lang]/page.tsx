@@ -384,7 +384,7 @@ export default function Home() {
                 onMouseOver={(e) => { e.currentTarget.style.background = INK; e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = INK; }}
                 onFocus={(e) => { e.currentTarget.style.background = INK; }}
                 onMouseOut={(e) => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "#374151"; e.currentTarget.style.borderColor = "#D1D5DB"; }}
-                onBlur={(e) => { e.currentTarget.style.background = "none"; }}>Alle Leistungen →</button>
+                onBlur={(e) => { e.currentTarget.style.background = "none"; }}>{t.services.allBtn}</button>
             </div>
           </R>
           <div className="sg" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0, border: "1px solid #E5E7EB" }}>

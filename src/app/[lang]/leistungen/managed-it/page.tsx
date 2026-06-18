@@ -11,7 +11,7 @@ export default function ServicePage() {
   const lang = String(params.lang ?? "de-CH");
   const t = getDictionary(lang);
   const page = t.servicePages["managed-it"];
-  if (!page) return <div style={{ padding: 200, textAlign: "center", fontSize: 20 }}>Page not found</div>;
+  if (!page) return <div style={{ padding: 200, textAlign: "center", fontSize: 20 }}>{t.pages.notFound}</div>;
 
   return (
     <PageLayout>
@@ -20,7 +20,7 @@ export default function ServicePage() {
           <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap", alignItems: "center" }}>
             <a href={`/${lang}`} style={{ fontFamily: "'DM Mono',monospace", color: "rgba(255,255,255,.35)", fontSize: 11, textDecoration: "none", letterSpacing: ".08em" }}>Home</a>
             <span style={{ color: "rgba(255,255,255,.15)", fontSize: 11 }}>/</span>
-            <a href={`/${lang}/leistungen`} style={{ fontFamily: "'DM Mono',monospace", color: "rgba(255,255,255,.35)", fontSize: 11, textDecoration: "none", letterSpacing: ".08em" }}>Leistungen</a>
+            <a href={`/${lang}/leistungen`} style={{ fontFamily: "'DM Mono',monospace", color: "rgba(255,255,255,.35)", fontSize: 11, textDecoration: "none", letterSpacing: ".08em" }}>{t.nav.items[1]}</a>
             <span style={{ color: "rgba(255,255,255,.15)", fontSize: 11 }}>/</span>
             <span style={{ fontFamily: "'DM Mono',monospace", color: B, fontSize: 11, letterSpacing: ".08em" }}>{page.title}</span>
           </div>
@@ -56,8 +56,8 @@ export default function ServicePage() {
       <section style={{ background: INK, padding: "80px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 32 }}>
           <div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3vw,40px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", marginBottom: 10 }}>Kontaktieren Sie uns</h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,.4)" }}>Vereinbaren Sie ein kostenloses Erstgespräch.</p>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3vw,40px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", marginBottom: 10 }}>{t.servicePageCta.title}</h2>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.4)" }}>{t.servicePageCta.sub}</p>
           </div>
           <a href={`/${lang}/kontakt`}
             style={{ background: B, padding: "14px 32px", color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: "inherit", textDecoration: "none", letterSpacing: ".04em", transition: "background .2s", display: "inline-block" }}
@@ -65,7 +65,7 @@ export default function ServicePage() {
             onFocus={(e) => (e.currentTarget.style.background = "#1d4ed8")}
             onMouseOut={(e) => (e.currentTarget.style.background = B)}
             onBlur={(e) => (e.currentTarget.style.background = B)}>
-            Kontakt aufnehmen →
+            {t.servicePageCta.btn}
           </a>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { getPortalLang, getPortalDict } from "@/lib/portal-i18n";
+import { getPortalLang, getPortalDict, localizePlanName } from "@/lib/portal-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +9,8 @@ export default async function DashboardPage() {
   const user = await getSessionUser();
   if (!user) redirect("/portal/login");
 
-  const t = getPortalDict(getPortalLang()).dash;
+  const lang = getPortalLang();
+  const t = getPortalDict(lang).dash;
 
   const [sub, healthItems, openTickets] = await Promise.all([
     prisma.subscription.findUnique({ where: { userId: user.id }, include: { plan: true } }),
@@ -34,7 +35,7 @@ export default async function DashboardPage() {
       <div className="p-stats">
         <div className="p-stat">
           <div className="p-label" style={{ marginBottom: 12 }}>{t.yourPlan}</div>
-          <div className="n">{sub?.plan.name ?? "—"}</div>
+          <div className="n">{sub ? localizePlanName(lang, sub.plan) : "—"}</div>
           <a href="/portal/plan" className="p-arrow-link" style={{ marginTop: 14, display: "inline-flex" }}>{t.details}</a>
         </div>
         <div className="p-stat">
