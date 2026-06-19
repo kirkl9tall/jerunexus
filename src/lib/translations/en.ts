@@ -166,7 +166,7 @@ export const en = {
   tools: {
     tag:"OUR TOOLS & SOFTWARE",
     title:"Professional software for\nreliable IT operations",
-    items:["TeamViewer","AnyDesk","RustDesk","IONOS","Plesk","Nginx","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
+    items:["TeamViewer","AnyDesk","RustDesk","Docker","Kubernetes","Caddy","IONOS","Plesk","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
   },
 
   emergency: {
@@ -252,11 +252,13 @@ export const en = {
       heroSub:"Enterprise-grade. Open Source. Transparent.",
       stack:[
         { cat:"Frontend", val:"Next.js · React · TypeScript · Tailwind CSS" },
-        { cat:"Backend", val:"Node.js · Go · Python · PostgreSQL" },
-        { cat:"Server", val:"Ubuntu · Nginx · PM2 · Plesk" },
-        { cat:"Security", val:"OPNsense · WireGuard · SPF/DKIM" },
+        { cat:"Backend", val:"Node.js · Go · Python" },
+        { cat:"Database", val:"PostgreSQL · Prisma ORM · Automated Backups" },
+        { cat:"Server & Cloud", val:"Ubuntu · Caddy · Cloud Hosting · systemd" },
+        { cat:"Containers & Orchestration", val:"Docker · Kubernetes · Docker Compose" },
+        { cat:"Security", val:"OPNsense · WireGuard · TLS · SPF/DKIM" },
         { cat:"Monitoring", val:"Uptime Kuma · Zabbix · Grafana" },
-        { cat:"Medical", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
+        { cat:"Medical & Integration", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
       ],
     },
     impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"info@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },

@@ -168,7 +168,7 @@ export const deCH = {
   tools: {
     tag:"UNSERE TOOLS & SOFTWARE",
     title:"Professionelle Software für\nzuverlässigen IT-Betrieb",
-    items:["TeamViewer","AnyDesk","RustDesk","IONOS","Plesk","Nginx","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
+    items:["TeamViewer","AnyDesk","RustDesk","Docker","Kubernetes","Caddy","IONOS","Plesk","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
   },
 
   emergency: {
@@ -256,11 +256,13 @@ export const deCH = {
       heroSub:"Enterprise-grade. Open Source. Transparent.",
       stack:[
         { cat:"Frontend", val:"Next.js · React · TypeScript · Tailwind CSS" },
-        { cat:"Backend", val:"Node.js · Go · Python · PostgreSQL" },
-        { cat:"Server", val:"Ubuntu · Nginx · PM2 · Plesk" },
-        { cat:"Sicherheit", val:"OPNsense · WireGuard · SPF/DKIM" },
+        { cat:"Backend", val:"Node.js · Go · Python" },
+        { cat:"Datenbank", val:"PostgreSQL · Prisma ORM · Automatische Backups" },
+        { cat:"Server & Cloud", val:"Ubuntu · Caddy · Cloud-Hosting · systemd" },
+        { cat:"Container & Orchestrierung", val:"Docker · Kubernetes · Docker Compose" },
+        { cat:"Sicherheit", val:"OPNsense · WireGuard · TLS · SPF/DKIM" },
         { cat:"Monitoring", val:"Uptime Kuma · Zabbix · Grafana" },
-        { cat:"Medizin", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
+        { cat:"Medizin & Integration", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
       ],
     },
     impressum: {
