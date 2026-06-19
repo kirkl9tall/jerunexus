@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 import { apiMsg, getPortalLang } from "@/lib/portal-i18n";
 import { sendVerificationEmail, emailConfigured } from "@/lib/email";
+import { isValidEmail } from "@/lib/validation";
 
 const TOKEN_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
   const name = (body?.name ?? "").trim();
   const practiceName = (body?.practiceName ?? "").trim() || null;
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: apiMsg("invalidEmail") }, { status: 400 });
   }
   if (password.length < 8) {

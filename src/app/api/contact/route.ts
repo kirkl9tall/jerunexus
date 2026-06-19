@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isValidEmail } from "@/lib/validation";
 
 interface ContactPayload {
   name: string;
@@ -6,10 +7,6 @@ interface ContactPayload {
   phone?: string;
   company?: string;
   message: string;
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export async function POST(req: NextRequest) {
