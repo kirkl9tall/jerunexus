@@ -12,7 +12,7 @@ const INK = "#0A0A0A";
  * through this component — content still comes from the translation dictionary
  * via `t.servicePages[slug]`, so localisation is unchanged.
  */
-export default function ServiceDetail({ slug }: { slug: string }) {
+export default function ServiceDetail({ slug }: Readonly<{ slug: string }>) {
   const params = useParams();
   const lang = String(params.lang ?? "de-CH");
   const t = getDictionary(lang);
