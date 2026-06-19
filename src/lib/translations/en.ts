@@ -226,6 +226,20 @@ export const en = {
     sending:"Sending…",
   },
 
+  liveChat: {
+    title:"Live Support Chat",
+    subtitle:"Talk directly with our support team",
+    description:"Get instant answers to your questions. Our team is available Mon–Fri 07:00–22:00.",
+    onlineStatus:"Our team is online",
+    offlineStatus:"We're offline right now",
+    hours:"Mon–Fri: 07:00–22:00 · Sat: 08:00–18:00",
+    startChat:"Start chat",
+    registerChat:"Create account & chat",
+    or:"or",
+    noAccount:"No account? Sign up quickly.",
+    liveNow:"Live now available",
+  },
+
   servicePageCta: {
     title:"Get in touch",
     sub:"Schedule a free initial consultation.",
