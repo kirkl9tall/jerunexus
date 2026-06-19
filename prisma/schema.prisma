@@ -60,14 +60,16 @@ model Subscription {
 }
 
 model Ticket {
-  id        String    @id @default(cuid())
-  userId    String
-  subject   String
-  channel   String
-  status    String    @default("open")
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  messages  Message[]
+  id           String    @id @default(cuid())
+  userId       String
+  subject      String
+  channel      String
+  status       String    @default("open")
+  createdAt    DateTime  @default(now())
+  clientReadAt DateTime? // when the client last opened this conversation
+  adminReadAt  DateTime? // when an admin last opened this conversation
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages     Message[]
 }
 
 model Message {

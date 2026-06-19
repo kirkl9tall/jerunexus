@@ -3,28 +3,37 @@ import { prisma } from "@/lib/db";
 import { getSessionUser } from "@/lib/auth";
 
 /**
- * "Whose turn is it" notification count.
- *  - admin:  open tickets whose latest message came from a client (awaiting reply)
- *  - client: tickets whose latest message came from support (admin replied last)
- * Clears naturally when the other side responds — no read-state table needed.
+ * Unread-conversation notification count.
+ *  - admin:  open tickets whose latest message came from a client AND arrived
+ *            after the admin last opened that ticket.
+ *  - client: own open tickets whose latest message came from support AND arrived
+ *            after the client last opened that ticket.
+ * Opening a conversation (which fetches its messages) stamps the read time, so
+ * the badge clears once you've actually read the latest reply.
  */
 export async function GET() {
   const user = await getSessionUser();
   if (!user) return NextResponse.json({ count: 0 });
 
-  if (user.role === "admin") {
-    const tickets = await prisma.ticket.findMany({
-      where: { status: "open" },
-      select: { messages: { orderBy: { createdAt: "desc" }, take: 1, select: { sender: true } } },
-    });
-    const count = tickets.filter((t) => t.messages[0]?.sender === "user").length;
-    return NextResponse.json({ count });
-  }
+  const isAdmin = user.role === "admin";
+  const fromOther = isAdmin ? "user" : "support";
 
   const tickets = await prisma.ticket.findMany({
-    where: { userId: user.id, status: "open" },
-    select: { messages: { orderBy: { createdAt: "desc" }, take: 1, select: { sender: true } } },
+    where: isAdmin ? { status: "open" } : { userId: user.id, status: "open" },
+    select: {
+      clientReadAt: true,
+      adminReadAt: true,
+      messages: { orderBy: { createdAt: "desc" }, take: 1, select: { sender: true, createdAt: true } },
+    },
   });
-  const count = tickets.filter((t) => t.messages[0]?.sender === "support").length;
+
+  const count = tickets.filter((t) => {
+    const last = t.messages[0];
+    if (last?.sender !== fromOther) return false;
+    const readAt = isAdmin ? t.adminReadAt : t.clientReadAt;
+    // Unread when never opened, or the latest message is newer than the last read.
+    return !readAt || last.createdAt > readAt;
+  }).length;
+
   return NextResponse.json({ count });
 }

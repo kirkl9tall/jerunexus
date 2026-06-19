@@ -14,6 +14,10 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
     },
   });
   if (!ticket) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  // Opening the conversation counts as reading it — clears the admin's badge.
+  await prisma.ticket.update({ where: { id: ticket.id }, data: { adminReadAt: new Date() } });
+
   return NextResponse.json({ ticket });
 }
 
