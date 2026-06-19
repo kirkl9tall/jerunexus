@@ -169,6 +169,14 @@ export const deCH = {
     tag:"UNSERE TOOLS & SOFTWARE",
     title:"Professionelle Software für\nzuverlässigen IT-Betrieb",
     items:["TeamViewer","AnyDesk","RustDesk","Docker","Kubernetes","Caddy","IONOS","Plesk","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
+    groups:[
+      { cat:"Fernwartung", val:"TeamViewer · AnyDesk · RustDesk" },
+      { cat:"Container & Hosting", val:"Docker · Kubernetes · IONOS · Plesk" },
+      { cat:"Server & Web", val:"Ubuntu · Caddy · WordPress" },
+      { cat:"Sicherheit & Netzwerk", val:"OPNsense · WireGuard · Let's Encrypt" },
+      { cat:"Kommunikation & E-Mail", val:"3CX · Postfix" },
+      { cat:"Monitoring & Tools", val:"Grafana · GitHub · Figma" },
+    ],
   },
 
   emergency: {

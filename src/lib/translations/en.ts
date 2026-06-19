@@ -167,6 +167,14 @@ export const en = {
     tag:"OUR TOOLS & SOFTWARE",
     title:"Professional software for\nreliable IT operations",
     items:["TeamViewer","AnyDesk","RustDesk","Docker","Kubernetes","Caddy","IONOS","Plesk","OPNsense","WireGuard","Ubuntu","3CX","WordPress","Figma","GitHub","Grafana","Let's Encrypt","Postfix"],
+    groups:[
+      { cat:"Remote Support", val:"TeamViewer · AnyDesk · RustDesk" },
+      { cat:"Containers & Hosting", val:"Docker · Kubernetes · IONOS · Plesk" },
+      { cat:"Server & Web", val:"Ubuntu · Caddy · WordPress" },
+      { cat:"Security & Network", val:"OPNsense · WireGuard · Let's Encrypt" },
+      { cat:"Communication & Email", val:"3CX · Postfix" },
+      { cat:"Monitoring & Tools", val:"Grafana · GitHub · Figma" },
+    ],
   },
 
   emergency: {
