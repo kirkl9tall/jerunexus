@@ -1,7 +1,55 @@
 import { NextResponse } from "next/server";
+import type { Subscription } from "@/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getAdminUser } from "@/lib/auth";
 import { ensureMonitoringItems } from "@/lib/health";
+
+const ok = () => NextResponse.json({ ok: true });
+const err = (error: string, status: number) => NextResponse.json({ error }, { status });
+
+/** Switch the client to a plan immediately (creating the subscription if needed). */
+async function setPlan(userId: string, planKey: unknown) {
+  const plan = await prisma.plan.findUnique({ where: { key: typeof planKey === "string" ? planKey : "" } });
+  if (!plan) return err("Plan not found", 404);
+
+  await prisma.subscription.upsert({
+    where: { userId },
+    update: { planId: plan.id, status: "active", requestedPlanId: null },
+    create: {
+      userId,
+      planId: plan.id,
+      status: "active",
+      renewsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    },
+  });
+
+  if (plan.priceChf > 0) await ensureMonitoringItems(userId);
+  return ok();
+}
+
+/** Apply the client's requested plan and clear the request. */
+async function approveUpgrade(userId: string, sub: Subscription | null) {
+  if (!sub?.requestedPlanId) return err("No pending upgrade", 400);
+
+  const requested = await prisma.plan.findUnique({ where: { id: sub.requestedPlanId } });
+  await prisma.subscription.update({
+    where: { userId },
+    data: { planId: sub.requestedPlanId, status: "active", requestedPlanId: null },
+  });
+
+  if (requested && requested.priceChf > 0) await ensureMonitoringItems(userId);
+  return ok();
+}
+
+/** Clear the pending request, keep the current plan. */
+async function rejectUpgrade(userId: string, sub: Subscription | null) {
+  if (!sub) return err("No subscription", 400);
+  await prisma.subscription.update({
+    where: { userId },
+    data: { status: "active", requestedPlanId: null },
+  });
+  return ok();
+}
 
 /**
  * Admin actions on a client subscription:
@@ -11,55 +59,19 @@ import { ensureMonitoringItems } from "@/lib/health";
  */
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   const admin = await getAdminUser();
-  if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!admin) return err("Forbidden", 403);
 
   const body = await req.json().catch(() => null);
-  const action = body?.action;
-
   const sub = await prisma.subscription.findUnique({ where: { userId: params.id } });
 
-  if (action === "setPlan") {
-    const plan = await prisma.plan.findUnique({ where: { key: body?.planKey ?? "" } });
-    if (!plan) return NextResponse.json({ error: "Plan not found" }, { status: 404 });
-
-    if (sub) {
-      await prisma.subscription.update({
-        where: { userId: params.id },
-        data: { planId: plan.id, status: "active", requestedPlanId: null },
-      });
-    } else {
-      await prisma.subscription.create({
-        data: {
-          userId: params.id,
-          planId: plan.id,
-          status: "active",
-          renewsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        },
-      });
-    }
-    if (plan.priceChf > 0) await ensureMonitoringItems(params.id);
-    return NextResponse.json({ ok: true });
+  switch (body?.action) {
+    case "setPlan":
+      return setPlan(params.id, body?.planKey);
+    case "approveUpgrade":
+      return approveUpgrade(params.id, sub);
+    case "rejectUpgrade":
+      return rejectUpgrade(params.id, sub);
+    default:
+      return err("Unknown action", 400);
   }
-
-  if (action === "approveUpgrade") {
-    if (!sub?.requestedPlanId) return NextResponse.json({ error: "No pending upgrade" }, { status: 400 });
-    const requested = await prisma.plan.findUnique({ where: { id: sub.requestedPlanId } });
-    await prisma.subscription.update({
-      where: { userId: params.id },
-      data: { planId: sub.requestedPlanId, status: "active", requestedPlanId: null },
-    });
-    if (requested && requested.priceChf > 0) await ensureMonitoringItems(params.id);
-    return NextResponse.json({ ok: true });
-  }
-
-  if (action === "rejectUpgrade") {
-    if (!sub) return NextResponse.json({ error: "No subscription" }, { status: 400 });
-    await prisma.subscription.update({
-      where: { userId: params.id },
-      data: { status: "active", requestedPlanId: null },
-    });
-    return NextResponse.json({ ok: true });
-  }
-
-  return NextResponse.json({ error: "Unknown action" }, { status: 400 });
 }
