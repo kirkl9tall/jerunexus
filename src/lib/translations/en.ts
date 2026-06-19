@@ -127,16 +127,16 @@ export const en = {
 
   pricing: {
     tag:"OUR PACKAGES",
-    title:"Flexible plans for\nevery practice size",
-    sub:"Our pricing adapts to your needs — from solo practices to medical centers.",
+    title:"Tailored Solutions\nfor Your Practice",
+    sub:"Choose from our professional packages or contact us for a custom solution.",
     btn:"Learn More",
     plans:[
-      { tag:"STARTER", name:"Solo Practice", price:"500", prefix:"from", unit:"CHF / month", features:["Remote IT support","Basic monitoring","Email configuration","Monthly status report","Backup management"] },
-      { tag:"PROFESSIONAL", name:"Group Practice", price:"1'200", prefix:"from", unit:"CHF / month", features:["Everything in Starter","On-site support","VLAN & VPN setup","tomedo integration","Cybersecurity audit"], featured:true },
-      { tag:"ENTERPRISE", name:"Medical Center", price:"2'500", prefix:"from", unit:"CHF / month", features:["Everything in Professional","Multi-site VPN","Lab middleware","24/7 priority support","Dedicated contact person"] },
+      { tag:"CREATION", name:"Digital Presence", price:"On Request", prefix:"", unit:"", features:["Website creation from scratch","Branding & logo design","Social media setup","Content creation","SEO optimization","Responsive design"] },
+      { tag:"INTEGRATION", name:"Lab Integration", price:"On Request", prefix:"", unit:"", features:["Lab box installation","Tomedo integration & configuration","Twilio automation setup","Firewall installation & configuration","Output normalization","Network optimization"], featured:true },
+      { tag:"BUSINESS", name:"Enterprise Bundle", price:"Custom", prefix:"", unit:"", features:["Everything in Digital Presence","Everything in Lab Integration","Dedicated project manager","Premium support","Custom infrastructure","Full-stack consulting"] },
     ],
-    getStarted:"Get started",
-    vatNote:"*All prices excl. VAT.",
+    getStarted:"Request a quote",
+    vatNote:"*Individual terms available upon request",
   },
 
   sla: {

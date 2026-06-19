@@ -129,16 +129,16 @@ export const deCH = {
 
   pricing: {
     tag:"UNSERE PAKETE",
-    title:"Flexible Pläne für\njede Praxisgrösse",
-    sub:"Unsere Preisstruktur passt sich Ihren Bedürfnissen an — von der Einzelpraxis bis zum Ärztezentrum.",
+    title:"Maßgeschneiderte Lösungen\nfür Ihre Praxis",
+    sub:"Wählen Sie aus unseren professionellen Paketen oder kontaktieren Sie uns für eine individuelle Lösung.",
     btn:"Mehr erfahren",
     plans:[
-      { tag:"STARTER", name:"Einzelpraxis", price:"500", prefix:"ab", unit:"CHF / Monat", features:["Remote IT-Support","Basis-Monitoring","E-Mail-Konfiguration","Monatlicher Statusbericht","Backup-Management"] },
-      { tag:"PROFESSIONAL", name:"Gemeinschaftspraxis", price:"1'200", prefix:"ab", unit:"CHF / Monat", features:["Alles aus Starter","Vor-Ort-Support","VLAN & VPN Setup","tomedo-Integration","Cybersecurity-Audit"], featured:true },
-      { tag:"ENTERPRISE", name:"Ärztezentrum", price:"2'500", prefix:"ab", unit:"CHF / Monat", features:["Alles aus Professional","Multi-Standort-VPN","Labor-Middleware","24/7 Priority-Support","Dedizierter Ansprechpartner"] },
+      { tag:"CREATION", name:"Digital Presence", price:"Auf Anfrage", prefix:"", unit:"", features:["Website-Erstellung von Grund auf","Branding & Logo-Design","Social Media Setup","Content-Erstellung","SEO-Optimierung","Responsives Design"] },
+      { tag:"INTEGRATION", name:"Labor-Integration", price:"Auf Anfrage", prefix:"", unit:"", features:["Labor-Box Installation","Tomedo-Integration & Konfiguration","Twilio-Automation Setup","Firewall-Installation & Konfiguration","Normalisierung aller Ausgaben","Netzwerk-Optimierung"], featured:true },
+      { tag:"BUSINESS", name:"Enterprise Bundle", price:"Individuell", prefix:"", unit:"", features:["Alles aus Digital Presence","Alles aus Labor-Integration","Dedizierter Projektmanager","Premium-Support","Custom-Infrastruktur","Full-Stack Beratung"] },
     ],
     getStarted:"Angebot anfragen",
-    vatNote:"*Alle Preise exkl. MwSt.",
+    vatNote:"*Individuelle Konditionen nach Absprache",
   },
 
   sla: {
