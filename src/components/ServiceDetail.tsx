@@ -8,13 +8,14 @@ const INK = "#0A0A0A";
 
 /**
  * Shared template for every `/[lang]/leistungen/<slug>` service detail page.
- * The 12 service pages are identical apart from their slug, so they all render
- * through this component — content still comes from the translation dictionary
- * via `t.servicePages[slug]`, so localisation is unchanged.
+ * All service pages render through this single component via the dynamic
+ * `[slug]` route — content still comes from the translation dictionary via
+ * `t.servicePages[slug]`, so localisation is unchanged.
  */
-export default function ServiceDetail({ slug }: Readonly<{ slug: string }>) {
+export default function ServiceDetail() {
   const params = useParams();
   const lang = String(params.lang ?? "de-CH");
+  const slug = String(params.slug ?? "");
   const t = getDictionary(lang);
   const page = (t.servicePages as Record<string, typeof t.servicePages[keyof typeof t.servicePages]>)[slug];
   if (!page) return <div style={{ padding: 200, textAlign: "center", fontSize: 20 }}>{t.pages.notFound}</div>;
