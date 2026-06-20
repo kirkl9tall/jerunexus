@@ -11,8 +11,11 @@
 # files to manage. Issued certs persist in the `caddy_data` volume.
 #
 # Usage:
-#   cp .env.production.example .env.production   # then fill in secrets + domain
+#   cp .env.example .env     # then fill in secrets + domain
 #   docker compose up -d --build
+#
+# A single `.env` file is used: Docker Compose reads it automatically for both
+# ${VAR} interpolation (db, caddy) and the app/migrate env_file injection.
 ###############################################################################
 
 services:
@@ -41,7 +44,7 @@ services:
       target: builder
     command: ["npx", "prisma", "migrate", "deploy"]
     env_file:
-      - .env.production
+      - .env
     depends_on:
       db:
         condition: service_healthy
@@ -55,7 +58,7 @@ services:
       target: runner
     restart: unless-stopped
     env_file:
-      - .env.production
+      - .env
     depends_on:
       db:
         condition: service_healthy

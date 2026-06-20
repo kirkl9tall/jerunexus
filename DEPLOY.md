@@ -40,9 +40,9 @@ Internet ──▶ Caddy (80/443)  ──▶  app:3000 (Next.js)  ──▶  db:
 ### 2. Get the code & configure
 ```bash
 git clone <your-repo> jerunexus && cd jerunexus
-cp .env.production.example .env.production
+cp .env.example .env
 ```
-Edit `.env.production` and set real values:
+Edit `.env` and set real values:
 - `POSTGRES_PASSWORD` — strong DB password (and mirror it in `DATABASE_URL`)
 - `JWT_SECRET` — `openssl rand -base64 48`
 - `RESEND_API_KEY` — **rotate the old key first** (it was shared in chat)
@@ -79,7 +79,7 @@ curl -I https://your-domain          # expect 200 + security headers
 - **HTTP/3:** Enabled (UDP 443 published).
 
 ### Local testing without a domain
-Set `SITE_ADDRESS=localhost` in `.env.production`. Caddy then serves HTTPS using
+Set `SITE_ADDRESS=localhost` in `.env`. Caddy then serves HTTPS using
 its **own internal CA** (self-signed) — handy for staging on a laptop. Browsers
 will warn about the untrusted cert; that's expected for local use.
 
