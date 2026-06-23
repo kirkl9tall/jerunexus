@@ -15,16 +15,16 @@ export default function ShieldScene() {
     const mount = mountRef.current;
     if (!mount) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let width = mount.clientWidth || 400;
     let height = mount.clientHeight || 260;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, 7.2);
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 0, 8.2);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(globalThis.devicePixelRatio, 2));
     renderer.setSize(width, height);
     mount.appendChild(renderer.domElement);
 
@@ -64,6 +64,7 @@ export default function ShieldScene() {
 
     const group = new THREE.Group();
     group.add(shield, checkMark);
+    group.scale.setScalar(1.2);
     scene.add(group);
 
     // ── Lights ───────────────────────────────────────────────────────────────
@@ -83,12 +84,15 @@ export default function ShieldScene() {
     const frame = () => {
       const rect = mount.getBoundingClientRect();
       const center = rect.top + rect.height / 2;
-      const progress = THREE.MathUtils.clamp(1 - center / window.innerHeight, 0, 1);
+      const progress = THREE.MathUtils.clamp(1 - center / globalThis.innerHeight, 0, 1);
       if (reduceMotion) {
-        group.rotation.y = 0.5;
+        group.position.x = 0;
+        group.rotation.y = 0.35;
       } else {
-        group.rotation.y = progress * Math.PI * 2;            // full turn across the scroll
-        group.rotation.x = -0.08 + Math.sin(clock.getElapsedTime() * 0.7) * 0.05; // gentle float
+        // Slide across the section while doing a half (semi) rotation.
+        group.position.x = THREE.MathUtils.lerp(-3.6, 3.6, progress);
+        group.rotation.y = THREE.MathUtils.lerp(-Math.PI / 2, Math.PI / 2, progress);
+        group.rotation.x = -0.05 + Math.sin(clock.getElapsedTime() * 0.6) * 0.04; // gentle float
       }
       renderer.render(scene, camera);
       raf = visible ? requestAnimationFrame(frame) : 0;
@@ -108,11 +112,11 @@ export default function ShieldScene() {
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
-    window.addEventListener("resize", onResize);
+    globalThis.addEventListener("resize", onResize);
 
     return () => {
       io.disconnect();
-      window.removeEventListener("resize", onResize);
+      globalThis.removeEventListener("resize", onResize);
       if (raf) cancelAnimationFrame(raf);
       shieldGeo.dispose(); shieldMat.dispose();
       checkGeo.dispose(); checkMat.dispose();

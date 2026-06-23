@@ -22,7 +22,7 @@ export default function ShieldStage() {
   }, []);
 
   return (
-    <div ref={ref} style={{ width: "100%", maxWidth: 440, height: 260, margin: "0 auto 48px" }}>
+    <div ref={ref} aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, opacity: 0.5, pointerEvents: "none" }}>
       {show && <ShieldScene />}
     </div>
   );

@@ -378,8 +378,10 @@ export default function Home() {
       {/* ══════════════════════════════════════
           COMPLIANCE
       ══════════════════════════════════════ */}
-      <section style={{ padding: "100px 40px", background: "#fff" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+      <section style={{ position: "relative", overflow: "hidden", padding: "120px 40px", background: "#fff" }}>
+        {/* Background shield — slides L→R with a semi-rotation as the section scrolls */}
+        <ShieldStage />
+        <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
               <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
@@ -388,8 +390,7 @@ export default function Home() {
             </div>
             <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 40, whiteSpace: "pre-line", textAlign: "center" }}>{t.compliance.title}</h2>
           </R>
-          <ShieldStage />
-          <div className="fg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
+          <div className="fg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB", background: "rgba(255,255,255,.7)" }}>
             {t.compliance.badges.map((b, i) => (
               <R key={b.t} delay={i * .04}>
                 <div className="hover-card" style={{ padding: "36px 32px", borderRight: (i + 1) % 3 === 0 ? "none" : "1px solid #E5E7EB", borderBottom: i < 3 ? "1px solid #E5E7EB" : "none" }}>
