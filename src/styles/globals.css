@@ -188,3 +188,7 @@ body {
   transition: filter .3s ease, opacity .3s ease;
 }
 .logo-item:hover img { filter: grayscale(0); opacity: 1; }
+
+/* Card that lightens on hover (CSS-only — keeps non-interactive divs accessible) */
+.hover-card { background: #fff; transition: background .2s; }
+.hover-card:hover { background: #F5F5F3; }

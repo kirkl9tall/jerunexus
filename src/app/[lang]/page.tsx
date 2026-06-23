@@ -53,7 +53,7 @@ function LogoMarquee({ logos, reverse = false }: Readonly<{ logos: ReadonlyArray
   );
 }
 
-function R({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function R({ children, delay = 0 }: Readonly<{ children: React.ReactNode; delay?: number }>) {
   const ref = useRef<HTMLDivElement>(null);
   const [v, setV] = useState(false);
   useEffect(() => {
@@ -68,7 +68,7 @@ function R({ children, delay = 0 }: { children: React.ReactNode; delay?: number 
   );
 }
 
-function Counter({ end, suffix = "" }: { end: string | number; suffix?: string }) {
+function Counter({ end, suffix = "" }: Readonly<{ end: string | number; suffix?: string }>) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -77,7 +77,7 @@ function Counter({ end, suffix = "" }: { end: string | number; suffix?: string }
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !started.current) {
         started.current = true;
-        const num = parseInt(String(end)) || 0; if (!num) return;
+        const num = Number.parseInt(String(end), 10) || 0; if (!num) return;
         let cur = 0; const step = Math.max(1, Math.floor(num / 50));
         const iv = setInterval(() => { cur = Math.min(cur + step, num); setVal(cur); if (cur >= num) clearInterval(iv); }, 40);
       }
@@ -86,6 +86,29 @@ function Counter({ end, suffix = "" }: { end: string | number; suffix?: string }
   }, [end]);
   return <span ref={ref}>{val}{suffix}</span>;
 }
+
+/** Renders a stat value, animating the numeric ones. */
+function StatValue({ n }: Readonly<{ n: string }>) {
+  if (n === "11") return <Counter end={11} />;
+  if (n === "6+") return <Counter end={6} suffix="+" />;
+  if (n === "100%") return <Counter end={100} suffix="%" />;
+  return <>{n}</>;
+}
+
+/** Colour + copy tier for the self-assessment score. */
+function scoreTier(score: number): { color: string; bg: string; level: "good" | "warn" | "bad" } {
+  if (score >= 5) return { color: "#10B981", bg: "rgba(16,185,129,.08)", level: "good" };
+  if (score >= 3) return { color: "#F59E0B", bg: "rgba(245,158,11,.08)", level: "warn" };
+  return { color: "#EF4444", bg: "rgba(239,68,68,.08)", level: "bad" };
+}
+
+// Icons for the "why choose us" feature list (indexed by position).
+const FEATURE_ICONS = [
+  <polygon key="p" points="13 2 3 14 12 14 11 22 21 10 12 10"/>,
+  <><rect key="r" x="3" y="11" width="18" height="11" rx="2"/><path key="p" d="M7 11V7a5 5 0 0110 0v4"/></>,
+  <><path key="p" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle key="c" cx="9" cy="7" r="4"/></>,
+  <><path key="p" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline key="pl" points="9 12 11 14 15 10"/></>,
+];
 
 const SVG_ICONS = [
   <><rect key="r" x="3" y="11" width="18" height="11" rx="2"/><path key="p" d="M7 11V7a5 5 0 0110 0v4"/><circle key="c" cx="12" cy="16" r="1"/></>,
@@ -113,6 +136,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [checks, setChecks] = useState([false,false,false,false,false,false]);
   const score = checks.filter(Boolean).length;
+  const tier = scoreTier(score);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50);
@@ -176,12 +200,15 @@ export default function Home() {
 
           {/* Hamburger — mobile only */}
           <button className="show-m" style={{ background: "none", border: "none", padding: 8, cursor: "pointer" }} onClick={() => setMenu(!menu)} aria-label="Menu">
-            {[0,1,2].map((i) => (
-              <div key={i} style={{ width: 22, height: 1.5, background: "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
-                opacity: menu && i === 1 ? 0 : 1,
-                transform: menu && i === 0 ? "rotate(45deg) translateY(7.5px)" : menu && i === 2 ? "rotate(-45deg) translateY(-7.5px)" : "none"
-              }} />
-            ))}
+            {[0,1,2].map((i) => {
+              let transform = "none";
+              if (menu && i === 0) transform = "rotate(45deg) translateY(7.5px)";
+              else if (menu && i === 2) transform = "rotate(-45deg) translateY(-7.5px)";
+              return (
+                <div key={i} style={{ width: 22, height: 1.5, background: "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
+                  opacity: menu && i === 1 ? 0 : 1, transform }} />
+              );
+            })}
           </button>
         </div>
 
@@ -278,11 +305,7 @@ export default function Home() {
           {t.stats.map((s) => (
             <div key={s.l} style={{ textAlign: "center" }}>
               <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(36px,5vw,56px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", lineHeight: 1 }}>
-                {s.n === "11"    ? <Counter end={11} />
-                : s.n === "6+"  ? <><Counter end={6} />+</>
-                : s.n === "24/7" ? "24/7"
-                : s.n === "100%" ? <><Counter end={100} />%</>
-                : s.n}
+                <StatValue n={s.n} />
               </div>
               <div style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,.7)", marginTop: 8, letterSpacing: ".06em", textTransform: "uppercase" }}>{s.l}</div>
             </div>
@@ -367,9 +390,7 @@ export default function Home() {
           <div className="fg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
             {t.compliance.badges.map((b, i) => (
               <R key={b.t} delay={i * .04}>
-                <div style={{ padding: "36px 32px", borderRight: (i + 1) % 3 !== 0 ? "1px solid #E5E7EB" : "none", borderBottom: i < 3 ? "1px solid #E5E7EB" : "none", transition: "background .2s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "#F5F5F3")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}>
+                <div className="hover-card" style={{ padding: "36px 32px", borderRight: (i + 1) % 3 === 0 ? "none" : "1px solid #E5E7EB", borderBottom: i < 3 ? "1px solid #E5E7EB" : "none" }}>
                   <div style={{ fontSize: 28, marginBottom: 20 }}>{b.icon}</div>
                   <h4 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 700, color: INK, marginBottom: 10 }}>{b.t}</h4>
                   <p style={{ fontSize: 13, lineHeight: 1.6, color: "#6B7280" }}>{b.d}</p>
@@ -433,7 +454,7 @@ export default function Home() {
             {t.services.items.map((s, i) => (
               <R key={s.slug} delay={i * .03}>
                 <a href={`/${lang}/leistungen/${s.slug}`} style={{ textDecoration: "none", color: "inherit", display: "block" }}>
-                  <div className="svc-card" style={{ borderRight: (i + 1) % 3 !== 0 ? "1px solid #E5E7EB" : "none", borderBottom: i < t.services.items.length - 3 ? "1px solid #E5E7EB" : "none" }}>
+                  <div className="svc-card" style={{ borderRight: (i + 1) % 3 === 0 ? "none" : "1px solid #E5E7EB", borderBottom: i < t.services.items.length - 3 ? "1px solid #E5E7EB" : "none" }}>
                     <div className="svc-ico" style={{ width: 44, height: 44, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, transition: "background .2s", flexShrink: 0 }}>
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={B} strokeWidth="1.5" style={{ transition: "stroke .2s" }}>{SVG_ICONS[i] ?? SVG_ICONS[0]}</svg>
                     </div>
@@ -475,9 +496,9 @@ export default function Home() {
             </div>
           </R>
           <R delay={.14}>
-            <div style={{ marginTop: 32, padding: "24px", background: score >= 5 ? "rgba(16,185,129,.08)" : score >= 3 ? "rgba(245,158,11,.08)" : "rgba(239,68,68,.08)", borderLeft: `3px solid ${score >= 5 ? "#10B981" : score >= 3 ? "#F59E0B" : "#EF4444"}`, display: "flex", gap: 20, alignItems: "center" }}>
-              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 40, fontWeight: 700, color: score >= 5 ? "#10B981" : score >= 3 ? "#F59E0B" : "#EF4444", lineHeight: 1 }}>{score}/6</span>
-              <p style={{ fontSize: 14, color: "rgba(255,255,255,.55)", lineHeight: 1.6 }}>{score >= 5 ? t.checklist.result.good : score >= 3 ? t.checklist.result.warn : t.checklist.result.bad}</p>
+            <div style={{ marginTop: 32, padding: "24px", background: tier.bg, borderLeft: `3px solid ${tier.color}`, display: "flex", gap: 20, alignItems: "center" }}>
+              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 40, fontWeight: 700, color: tier.color, lineHeight: 1 }}>{score}/6</span>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,.55)", lineHeight: 1.6 }}>{t.checklist.result[tier.level]}</p>
             </div>
           </R>
           {score < 5 && (
@@ -597,9 +618,7 @@ export default function Home() {
           <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
             {t.team.members.map((m, i) => (
               <R key={m.name} delay={i * .06}>
-                <div style={{ padding: "36px 28px", borderRight: i < 3 ? "1px solid #E5E7EB" : "none", textAlign: "left", transition: "background .2s" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "#F5F5F3")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "#fff")}>
+                <div className="hover-card" style={{ padding: "36px 28px", borderRight: i < 3 ? "1px solid #E5E7EB" : "none", textAlign: "left" }}>
                   <div style={{ width: 64, height: 64, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: B }}>{m.img}</div>
                   <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 17, fontWeight: 700, color: INK, marginBottom: 4 }}>{m.name}</h3>
                   <p style={{ fontSize: 12, fontWeight: 600, color: B, marginBottom: 12, letterSpacing: ".04em", textTransform: "uppercase" }}>{m.role}</p>
@@ -723,7 +742,7 @@ export default function Home() {
             <div key={f.t} style={{ display: "flex", gap: 14 }}>
               <div style={{ width: 36, height: 36, background: B, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5">
-                  {i === 0 ? <polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/> : i === 1 ? <><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></> : i === 2 ? <><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></> : <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></>}
+                  {FEATURE_ICONS[i] ?? FEATURE_ICONS[FEATURE_ICONS.length - 1]}
                 </svg>
               </div>
               <div>
