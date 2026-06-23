@@ -331,7 +331,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           PARTNERS
       ══════════════════════════════════════ */}
-      <section style={{ background: B, padding: "64px 0" }}>
+      <section style={{ background: B, padding: 0 }}>
         {/* Top slider — medical practice solutions */}
         <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
           <LogoMarquee logos={PARTNER_LOGOS} />
