@@ -331,19 +331,21 @@ export default function Home() {
       {/* ══════════════════════════════════════
           PARTNERS
       ══════════════════════════════════════ */}
-      <section style={{ background: B, padding: "80px 0 0" }}>
+      <section style={{ background: B, padding: "64px 0" }}>
+        {/* Top slider — medical practice solutions */}
+        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
+          <LogoMarquee logos={PARTNER_LOGOS} />
+        </div>
+
+        {/* Blue title in the middle — sandwiched between the two sliders */}
         <R>
-          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px 56px", textAlign: "center" }}>
+          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "56px 40px", textAlign: "center" }}>
             <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3.5vw,35px)", fontWeight: 700, color: "#fff", letterSpacing: "-.02em", lineHeight: 1.1, whiteSpace: "pre-line" }}>{t.partners.title}</h2>
           </div>
         </R>
 
-        {/* Row 1 — medical practice solutions */}
-        <div style={{ borderTop: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
-          <LogoMarquee logos={PARTNER_LOGOS} />
-        </div>
-        {/* Row 2 — technology vendors (scrolls the other way) */}
-        <div style={{ borderTop: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
+        {/* Bottom slider — technology vendors (scrolls the other way) */}
+        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
           <LogoMarquee logos={TECH_LOGOS} reverse />
         </div>
 
