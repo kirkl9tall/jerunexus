@@ -8,6 +8,51 @@ const B  = "#2563EB";
 const BD = "#1d4ed8";
 const INK = "#0A0A0A";
 
+// Medical practice solutions we integrate & support.
+const PARTNER_LOGOS = [
+  { src: "/logos/partners/tomedo.webp", alt: "tomedo" },
+  { src: "/logos/partners/vitodata.png", alt: "Vitodata" },
+  { src: "/logos/partners/axenita.jpg", alt: "Axenita" },
+  { src: "/logos/partners/ametiq.png", alt: "amétiq medical" },
+  { src: "/logos/partners/seamaty.png", alt: "Seamaty" },
+  { src: "/logos/partners/locmedt.png", alt: "Locmedt" },
+  { src: "/logos/partners/sysmex.jpg", alt: "Sysmex" },
+  { src: "/logos/partners/roche.jpg", alt: "Roche" },
+  { src: "/logos/partners/swisscom.png", alt: "Swisscom" },
+];
+
+// Technology vendors in our stack.
+const TECH_LOGOS = [
+  { src: "/logos/tech/aws.svg", alt: "Amazon Web Services" },
+  { src: "/logos/tech/cisco.png", alt: "Cisco" },
+  { src: "/logos/tech/cloudflare.png", alt: "Cloudflare" },
+  { src: "/logos/tech/fortinet.png", alt: "Fortinet" },
+  { src: "/logos/tech/sophos.png", alt: "Sophos" },
+  { src: "/logos/tech/vmware.png", alt: "VMware" },
+  { src: "/logos/tech/veeam.png", alt: "Veeam" },
+  { src: "/logos/tech/acronis.png", alt: "Acronis" },
+  { src: "/logos/tech/grafana.png", alt: "Grafana" },
+  { src: "/logos/tech/zabbix.png", alt: "Zabbix" },
+  { src: "/logos/tech/3cx.png", alt: "3CX" },
+  { src: "/logos/tech/teamviewer.png", alt: "TeamViewer" },
+  { src: "/logos/tech/twilio.png", alt: "Twilio" },
+];
+
+function LogoMarquee({ logos, reverse = false }: Readonly<{ logos: ReadonlyArray<{ src: string; alt: string }>; reverse?: boolean }>) {
+  return (
+    <div className="marquee-wrap">
+      <div className={`marquee-track${reverse ? " reverse" : ""}`}>
+        {[...logos, ...logos].map((l, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <div className="logo-item" key={`${l.alt}-${i}`}>
+            <img src={l.src} alt={l.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function R({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [v, setV] = useState(false);
@@ -288,23 +333,18 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section style={{ background: B, padding: "80px 0 0" }}>
         <R>
-          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px 64px", textAlign: "center" }}>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 35, fontWeight: 700, color: "#fff", letterSpacing: "-.02em", whiteSpace: "nowrap" }}>{t.partners.title}</h2>
+          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px 56px", textAlign: "center" }}>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3.5vw,35px)", fontWeight: 700, color: "#fff", letterSpacing: "-.02em", lineHeight: 1.1, whiteSpace: "pre-line" }}>{t.partners.title}</h2>
           </div>
         </R>
 
-        {/* Scrolling marquee strip */}
-        <div style={{ borderTop: "1px solid #E5E7EB", background: "#fff", padding: "32px 0" }}>
-          <div className="marquee-wrap">
-            <div className="marquee-track">
-              {(["tomedo","vitomed","Axenita","AESKULAP","HIN","MediData","Ärztekasse","BlueCare","Doctolib","OneDoc","FMH","Swisscom Health","Viollier","Sysmex","Roche","TeamViewer",
-                 "tomedo","vitomed","Axenita","AESKULAP","HIN","MediData","Ärztekasse","BlueCare","Doctolib","OneDoc","FMH","Swisscom Health","Viollier","Sysmex","Roche","TeamViewer"]).map((name, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", padding: "0 40px", borderRight: "1px solid #E5E7EB", height: 56, whiteSpace: "nowrap" }}>
-                  <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 15, fontWeight: 600, color: "#9CA3AF", letterSpacing: ".01em" }}>{name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Row 1 — medical practice solutions */}
+        <div style={{ borderTop: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
+          <LogoMarquee logos={PARTNER_LOGOS} />
+        </div>
+        {/* Row 2 — technology vendors (scrolls the other way) */}
+        <div style={{ borderTop: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
+          <LogoMarquee logos={TECH_LOGOS} reverse />
         </div>
 
       </section>

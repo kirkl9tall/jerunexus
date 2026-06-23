@@ -162,3 +162,29 @@ body {
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
+/* Second row scrolls the opposite way */
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.marquee-track.reverse { animation-name: marquee-reverse; }
+
+/* Logo cells in the partner/technology marquees */
+.logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 46px;
+  height: 48px;
+}
+.logo-item img {
+  max-height: 30px;
+  max-width: 138px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: .55;
+  transition: filter .3s ease, opacity .3s ease;
+}
+.logo-item:hover img { filter: grayscale(0); opacity: 1; }
