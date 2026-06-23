@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { getDictionary, locales } from "@/lib/translations";
+import ShieldStage from "@/components/home/ShieldStage";
 
 const B  = "#2563EB";
 const BD = "#1d4ed8";
@@ -385,8 +386,9 @@ export default function Home() {
               <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.compliance.tag}</span>
               <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
             </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 56, whiteSpace: "pre-line", textAlign: "center" }}>{t.compliance.title}</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 40, whiteSpace: "pre-line", textAlign: "center" }}>{t.compliance.title}</h2>
           </R>
+          <ShieldStage />
           <div className="fg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
             {t.compliance.badges.map((b, i) => (
               <R key={b.t} delay={i * .04}>
