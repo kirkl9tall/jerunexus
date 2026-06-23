@@ -8,8 +8,10 @@ import * as THREE from "three";
  * runs while the canvas is on screen, the pixel ratio is capped, and everything
  * is disposed on unmount, so the cost stays small. Honours prefers-reduced-motion.
  */
-export default function ShieldScene() {
+export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: () => number }>) {
   const mountRef = useRef<HTMLDivElement>(null);
+  const getProgressRef = useRef(getProgress);
+  getProgressRef.current = getProgress;
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -82,9 +84,17 @@ export default function ShieldScene() {
     let visible = false;
 
     const frame = () => {
-      const rect = mount.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const progress = THREE.MathUtils.clamp(1 - center / globalThis.innerHeight, 0, 1);
+      // Prefer an externally-supplied scroll progress (used when the stage is
+      // pinned); otherwise derive it from the canvas position in the viewport.
+      let progress: number;
+      const ext = getProgressRef.current;
+      if (ext) {
+        progress = THREE.MathUtils.clamp(ext(), 0, 1);
+      } else {
+        const rect = mount.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        progress = THREE.MathUtils.clamp(1 - center / globalThis.innerHeight, 0, 1);
+      }
       if (reduceMotion) {
         group.position.x = 0;
         group.rotation.y = 0.35;

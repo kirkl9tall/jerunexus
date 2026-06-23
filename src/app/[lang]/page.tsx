@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { getDictionary, locales } from "@/lib/translations";
-import ShieldStage from "@/components/home/ShieldStage";
+import ComplianceSection from "@/components/home/ComplianceSection";
 
 const B  = "#2563EB";
 const BD = "#1d4ed8";
@@ -376,33 +376,9 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          COMPLIANCE
+          COMPLIANCE — pinned scrollytelling
       ══════════════════════════════════════ */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "120px 40px", background: "#fff" }}>
-        {/* Background shield — slides L→R with a semi-rotation as the section scrolls */}
-        <ShieldStage />
-        <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <R>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
-              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.compliance.tag}</span>
-              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: INK, letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 40, whiteSpace: "pre-line", textAlign: "center" }}>{t.compliance.title}</h2>
-          </R>
-          <div className="fg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB", background: "rgba(255,255,255,.7)" }}>
-            {t.compliance.badges.map((b, i) => (
-              <R key={b.t} delay={i * .04}>
-                <div className="hover-card" style={{ padding: "36px 32px", borderRight: (i + 1) % 3 === 0 ? "none" : "1px solid #E5E7EB", borderBottom: i < 3 ? "1px solid #E5E7EB" : "none" }}>
-                  <div style={{ fontSize: 28, marginBottom: 20 }}>{b.icon}</div>
-                  <h4 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 700, color: INK, marginBottom: 10 }}>{b.t}</h4>
-                  <p style={{ fontSize: 13, lineHeight: 1.6, color: "#6B7280" }}>{b.d}</p>
-                </div>
-              </R>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ComplianceSection tag={t.compliance.tag} title={t.compliance.title} badges={t.compliance.badges} />
 
       {/* ══════════════════════════════════════
           PROCESS — numbered, dark
