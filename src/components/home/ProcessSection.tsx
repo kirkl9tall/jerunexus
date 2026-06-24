@@ -1,5 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+
+// Same flowing-line shader as the certifications section, so the wires match
+// and read as continuing from one section into the next.
+const FlowLines = dynamic(() => import("./FlowLines"), { ssr: false });
 
 const B = "#2563EB";
 const INK = "#0A0A0A";
@@ -11,7 +16,11 @@ const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 
 export default function ProcessSection({ tag, title, steps }: Props) {
   const ref = useRef<HTMLElement>(null);
+  const progressRef = useRef(0);
   const [p, setP] = useState(0);
+  const [show, setShow] = useState(false);
+
+  const getProgress = useRef(() => progressRef.current).current;
 
   useEffect(() => {
     const el = ref.current;
@@ -21,15 +30,23 @@ export default function ProcessSection({ tag, title, steps }: Props) {
       ticking = false;
       const rect = el.getBoundingClientRect();
       const center = rect.top + rect.height / 2;
-      setP(clamp(1 - center / globalThis.innerHeight));
+      const v = clamp(1 - center / globalThis.innerHeight);
+      progressRef.current = v;
+      setP(v);
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(compute); } };
     compute();
     globalThis.addEventListener("scroll", onScroll, { passive: true });
     globalThis.addEventListener("resize", onScroll);
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setShow(true); io.disconnect(); } },
+      { rootMargin: "300px" },
+    );
+    io.observe(el);
     return () => {
       globalThis.removeEventListener("scroll", onScroll);
       globalThis.removeEventListener("resize", onScroll);
+      io.disconnect();
     };
   }, []);
 
@@ -39,8 +56,12 @@ export default function ProcessSection({ tag, title, steps }: Props) {
   const litFor = (i: number) => clamp((lineP * n - i) / 0.7);
 
   return (
-    <section ref={ref} style={{ background: INK, padding: "100px 40px" }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <section ref={ref} style={{ position: "relative", overflow: "hidden", background: INK, padding: "100px 40px" }}>
+      {/* Flowing wires continuing from the certifications section */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+        {show && <FlowLines getProgress={getProgress} />}
+      </div>
+      <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div style={{ textAlign: "center", marginBottom: 64 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
             <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
