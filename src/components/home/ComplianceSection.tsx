@@ -59,7 +59,7 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
       {/* Pinned stage */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 40px" }}>
         {/* Shield background image */}
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/background-sheild.jpeg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/sheildit.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 100%)" }} />
         </div>
 
