@@ -55,18 +55,34 @@ export default function FlowLines({ getProgress }: Readonly<{ getProgress?: () =
         void main() {
           float x = vUv.x * uAspect;
           // Scroll shifts the phase so the lines travel as you scroll.
-          float t = uTime * 0.25 + uProgress * 4.0;
+          float t = uTime * 0.45 + uProgress * 5.0;
+
+          vec3 col = vec3(0.0);
           float a = 0.0;
-          for (int i = 0; i < 4; i++) {
+          for (int i = 0; i < 6; i++) {
             float fi = float(i);
-            float base = 0.22 + fi * 0.18;
+            float speed = 0.8 + fi * 0.14;
+            float base = 0.15 + fi * 0.13;
             float yc = base
-              + 0.11 * sin(x * 1.5 + t + fi * 1.3)
-              + 0.05 * sin(x * 3.3 - t * 1.2 + fi * 2.1);
+              + 0.10 * sin(x * 1.4 + t * speed + fi * 1.3)
+              + 0.05 * sin(x * 3.1 - t * 1.3 + fi * 2.1)
+              + 0.02 * sin(x * 6.0 + t * 2.0 + fi);
             float d = abs(vUv.y - yc);
-            a = max(a, smoothstep(0.018, 0.0, d));   // soft glowing line
+
+            // Sharp bright core + softer glow halo.
+            float core = smoothstep(0.0045, 0.0, d);
+            float glow = smoothstep(0.035, 0.0, d) * 0.45;
+
+            // Bright energy pulses travelling along the line — keeps it alive.
+            float flow = 0.45 + 0.55 * sin(x * 2.6 - t * 3.2 + fi * 1.7);
+            float inten = core + glow * flow;
+
+            // Blue→cyan shimmer per line.
+            vec3 c = mix(vec3(0.12, 0.36, 1.0), vec3(0.20, 0.85, 1.0), 0.5 + 0.5 * sin(fi + t * 0.6));
+            col += c * inten;
+            a = max(a, inten);
           }
-          gl_FragColor = vec4(uColor, a * 0.8);
+          gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));
         }
       `,
     });
