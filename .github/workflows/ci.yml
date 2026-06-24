@@ -1,0 +1,34 @@
+name: CI
+
+# Runs on every push to main and on every pull request.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      # Dummy values: typecheck/build never open a DB connection, but the code
+      # reads these at module load, so they must be defined.
+      DATABASE_URL: "postgresql://user:pass@localhost:5432/db?schema=public"
+      JWT_SECRET: "ci-placeholder-not-used-at-runtime"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # Installs deps and (via postinstall) generates the Prisma client.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build

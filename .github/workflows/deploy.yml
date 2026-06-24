@@ -1,0 +1,31 @@
+name: Deploy
+
+# Manual trigger only: GitHub → Actions → Deploy → "Run workflow".
+# (Switch to `push: branches: [main]` later if you want auto-deploy on merge.)
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   VPS_HOST     server IP or hostname
+#   VPS_USER     ssh user (e.g. deploy)
+#   VPS_SSH_KEY  the PRIVATE ssh key whose public key is on the VPS
+#
+# The VPS must already have the repo cloned at ~/jerunexus with a filled-in .env
+# (see DEPLOY.md). Migrations run automatically via the compose `migrate` service.
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            cd ~/jerunexus
+            git pull origin main
+            docker compose up -d --build
+            docker image prune -f
