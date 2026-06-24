@@ -7,28 +7,60 @@ on:
   pull_request:
 
 jobs:
+  # ── Job 1: static checks + production build (no database needed) ────────────
   build:
     runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: "1"
-      # Dummy values: typecheck/build never open a DB connection, but the code
-      # reads these at module load, so they must be defined.
+      # Dummy values: typecheck/lint/build never open a DB connection, but the
+      # code reads these at module load, so they must be defined.
       DATABASE_URL: "postgresql://user:pass@localhost:5432/db?schema=public"
       JWT_SECRET: "ci-placeholder-not-used-at-runtime"
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
-      # Installs deps and (via postinstall) generates the Prisma client.
       - name: Install dependencies
         run: npm ci
-
       - name: Type-check
         run: npm run typecheck
-
+      - name: Lint
+        run: npm run lint
       - name: Build
         run: npm run build
+
+  # ── Job 2: tests against a real, throwaway Postgres ─────────────────────────
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: jerunexus_test
+        ports:
+          - 5432:5432
+        # Wait until Postgres is actually ready before running steps.
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/jerunexus_test?schema=public"
+      JWT_SECRET: "ci-placeholder-not-used-at-runtime"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply database migrations
+        run: npx prisma migrate deploy
+      - name: Run tests
+        run: npm test
