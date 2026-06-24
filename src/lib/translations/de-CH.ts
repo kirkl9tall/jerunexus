@@ -158,10 +158,10 @@ export const deCH = {
     tag:"UNSER TEAM",
     title:"Die Experten hinter\nJerumed Nexus",
     members:[
-      { name:"A. Abuawad", role:"Gründer & CEO", desc:"Spezialist für medizinische IT-Integration, Netzwerkarchitektur und Systemadministration.", img:"AA" },
-      { name:"IT-Sicherheit", role:"Cybersecurity-Berater", desc:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response.", img:"CS" },
-      { name:"Kreativ-Team", role:"Web & Marketing", desc:"Videomaker, Social Media Manager und Designer für Ihre digitale Präsenz.", img:"WM" },
-      { name:"Support", role:"Technischer Support", desc:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb Ihrer Praxis.", img:"TS" },
+      { name:"A. Abuawad", role:"Gründer & CEO", desc:"Spezialist für medizinische IT-Integration, Netzwerkarchitektur und Systemadministration.", img:"AA", photo:"/team/doc2.jpeg" },
+      { name:"IT-Sicherheit", role:"Cybersecurity-Berater", desc:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response.", img:"CS", photo:"" },
+      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Web Developer", desc:"Verantwortlich für DevOps, Cloud-Infrastruktur, Automatisierung und die Entwicklung Ihrer Web-Plattformen.", img:"AI", photo:"/team/1757854645138.jpeg" },
+      { name:"Support", role:"Technischer Support", desc:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb Ihrer Praxis.", img:"TS", photo:"" },
     ],
   },
 

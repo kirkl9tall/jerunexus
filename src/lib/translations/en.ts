@@ -156,10 +156,10 @@ export const en = {
     tag:"OUR TEAM",
     title:"The experts behind\nJerumed Nexus",
     members:[
-      { name:"A. Abuawad", role:"Founder & CEO", desc:"Specialist in medical IT integration, network architecture and system administration.", img:"AA" },
-      { name:"IT Security", role:"Cybersecurity Consultant", desc:"External specialist for penetration testing, FMH audits and incident response.", img:"CS" },
-      { name:"Creative Team", role:"Web & Marketing", desc:"Videomaker, social media manager and designer for your digital presence.", img:"WM" },
-      { name:"Support", role:"Technical Support", desc:"Your direct contact for daily IT operations at your practice.", img:"TS" },
+      { name:"A. Abuawad", role:"Founder & CEO", desc:"Specialist in medical IT integration, network architecture and system administration.", img:"AA", photo:"/team/doc2.jpeg" },
+      { name:"IT Security", role:"Cybersecurity Consultant", desc:"External specialist for penetration testing, FMH audits and incident response.", img:"CS", photo:"" },
+      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Web Developer", desc:"Responsible for DevOps, cloud infrastructure, automation and building your web platforms.", img:"AI", photo:"/team/1757854645138.jpeg" },
+      { name:"Support", role:"Technical Support", desc:"Your direct contact for daily IT operations at your practice.", img:"TS", photo:"" },
     ],
   },
 

@@ -577,7 +577,12 @@ export default function Home() {
             {t.team.members.map((m, i) => (
               <R key={m.name} delay={i * .06}>
                 <div className="hover-card" style={{ padding: "36px 28px", borderRight: i < 3 ? "1px solid #E5E7EB" : "none", textAlign: "left" }}>
-                  <div style={{ width: 64, height: 64, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: B }}>{m.img}</div>
+                  {m.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={m.photo} alt={m.name} style={{ width: 72, height: 72, objectFit: "cover", display: "block", marginBottom: 20 }} />
+                  ) : (
+                    <div style={{ width: 72, height: 72, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: B }}>{m.img}</div>
+                  )}
                   <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 17, fontWeight: 700, color: INK, marginBottom: 4 }}>{m.name}</h3>
                   <p style={{ fontSize: 12, fontWeight: 600, color: B, marginBottom: 12, letterSpacing: ".04em", textTransform: "uppercase" }}>{m.role}</p>
                   <p style={{ fontSize: 13, lineHeight: 1.65, color: "#6B7280" }}>{m.desc}</p>
