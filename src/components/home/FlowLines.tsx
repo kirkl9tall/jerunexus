@@ -8,7 +8,7 @@ import * as THREE from "three";
  * shift with scroll progress, so "every scroll the line moves". Honours
  * prefers-reduced-motion, renders only while on screen, and disposes on unmount.
  */
-export default function FlowLines({ getProgress, color = 0x2563eb }: Readonly<{ getProgress?: () => number; color?: number }>) {
+export default function FlowLines({ getProgress }: Readonly<{ getProgress?: () => number }>) {
   const mountRef = useRef<HTMLDivElement>(null);
   const getProgressRef = useRef(getProgress);
   getProgressRef.current = getProgress;
@@ -37,7 +37,6 @@ export default function FlowLines({ getProgress, color = 0x2563eb }: Readonly<{ 
         uTime: { value: 0 },
         uProgress: { value: 0 },
         uAspect: { value: width / height },
-        uColor: { value: new THREE.Color(color) },
       },
       vertexShader: `
         varying vec2 vUv;
@@ -51,7 +50,6 @@ export default function FlowLines({ getProgress, color = 0x2563eb }: Readonly<{ 
         uniform float uTime;
         uniform float uProgress;
         uniform float uAspect;
-        uniform vec3 uColor;
         varying vec2 vUv;
 
         void main() {
@@ -79,9 +77,16 @@ export default function FlowLines({ getProgress, color = 0x2563eb }: Readonly<{ 
             float flow = 0.45 + 0.55 * sin(x * 2.6 - t * 3.2 + fi * 1.7);
             float inten = core + glow * flow;
 
-            // Blue→cyan shimmer per line.
-            vec3 c = mix(vec3(0.12, 0.36, 1.0), vec3(0.20, 0.85, 1.0), 0.5 + 0.5 * sin(fi + t * 0.6));
-            col += c * inten;
+            // Wood / copper palette: dark browns up to amber & orange-gold highlights.
+            vec3 cDark  = vec3(0.290, 0.180, 0.110); // #4A2E1C dark brown
+            vec3 cMid   = vec3(0.545, 0.353, 0.169); // #8B5A2B mid copper
+            vec3 cAmber = vec3(0.784, 0.573, 0.290); // #C8924A amber/tan
+            vec3 cGold  = vec3(0.831, 0.580, 0.227); // #D4943A orange-gold
+            float m = 0.5 + 0.5 * sin(fi * 1.6 + x * 0.5 + t * 0.5);
+            vec3 c = mix(cMid, cAmber, m);
+            c = mix(c, cGold, 0.4 + 0.4 * sin(fi * 0.9 - t * 0.4 + x * 0.3));
+            c = mix(cDark, c, 0.45 + 0.55 * smoothstep(0.2, 0.9, flow)); // ridges catch the light
+            col += c * inten * 1.3;
             a = max(a, inten);
           }
           gl_FragColor = vec4(col, clamp(a, 0.0, 1.0));

@@ -65,7 +65,7 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
 
         {/* Flowing copper wires — animated over the shield, glow via additive blending */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", opacity: 0.85 }}>
-          {show && <FlowLines getProgress={getProgress} color={0xf0bf85} />}
+          {show && <FlowLines getProgress={getProgress} />}
         </div>
 
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 2, textAlign: "center" }}>
