@@ -82,9 +82,9 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 1, textAlign: "center" }}>
           {/* Persistent eyebrow */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 48 }}>
-            <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 15, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{tag}</span>
-            <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+            <span style={{ display: "inline-block", width: 36, height: 2, background: B }} />
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: "clamp(20px,2.4vw,30px)", fontWeight: 600, color: B, letterSpacing: ".12em", textTransform: "uppercase" }}>{tag}</span>
+            <span style={{ display: "inline-block", width: 36, height: 2, background: B }} />
           </div>
 
           {/* Cross-fading certifications — all stacked in the same place */}
@@ -101,7 +101,6 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
                   pointerEvents: "none",
                 }}
               >
-                <div style={{ fontSize: 44, marginBottom: 20 }}>{b.icon}</div>
                 <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 13, color: B, letterSpacing: ".18em", marginBottom: 18 }}>
                   {String(i + 1).padStart(2, "0")} — {String(n).padStart(2, "0")}
                 </div>
