@@ -8,7 +8,7 @@ import * as THREE from "three";
  * shift with scroll progress, so "every scroll the line moves". Honours
  * prefers-reduced-motion, renders only while on screen, and disposes on unmount.
  */
-export default function FlowLines({ getProgress }: Readonly<{ getProgress?: () => number }>) {
+export default function FlowLines({ getProgress, color = 0x2563eb }: Readonly<{ getProgress?: () => number; color?: number }>) {
   const mountRef = useRef<HTMLDivElement>(null);
   const getProgressRef = useRef(getProgress);
   getProgressRef.current = getProgress;
@@ -31,11 +31,13 @@ export default function FlowLines({ getProgress }: Readonly<{ getProgress?: () =
 
     const material = new THREE.ShaderMaterial({
       transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
       uniforms: {
         uTime: { value: 0 },
         uProgress: { value: 0 },
         uAspect: { value: width / height },
-        uColor: { value: new THREE.Color(0x2563eb) },
+        uColor: { value: new THREE.Color(color) },
       },
       vertexShader: `
         varying vec2 vUv;

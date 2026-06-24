@@ -1,5 +1,8 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+
+const FlowLines = dynamic(() => import("./FlowLines"), { ssr: false });
 
 const ACCENT = "#e0a96b"; // warm copper, matching the shield background
 const INK = "#0A0A0A";
@@ -11,7 +14,11 @@ const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 
 export default function ComplianceSection({ tag, title, badges }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef(0);
   const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
+
+  const getProgress = useRef(() => progressRef.current).current;
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -21,15 +28,23 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
       ticking = false;
       const rect = wrap.getBoundingClientRect();
       const distance = rect.height - globalThis.innerHeight; // scrollable while pinned
-      setProgress(distance > 0 ? clamp(-rect.top / distance) : 0);
+      const v = distance > 0 ? clamp(-rect.top / distance) : 0;
+      progressRef.current = v;
+      setProgress(v);
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(compute); } };
     compute();
     globalThis.addEventListener("scroll", onScroll, { passive: true });
     globalThis.addEventListener("resize", onScroll);
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setShow(true); io.disconnect(); } },
+      { rootMargin: "300px" },
+    );
+    io.observe(wrap);
     return () => {
       globalThis.removeEventListener("scroll", onScroll);
       globalThis.removeEventListener("resize", onScroll);
+      io.disconnect();
     };
   }, []);
 
@@ -43,12 +58,17 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
     <div ref={wrapRef} style={{ position: "relative", height: `${100 + n * 34}vh`, background: INK }}>
       {/* Pinned stage */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 40px" }}>
-        {/* Shield background image — rays kept visible with only a light overlay */}
+        {/* Shield background image */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, backgroundImage: "url('/background-sheild.jpeg')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 100%)" }} />
         </div>
 
-        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 1, textAlign: "center" }}>
+        {/* Flowing copper wires — animated over the shield, glow via additive blending */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none", opacity: 0.85 }}>
+          {show && <FlowLines getProgress={getProgress} color={0xf0bf85} />}
+        </div>
+
+        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 2, textAlign: "center" }}>
           {/* Persistent eyebrow */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 48 }}>
             <span style={{ display: "inline-block", width: 36, height: 2, background: ACCENT }} />
