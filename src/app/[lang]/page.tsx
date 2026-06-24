@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { getDictionary, locales } from "@/lib/translations";
 import ComplianceSection from "@/components/home/ComplianceSection";
+import ProcessSection from "@/components/home/ProcessSection";
 
 const B  = "#2563EB";
 const BD = "#1d4ed8";
@@ -381,31 +382,9 @@ export default function Home() {
       <ComplianceSection tag={t.compliance.tag} title={t.compliance.title} badges={t.compliance.badges} />
 
       {/* ══════════════════════════════════════
-          PROCESS — numbered, dark
+          PROCESS — scroll-driven glowing timeline
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "100px 40px" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <R>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
-              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.process.tag}</span>
-              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", lineHeight: 1.05, marginBottom: 64, textAlign: "center" }}>{t.process.title}</h2>
-          </R>
-          <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0 }}>
-            {t.process.steps.map((s, i) => (
-              <R key={s.t} delay={i * .07}>
-                <div style={{ padding: "0 32px 0 0", borderRight: i < 3 ? "1px solid #fff" : "none", paddingRight: i < 3 ? 32 : 0, paddingLeft: i > 0 ? 32 : 0 }}>
-                  <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 22, color: B, letterSpacing: ".14em", marginBottom: 32 }}>{s.n}</div>
-                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 700, color: B, marginBottom: 16, letterSpacing: "-.02em" }}>{s.t}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.75, color: "#fff" }}>{s.d}</p>
-                </div>
-              </R>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProcessSection tag={t.process.tag} title={t.process.title} steps={t.process.steps} />
 
       {/* ══════════════════════════════════════
           SERVICES
