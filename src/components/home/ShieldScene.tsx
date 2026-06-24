@@ -30,7 +30,9 @@ export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: ()
     renderer.setSize(width, height);
     mount.appendChild(renderer.domElement);
 
-    // ── Shield body ──────────────────────────────────────────────────────────
+    const GLOW = 0x38bdf8; // electric cyan accent
+
+    // ── Shield body (dark futuristic metal) ───────────────────────────────────
     const w = 1.45;
     const shape = new THREE.Shape();
     shape.moveTo(0, 1.75);
@@ -42,13 +44,49 @@ export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: ()
     shape.closePath();
 
     const shieldGeo = new THREE.ExtrudeGeometry(shape, {
-      depth: 0.45, bevelEnabled: true, bevelThickness: 0.14, bevelSize: 0.14, bevelSegments: 4, curveSegments: 32,
+      depth: 0.42, bevelEnabled: true, bevelThickness: 0.12, bevelSize: 0.12, bevelSegments: 4, curveSegments: 48,
     });
     shieldGeo.center();
-    const shieldMat = new THREE.MeshStandardMaterial({ color: 0x2563eb, metalness: 0.35, roughness: 0.35 });
+    const shieldMat = new THREE.MeshStandardMaterial({ color: 0x0b1220, metalness: 0.95, roughness: 0.22, emissive: 0x06283d, emissiveIntensity: 0.5 });
     const shield = new THREE.Mesh(shieldGeo, shieldMat);
 
-    // ── Checkmark on the face ────────────────────────────────────────────────
+    // ── Holographic Fresnel rim glow (custom shader, additive) ────────────────
+    const rimMat = new THREE.ShaderMaterial({
+      uniforms: { uColor: { value: new THREE.Color(GLOW) }, uTime: { value: 0 } },
+      vertexShader: `
+        varying vec3 vNormal;
+        varying vec3 vWorld;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          vWorld = (modelMatrix * vec4(position, 1.0)).xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uTime;
+        varying vec3 vNormal;
+        varying vec3 vWorld;
+        void main() {
+          vec3 viewDir = normalize(cameraPosition - vWorld);
+          float fres = pow(1.0 - max(dot(viewDir, vNormal), 0.0), 2.5);
+          float pulse = 0.8 + 0.2 * sin(uTime * 2.2);
+          gl_FragColor = vec4(uColor * fres * pulse, fres);
+        }
+      `,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+    const rimGlow = new THREE.Mesh(shieldGeo, rimMat);
+
+    // ── Glowing edge outline (tech lines) ─────────────────────────────────────
+    const edgeGeo = new THREE.EdgesGeometry(shieldGeo, 35);
+    const edgeMat = new THREE.LineBasicMaterial({ color: GLOW, transparent: true, opacity: 0.6 });
+    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+
+    // ── Checkmark on the face (emissive glow) ─────────────────────────────────
     const check = new THREE.Shape();
     check.moveTo(-0.5, 0.05);
     check.lineTo(-0.2, -0.3);
@@ -57,26 +95,26 @@ export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: ()
     check.lineTo(-0.2, 0.04);
     check.lineTo(-0.34, 0.22);
     check.closePath();
-    const checkGeo = new THREE.ExtrudeGeometry(check, { depth: 0.18, bevelEnabled: false, curveSegments: 8 });
+    const checkGeo = new THREE.ExtrudeGeometry(check, { depth: 0.16, bevelEnabled: false, curveSegments: 8 });
     checkGeo.center();
-    const checkMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.1, roughness: 0.5, emissive: 0x1e3a8a, emissiveIntensity: 0.15 });
+    const checkMat = new THREE.MeshStandardMaterial({ color: 0x0b1220, metalness: 0.4, roughness: 0.3, emissive: GLOW, emissiveIntensity: 1.8 });
     const checkMark = new THREE.Mesh(checkGeo, checkMat);
     checkMark.scale.setScalar(1.25);
-    checkMark.position.set(0, 0.12, 0.42);
+    checkMark.position.set(0, 0.12, 0.4);
 
     const group = new THREE.Group();
-    group.add(shield, checkMark);
+    group.add(shield, rimGlow, edges, checkMark);
     group.scale.setScalar(1.2);
     scene.add(group);
 
     // ── Lights ───────────────────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
-    const key = new THREE.DirectionalLight(0xffffff, 1.6);
+    scene.add(new THREE.AmbientLight(0x223044, 0.85));
+    const key = new THREE.DirectionalLight(0xbfe3ff, 1.9);
     key.position.set(4, 5, 6);
     scene.add(key);
-    const rim = new THREE.PointLight(0x60a5fa, 0.8, 30);
-    rim.position.set(-5, -2, 4);
-    scene.add(rim);
+    const fill = new THREE.PointLight(GLOW, 1.4, 30);
+    fill.position.set(-5, -2, 4);
+    scene.add(fill);
 
     // ── Animation (scroll-driven) ─────────────────────────────────────────────
     const clock = new THREE.Clock();
@@ -95,6 +133,7 @@ export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: ()
         const center = rect.top + rect.height / 2;
         progress = THREE.MathUtils.clamp(1 - center / globalThis.innerHeight, 0, 1);
       }
+      rimMat.uniforms.uTime.value = clock.getElapsedTime();
       if (reduceMotion) {
         group.position.x = 0;
         group.rotation.y = 0.35;
@@ -129,6 +168,8 @@ export default function ShieldScene({ getProgress }: Readonly<{ getProgress?: ()
       globalThis.removeEventListener("resize", onResize);
       if (raf) cancelAnimationFrame(raf);
       shieldGeo.dispose(); shieldMat.dispose();
+      rimMat.dispose();
+      edgeGeo.dispose(); edgeMat.dispose();
       checkGeo.dispose(); checkMat.dispose();
       renderer.dispose();
       renderer.domElement.remove();
