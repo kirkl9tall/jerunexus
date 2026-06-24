@@ -1,10 +1,5 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-
-// Same flowing-line shader as the certifications section, so the wires match
-// and read as continuing from one section into the next.
-const FlowLines = dynamic(() => import("./FlowLines"), { ssr: false });
 
 const B = "#2563EB";
 const INK = "#0A0A0A";
@@ -16,11 +11,7 @@ const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 
 export default function ProcessSection({ tag, title, steps }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const progressRef = useRef(0);
   const [p, setP] = useState(0);
-  const [show, setShow] = useState(false);
-
-  const getProgress = useRef(() => progressRef.current).current;
 
   useEffect(() => {
     const el = ref.current;
@@ -30,39 +21,29 @@ export default function ProcessSection({ tag, title, steps }: Props) {
       ticking = false;
       const rect = el.getBoundingClientRect();
       const center = rect.top + rect.height / 2;
-      const v = clamp(1 - center / globalThis.innerHeight);
-      progressRef.current = v;
-      setP(v);
+      setP(clamp(1 - center / globalThis.innerHeight));
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(compute); } };
     compute();
     globalThis.addEventListener("scroll", onScroll, { passive: true });
     globalThis.addEventListener("resize", onScroll);
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setShow(true); io.disconnect(); } },
-      { rootMargin: "300px" },
-    );
-    io.observe(el);
     return () => {
       globalThis.removeEventListener("scroll", onScroll);
       globalThis.removeEventListener("resize", onScroll);
-      io.disconnect();
     };
   }, []);
 
   const n = steps.length;
-  // The travelling light fills the line as the section moves through the viewport.
-  const lineP = clamp((p - 0.22) / 0.5);
+  // One wire: it first descends into the timeline (connectorP), then the light
+  // travels along the horizontal timeline (lineP), lighting each step in turn.
+  const connectorP = clamp((p - 0.14) / 0.13);
+  const lineP = clamp((p - 0.27) / 0.48);
   const litFor = (i: number) => clamp((lineP * n - i) / 0.7);
 
   return (
-    <section ref={ref} style={{ position: "relative", overflow: "hidden", background: INK, padding: "100px 40px" }}>
-      {/* Flowing wires continuing from the certifications section */}
-      <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-        {show && <FlowLines getProgress={getProgress} />}
-      </div>
-      <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 1 }}>
-        <div style={{ textAlign: "center", marginBottom: 64 }}>
+    <section ref={ref} style={{ background: INK, padding: "100px 40px" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 56 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
             <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
             <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 16, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{tag}</span>
@@ -71,11 +52,32 @@ export default function ProcessSection({ tag, title, steps }: Props) {
           <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", lineHeight: 1.05 }}>{title}</h2>
         </div>
 
-        {/* Travelling glow line through the steps */}
+        {/* Connector wire — descends from above (the certifications wires) into the timeline */}
+        <div style={{ position: "relative", height: 110 }}>
+          <svg viewBox="0 0 1000 110" preserveAspectRatio="none" width="100%" height="110" style={{ display: "block", overflow: "visible" }} aria-hidden="true">
+            <defs>
+              <linearGradient id="wireGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#2563eb" />
+                <stop offset="100%" stopColor="#38bdf8" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 540 -120 C 440 -10, 90 30, 4 110"
+              fill="none"
+              stroke="url(#wireGrad)"
+              strokeWidth={2}
+              vectorEffect="non-scaling-stroke"
+              pathLength={1}
+              strokeDasharray={1}
+              strokeDashoffset={1 - connectorP}
+              style={{ filter: "drop-shadow(0 0 5px #38bdf8)", transition: "stroke-dashoffset .1s linear" }}
+            />
+          </svg>
+        </div>
+
+        {/* Horizontal timeline — the same wire continues, lighting each step */}
         <div style={{ position: "relative", height: 2, background: "rgba(255,255,255,.12)", marginBottom: 44 }}>
-          {/* filled portion */}
           <div style={{ position: "absolute", left: 0, top: 0, height: 2, width: `${lineP * 100}%`, background: B, boxShadow: `0 0 14px ${B}` }} />
-          {/* node dot per step */}
           {steps.map((s, i) => {
             const lit = litFor(i) > 0.5;
             return (
@@ -89,7 +91,6 @@ export default function ProcessSection({ tag, title, steps }: Props) {
               }} />
             );
           })}
-          {/* leading light */}
           <span style={{
             position: "absolute", left: `${lineP * 100}%`, top: "50%", width: 12, height: 12, borderRadius: "50%",
             transform: "translate(-50%,-50%)", background: "#fff", boxShadow: `0 0 18px 5px ${B}`,
@@ -97,7 +98,7 @@ export default function ProcessSection({ tag, title, steps }: Props) {
           }} />
         </div>
 
-        {/* Steps — light up as the line reaches them */}
+        {/* Steps — light up as the wire reaches them */}
         <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0 }}>
           {steps.map((s, i) => {
             const lit = litFor(i);
