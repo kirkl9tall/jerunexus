@@ -2,7 +2,9 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
-const ShieldScene = dynamic(() => import("./ShieldScene"), { ssr: false });
+// Flowing-line background (Lusion-style). The 3D shield in ./ShieldScene is kept
+// for later, to be swapped back in once the shield artwork is provided.
+const FlowLines = dynamic(() => import("./FlowLines"), { ssr: false });
 
 const B = "#2563EB";
 const INK = "#0A0A0A";
@@ -72,9 +74,9 @@ export default function ComplianceSection({ tag, title, badges }: Props) {
     <div ref={wrapRef} style={{ position: "relative", height: `${100 + n * 34}vh`, background: "transparent" }}>
       {/* Pinned stage */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 40px" }}>
-        {/* Background shield — slides L→R + half-rotates with scroll progress */}
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, opacity: 0.55, pointerEvents: "none" }}>
-          {show && <ShieldScene getProgress={getProgress} />}
+        {/* Flowing animated lines — move with scroll progress */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+          {show && <FlowLines getProgress={getProgress} />}
         </div>
 
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 1, textAlign: "center" }}>
