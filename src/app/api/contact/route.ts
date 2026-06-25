@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isValidEmail } from "@/lib/validation";
+import { sendContactEmail } from "@/lib/email";
 
 interface ContactPayload {
   name: string;
@@ -28,19 +29,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid email address." }, { status: 422 });
   }
 
-  // In production: swap this block for Resend / Nodemailer / SendGrid.
-  // RESEND example (add RESEND_API_KEY to .env.local):
-  //
-  //   const { Resend } = await import("resend");
-  //   const resend = new Resend(process.env.RESEND_API_KEY);
-  //   await resend.emails.send({
-  //     from: "noreply@jerumed-nexus.ch",
-  //     to: "info@jerumed-nexus.ch",
-  //     subject: `Kontaktanfrage von ${name}`,
-  //     text: `Name: ${name}\nE-Mail: ${email}\nTelefon: ${body.phone ?? "—"}\nPraxis: ${body.company ?? "—"}\n\n${message}`,
-  //   });
-
-  console.info("[contact]", { name, email, phone: body.phone, company: body.company, message });
+  try {
+    await sendContactEmail({ name, email, phone: body.phone, company: body.company, message });
+  } catch (err) {
+    console.error("[contact] send failed:", err);
+    return NextResponse.json(
+      { error: "Could not send your message right now. Please try again later." },
+      { status: 502 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
