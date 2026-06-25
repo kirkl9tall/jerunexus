@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-      - name: Pin npm to match the lockfile generator
-        run: npm install -g npm@11
+      - name: Pin npm to the exact version that generated the lockfile
+        run: npm install -g npm@11.6.1
       - name: Install dependencies
         run: npm ci
       - name: Type-check
@@ -60,8 +60,8 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-      - name: Pin npm to match the lockfile generator
-        run: npm install -g npm@11
+      - name: Pin npm to the exact version that generated the lockfile
+        run: npm install -g npm@11.6.1
       - name: Install dependencies
         run: npm ci
       - name: Apply database migrations
