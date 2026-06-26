@@ -253,9 +253,11 @@ export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState<string | null>(null);
   const [devLink, setDevLink] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
     setBusy(true);
     const res = await fetch("/api/auth/forgot-password", {
       method: "POST",
@@ -264,8 +266,12 @@ export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
     });
     setBusy(false);
     const data = await res.json().catch(() => ({}));
-    setDevLink(data.devResetUrl ?? null);
-    setSent(data.message ?? "");
+    if (res.ok) {
+      setDevLink(data.devResetUrl ?? null);
+      setSent(data.message ?? "");
+    } else {
+      setError(data.error ?? (lang === "en" ? "Something went wrong. Please try again." : "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."));
+    }
   }
 
   return (
@@ -275,6 +281,7 @@ export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
               <h1 style={{ fontSize: 32, fontWeight: 700, marginTop: 36 }}>{c.title}</h1>
               <hr className="p-rule" />
               <p style={{ fontSize: 14, color: "var(--gray)", margin: "20px 0 32px", lineHeight: 1.6 }}>{c.sub}</p>
+              {error && <div className="p-error">{error}</div>}
               <form onSubmit={submit}>
                 <div className="p-field">
                   <label htmlFor="email">{c.email}</label>
