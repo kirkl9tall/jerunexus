@@ -9,7 +9,7 @@ export const en = {
     cta: "Get Started / Login",
   },
 
-  top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"info@jerumed-nexus.ch" },
+  top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Contact",
@@ -195,7 +195,7 @@ export const en = {
     title:"Reach Out For Professional\nTechnical Assistance",
     p:"Contact our team for expert guidance and reliable technical support tailored to your practice needs.",
     phone:{ label:"SALES SUPPORT", value:"+41 XX XXX XX XX" },
-    email:{ label:"EMAIL SUPPORT", value:"info@jerumed-nexus.ch" },
+    email:{ label:"EMAIL SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Years of Experience" },
   },
 
@@ -283,7 +283,7 @@ export const en = {
         { cat:"Medical & Integration", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
       ],
     },
-    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"info@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
+    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
     datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website.", note:"This page is being finalized." },
   },
 

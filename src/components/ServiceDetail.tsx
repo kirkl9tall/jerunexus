@@ -36,25 +36,27 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <section style={{ padding: "80px 40px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <section style={{ padding: "100px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto", borderTop: "1px solid #E5E7EB" }}>
           {(page.sections as Array<{ t: string; p?: string; items?: string[] }>)?.map((sec, si) => (
-            <div key={sec.t} style={{ marginBottom: 64, paddingBottom: 64, borderBottom: "1px solid #E5E7EB" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
-                <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em" }}>{String(si + 1).padStart(2, "0")}</span>
-                <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(22px,2.5vw,30px)", fontWeight: 700, color: INK, letterSpacing: "-.02em" }}>{sec.t}</h2>
+            <div key={sec.t} className="tech-row" style={{ display: "grid", gridTemplateColumns: "minmax(220px,360px) 1fr", gap: 48, padding: "44px 0", borderBottom: "1px solid #E5E7EB", alignItems: "start" }}>
+              <div style={{ display: "flex", gap: 14, alignItems: "baseline" }}>
+                <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, color: B, flexShrink: 0 }}>{String(si + 1).padStart(2, "0")}</span>
+                <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(20px,2.2vw,26px)", fontWeight: 700, color: INK, letterSpacing: "-.02em", lineHeight: 1.15 }}>{sec.t}</h2>
               </div>
-              {sec.p && <p style={{ fontSize: 16, lineHeight: 1.85, color: "#6B7280", marginBottom: 32, maxWidth: 720 }}>{sec.p}</p>}
-              {sec.items && (
-                <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, border: "1px solid #E5E7EB" }}>
-                  {sec.items.map((item, ii) => (
-                    <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "18px 20px", borderRight: (ii + 1) % 3 === 0 ? "none" : "1px solid #E5E7EB", borderBottom: ii >= (sec.items?.length ?? 0) - 3 ? "none" : "1px solid #E5E7EB", background: "#fff" }}>
-                      <span style={{ color: B, fontSize: 13, fontWeight: 700, flexShrink: 0, lineHeight: "1.6" }}>✓</span>
-                      <span style={{ fontSize: 14, color: "#374151", lineHeight: 1.6 }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div>
+                {sec.p && <p style={{ fontSize: 16, lineHeight: 1.85, color: "#6B7280", marginBottom: sec.items ? 28 : 0, maxWidth: 720 }}>{sec.p}</p>}
+                {sec.items && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "12px 36px" }}>
+                    {sec.items.map((item) => (
+                      <div key={item} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                        <span style={{ color: B, flexShrink: 0, fontFamily: "'DM Mono',monospace", fontSize: 13, lineHeight: "1.6" }}>+</span>
+                        <span style={{ fontSize: 14, color: "#374151", lineHeight: 1.6 }}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
