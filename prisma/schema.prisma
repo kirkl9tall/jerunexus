@@ -36,6 +36,16 @@ model PendingRegistration {
   createdAt    DateTime @default(now())
 }
 
+/// Single-use password-reset tokens. One active token per email (upserted on
+/// each request), purged on use or expiry. Short-lived (1 hour).
+model PasswordReset {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
 model Plan {
   id            String         @id @default(cuid())
   key           String         @unique

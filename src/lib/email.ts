@@ -103,6 +103,61 @@ export async function sendContactEmail(p: ContactInput) {
   return { ok: true, dev: false };
 }
 
+export async function sendPasswordResetEmail(to: string, link: string, lang: Lang) {
+  const copy = RESET_COPY[lang];
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;color:#1A1A1A">
+      <h1 style="font-size:22px;color:#2563EB">${copy.heading}</h1>
+      <p style="font-size:15px;line-height:1.6">${copy.body}</p>
+      <p style="margin:28px 0">
+        <a href="${link}" style="background:#2563EB;color:#fff;text-decoration:none;padding:13px 26px;font-size:14px;font-weight:600;display:inline-block">
+          ${copy.button}
+        </a>
+      </p>
+      <p style="font-size:12px;color:#696969">${copy.expiry}</p>
+      <p style="font-size:12px;color:#9B9B9B">${copy.ignore}</p>
+    </div>`;
+
+  if (!emailConfigured) {
+    console.log(`\n[email:dev] Password reset for ${to}\n[email:dev] ${copy.subject}\n[email:dev] LINK -> ${link}\n`);
+    return { ok: true, dev: true };
+  }
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ from: EMAIL_FROM, to, subject: copy.subject, html }),
+  });
+
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Resend failed: ${res.status} ${detail}`);
+  }
+  return { ok: true, dev: false };
+}
+
+const RESET_COPY = {
+  de: {
+    subject: "Passwort zurücksetzen",
+    heading: "Passwort zurücksetzen",
+    body: "Wir haben eine Anfrage erhalten, Ihr Passwort zurückzusetzen. Klicken Sie auf die Schaltfläche, um ein neues Passwort festzulegen.",
+    button: "Neues Passwort festlegen",
+    expiry: "Dieser Link ist 1 Stunde gültig.",
+    ignore: "Falls Sie dies nicht angefordert haben, können Sie diese E-Mail ignorieren — Ihr Passwort bleibt unverändert.",
+  },
+  en: {
+    subject: "Reset your password",
+    heading: "Reset your password",
+    body: "We received a request to reset your password. Click the button below to choose a new one.",
+    button: "Set a new password",
+    expiry: "This link is valid for 1 hour.",
+    ignore: "If you didn't request this, you can safely ignore this email — your password stays the same.",
+  },
+} as const;
+
 const VERIFY_COPY = {
   de: {
     subject: "Bestätigen Sie Ihre E-Mail-Adresse",
