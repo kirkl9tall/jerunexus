@@ -671,6 +671,9 @@ const API_MSG = {
     alreadyOnPlan: "Sie nutzen diesen Plan bereits.",
     emailSendFailed: "Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.",
     verifyEmailFirst: "Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Prüfen Sie Ihren Posteingang.",
+    resetSent: "Falls ein Konto mit dieser E-Mail existiert, haben wir einen Link zum Zurücksetzen gesendet.",
+    resetInvalid: "Dieser Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.",
+    resetOk: "Ihr Passwort wurde geändert. Sie können sich jetzt anmelden.",
   },
   en: {
     invalidEmail: "Invalid email address.",
@@ -693,6 +696,9 @@ const API_MSG = {
     alreadyOnPlan: "You are already on this plan.",
     emailSendFailed: "Couldn't send the confirmation email. Please try again later.",
     verifyEmailFirst: "Please confirm your email address first. Check your inbox.",
+    resetSent: "If an account exists for this email, we've sent a reset link.",
+    resetInvalid: "This link is invalid or has expired. Please request a new one.",
+    resetOk: "Your password has been changed. You can now sign in.",
   },
 } as const;
 

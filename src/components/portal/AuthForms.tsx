@@ -33,6 +33,27 @@ function Brand() {
   );
 }
 
+/** Shared two-pane auth page chrome (brand header + side panel). */
+function AuthShell({ lang, homeHref, homeLabel, sideTitle, sideItems, children }: Readonly<{ lang: PortalLang; homeHref: string; homeLabel: string; sideTitle: string; sideItems: readonly string[]; children: React.ReactNode }>) {
+  return (
+    <div className="p-auth">
+      <div className="p-auth-pane">
+        <div className="p-auth-box">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Brand />
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <a href={homeHref} className="p-arrow-link" style={{ color: "var(--gray)" }}>{homeLabel}</a>
+              <LangToggle lang={lang} />
+            </div>
+          </div>
+          {children}
+        </div>
+      </div>
+      <AuthSide title={sideTitle} items={sideItems} />
+    </div>
+  );
+}
+
 export function LoginForm({ lang, t }: Readonly<{ lang: PortalLang; t: PortalDict["login"] }>) {
   const router = useRouter();
   const search = useSearchParams();
@@ -97,7 +118,10 @@ export function LoginForm({ lang, t }: Readonly<{ lang: PortalLang; t: PortalDic
             </button>
           </form>
 
-          <p style={{ fontSize: 14, color: "var(--gray)", marginTop: 28 }}>
+          <p style={{ fontSize: 14, marginTop: 18 }}>
+            <a href="/portal/forgot-password" className="p-arrow-link">{lang === "en" ? "Forgot password?" : "Passwort vergessen?"}</a>
+          </p>
+          <p style={{ fontSize: 14, color: "var(--gray)", marginTop: 12 }}>
             {t.noAccount}{" "}
             <a href="/portal/register" className="p-arrow-link">{t.registerLink}</a>
           </p>
@@ -215,5 +239,153 @@ export function RegisterForm({ lang, t }: Readonly<{ lang: PortalLang; t: Portal
       </div>
       <AuthSide title={t.sideTitle} items={t.sideItems} />
     </div>
+  );
+}
+
+const FP_COPY = {
+  de: { home: "← Startseite", title: "Passwort vergessen", sub: "Geben Sie Ihre E-Mail ein — wir senden Ihnen einen Link zum Zurücksetzen.", email: "E-Mail", submit: "Link senden →", submitting: "Wird gesendet…", sentTitle: "E-Mail gesendet", backToLogin: "Zurück zur Anmeldung", devLink: "Dev-Link:", sideTitle: "Kein Problem.\nWir helfen Ihnen zurück.", sideItems: ["Sicherer Reset-Link", "1 Stunde gültig", "Ihr Konto bleibt geschützt"] },
+  en: { home: "← Home", title: "Forgot password", sub: "Enter your email — we'll send you a link to reset it.", email: "Email", submit: "Send link →", submitting: "Sending…", sentTitle: "Email sent", backToLogin: "Back to sign in", devLink: "Dev link:", sideTitle: "No problem.\nLet's get you back in.", sideItems: ["Secure reset link", "Valid for 1 hour", "Your account stays protected"] },
+} as const;
+
+export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
+  const c = FP_COPY[lang];
+  const [email, setEmail] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [sent, setSent] = useState<string | null>(null);
+  const [devLink, setDevLink] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    const res = await fetch("/api/auth/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setBusy(false);
+    const data = await res.json().catch(() => ({}));
+    setDevLink(data.devResetUrl ?? null);
+    setSent(data.message ?? "");
+  }
+
+  return (
+    <AuthShell lang={lang} homeHref="/portal/login" homeLabel={c.home} sideTitle={c.sideTitle} sideItems={c.sideItems}>
+          {sent === null ? (
+            <>
+              <h1 style={{ fontSize: 32, fontWeight: 700, marginTop: 36 }}>{c.title}</h1>
+              <hr className="p-rule" />
+              <p style={{ fontSize: 14, color: "var(--gray)", margin: "20px 0 32px", lineHeight: 1.6 }}>{c.sub}</p>
+              <form onSubmit={submit}>
+                <div className="p-field">
+                  <label htmlFor="email">{c.email}</label>
+                  <input id="email" type="email" className="p-input" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
+                </div>
+                <button type="submit" className="p-btn" disabled={busy} style={{ width: "100%", justifyContent: "center", marginTop: 8 }}>
+                  {busy ? c.submitting : c.submit}
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <div style={{ width: 56, height: 56, background: "var(--green-soft)", display: "flex", alignItems: "center", justifyContent: "center", margin: "40px 0 24px", fontSize: 26, color: "var(--green)" }}>✉</div>
+              <h1 style={{ fontSize: 28, fontWeight: 700 }}>{c.sentTitle}</h1>
+              <hr className="p-rule" />
+              <p style={{ fontSize: 15, color: "var(--gray)", margin: "20px 0 16px", lineHeight: 1.6 }}>{sent}</p>
+              {devLink && (
+                <div style={{ marginTop: 24, padding: "14px 16px", background: "var(--bg-soft)", border: "1px solid var(--hairline)" }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: "var(--gray)", marginBottom: 8, letterSpacing: ".04em" }}>{c.devLink}</div>
+                  <a href={devLink} className="p-arrow-link" style={{ fontSize: 13, wordBreak: "break-all" }}>{devLink}</a>
+                </div>
+              )}
+            </>
+          )}
+          <p style={{ fontSize: 14, color: "var(--gray)", marginTop: 28 }}>
+            <a href="/portal/login" className="p-arrow-link">{c.backToLogin}</a>
+          </p>
+    </AuthShell>
+  );
+}
+
+const RP_COPY = {
+  de: { home: "← Anmeldung", title: "Neues Passwort", sub: "Wählen Sie ein neues Passwort für Ihr Konto.", password: "Neues Passwort (min. 8 Zeichen)", confirm: "Passwort bestätigen", submit: "Passwort speichern →", submitting: "Wird gespeichert…", mismatch: "Die Passwörter stimmen nicht überein.", noToken: "Ungültiger oder fehlender Link. Bitte fordern Sie einen neuen an.", doneTitle: "Erledigt", toLogin: "Zur Anmeldung →", requestNew: "Neuen Link anfordern →", fallbackError: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.", sideTitle: "Fast geschafft.\nNeues Passwort festlegen.", sideItems: ["Einmaliger Link", "Sichere Verschlüsselung", "Sofort einsatzbereit"] },
+  en: { home: "← Sign in", title: "New password", sub: "Choose a new password for your account.", password: "New password (min. 8 chars)", confirm: "Confirm password", submit: "Save password →", submitting: "Saving…", mismatch: "Passwords don't match.", noToken: "Invalid or missing link. Please request a new one.", doneTitle: "Done", toLogin: "Go to sign in →", requestNew: "Request a new link →", fallbackError: "Something went wrong. Please try again.", sideTitle: "Almost there.\nSet your new password.", sideItems: ["Single-use link", "Securely encrypted", "Ready right away"] },
+} as const;
+
+export function ResetPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
+  const c = RP_COPY[lang];
+  const search = useSearchParams();
+  const token = search.get("token") ?? "";
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (password !== confirm) { setError(c.mismatch); return; }
+    setBusy(true);
+    const res = await fetch("/api/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, password }),
+    });
+    setBusy(false);
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) setDone(data.message ?? "");
+    else setError(data.error ?? c.fallbackError);
+  }
+
+  let inner: React.ReactNode;
+  if (done !== null) {
+    inner = (
+      <>
+        <div style={{ width: 56, height: 56, background: "var(--green-soft)", display: "flex", alignItems: "center", justifyContent: "center", margin: "40px 0 24px", fontSize: 26, color: "var(--green)" }}>✓</div>
+        <h1 style={{ fontSize: 28, fontWeight: 700 }}>{c.doneTitle}</h1>
+        <hr className="p-rule" />
+        <p style={{ fontSize: 15, color: "var(--gray)", margin: "20px 0 28px", lineHeight: 1.6 }}>{done}</p>
+        <a href="/portal/login" className="p-btn" style={{ justifyContent: "center" }}>{c.toLogin}</a>
+      </>
+    );
+  } else if (!token) {
+    inner = (
+      <>
+        <h1 style={{ fontSize: 28, fontWeight: 700, marginTop: 36 }}>{c.title}</h1>
+        <hr className="p-rule" />
+        <div className="p-error" style={{ marginTop: 20 }}>{c.noToken}</div>
+        <p style={{ fontSize: 14, color: "var(--gray)", marginTop: 24 }}>
+          <a href="/portal/forgot-password" className="p-arrow-link">{c.requestNew}</a>
+        </p>
+      </>
+    );
+  } else {
+    inner = (
+      <>
+        <h1 style={{ fontSize: 32, fontWeight: 700, marginTop: 36 }}>{c.title}</h1>
+        <hr className="p-rule" />
+        <p style={{ fontSize: 14, color: "var(--gray)", margin: "20px 0 32px", lineHeight: 1.6 }}>{c.sub}</p>
+        {error && <div className="p-error">{error}</div>}
+        <form onSubmit={submit}>
+          <div className="p-field">
+            <label htmlFor="password">{c.password}</label>
+            <input id="password" type="password" className="p-input" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8} autoComplete="new-password" />
+          </div>
+          <div className="p-field">
+            <label htmlFor="confirm">{c.confirm}</label>
+            <input id="confirm" type="password" className="p-input" value={confirm} onChange={(e) => setConfirm(e.target.value)} required minLength={8} autoComplete="new-password" />
+          </div>
+          <button type="submit" className="p-btn" disabled={busy} style={{ width: "100%", justifyContent: "center", marginTop: 8 }}>
+            {busy ? c.submitting : c.submit}
+          </button>
+        </form>
+      </>
+    );
+  }
+
+  return (
+    <AuthShell lang={lang} homeHref="/portal/login" homeLabel={c.home} sideTitle={c.sideTitle} sideItems={c.sideItems}>
+          {inner}
+    </AuthShell>
   );
 }
