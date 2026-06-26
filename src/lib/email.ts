@@ -14,41 +14,52 @@ export const emailConfigured = Boolean(RESEND_API_KEY);
 
 type Lang = "de" | "en";
 
-export async function sendVerificationEmail(to: string, link: string, lang: Lang) {
-  const copy = VERIFY_COPY[lang];
-  const html = `
+interface LinkCopy { subject: string; heading: string; body: string; button: string; expiry: string; ignore: string; }
+
+/** Button-link email body, shared by the verification + password-reset emails. */
+function linkEmailHtml(accent: string, copy: LinkCopy, link: string) {
+  return `
     <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;color:#1A1A1A">
-      <h1 style="font-size:22px;color:#197A56">${copy.heading}</h1>
+      <h1 style="font-size:22px;color:${accent}">${copy.heading}</h1>
       <p style="font-size:15px;line-height:1.6">${copy.body}</p>
       <p style="margin:28px 0">
-        <a href="${link}" style="background:#197A56;color:#fff;text-decoration:none;padding:13px 26px;font-size:14px;font-weight:600;display:inline-block">
+        <a href="${link}" style="background:${accent};color:#fff;text-decoration:none;padding:13px 26px;font-size:14px;font-weight:600;display:inline-block">
           ${copy.button}
         </a>
       </p>
       <p style="font-size:12px;color:#696969">${copy.expiry}</p>
       <p style="font-size:12px;color:#9B9B9B">${copy.ignore}</p>
     </div>`;
+}
 
+/** Sends one email via Resend, or logs it in dev when no provider is configured. */
+async function deliver(opts: Readonly<{ to: string; subject: string; html: string; text?: string; replyTo?: string }>) {
   if (!emailConfigured) {
-    // Dev fallback — print the link so the flow can be completed without a provider.
-    console.log(`\n[email:dev] Verification email for ${to}\n[email:dev] ${copy.subject}\n[email:dev] LINK -> ${link}\n`);
+    console.log(`\n[email:dev] "${opts.subject}" -> ${opts.to}\n`);
     return { ok: true, dev: true };
   }
-
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ from: EMAIL_FROM, to, subject: copy.subject, html }),
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: EMAIL_FROM,
+      to: opts.to,
+      subject: opts.subject,
+      html: opts.html,
+      ...(opts.text ? { text: opts.text } : {}),
+      ...(opts.replyTo ? { reply_to: opts.replyTo } : {}),
+    }),
   });
-
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
     throw new Error(`Resend failed: ${res.status} ${detail}`);
   }
   return { ok: true, dev: false };
+}
+
+export async function sendVerificationEmail(to: string, link: string, lang: Lang) {
+  const copy = VERIFY_COPY[lang];
+  return deliver({ to, subject: copy.subject, html: linkEmailHtml("#197A56", copy, link) });
 }
 
 /** Where contact-form submissions are delivered. */
@@ -82,61 +93,12 @@ export async function sendContactEmail(p: ContactInput) {
       <p style="font-size:14px;line-height:1.7;white-space:pre-line;border-top:1px solid #E5E7EB;padding-top:14px;margin-top:14px">${esc(p.message)}</p>
     </div>`;
 
-  if (!emailConfigured) {
-    console.log(`\n[email:dev] Contact form -> ${CONTACT_TO}\n${text}\n`);
-    return { ok: true, dev: true };
-  }
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ from: EMAIL_FROM, to: CONTACT_TO, reply_to: p.email, subject, html, text }),
-  });
-
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`Resend failed: ${res.status} ${detail}`);
-  }
-  return { ok: true, dev: false };
+  return deliver({ to: CONTACT_TO, subject, html, text, replyTo: p.email });
 }
 
 export async function sendPasswordResetEmail(to: string, link: string, lang: Lang) {
   const copy = RESET_COPY[lang];
-  const html = `
-    <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;color:#1A1A1A">
-      <h1 style="font-size:22px;color:#2563EB">${copy.heading}</h1>
-      <p style="font-size:15px;line-height:1.6">${copy.body}</p>
-      <p style="margin:28px 0">
-        <a href="${link}" style="background:#2563EB;color:#fff;text-decoration:none;padding:13px 26px;font-size:14px;font-weight:600;display:inline-block">
-          ${copy.button}
-        </a>
-      </p>
-      <p style="font-size:12px;color:#696969">${copy.expiry}</p>
-      <p style="font-size:12px;color:#9B9B9B">${copy.ignore}</p>
-    </div>`;
-
-  if (!emailConfigured) {
-    console.log(`\n[email:dev] Password reset for ${to}\n[email:dev] ${copy.subject}\n[email:dev] LINK -> ${link}\n`);
-    return { ok: true, dev: true };
-  }
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ from: EMAIL_FROM, to, subject: copy.subject, html }),
-  });
-
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`Resend failed: ${res.status} ${detail}`);
-  }
-  return { ok: true, dev: false };
+  return deliver({ to, subject: copy.subject, html: linkEmailHtml("#2563EB", copy, link) });
 }
 
 const RESET_COPY = {

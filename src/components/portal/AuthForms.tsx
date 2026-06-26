@@ -33,6 +33,27 @@ function Brand() {
   );
 }
 
+/** Shared two-pane auth page chrome (brand header + side panel). */
+function AuthShell({ lang, homeHref, homeLabel, sideTitle, sideItems, children }: Readonly<{ lang: PortalLang; homeHref: string; homeLabel: string; sideTitle: string; sideItems: readonly string[]; children: React.ReactNode }>) {
+  return (
+    <div className="p-auth">
+      <div className="p-auth-pane">
+        <div className="p-auth-box">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Brand />
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <a href={homeHref} className="p-arrow-link" style={{ color: "var(--gray)" }}>{homeLabel}</a>
+              <LangToggle lang={lang} />
+            </div>
+          </div>
+          {children}
+        </div>
+      </div>
+      <AuthSide title={sideTitle} items={sideItems} />
+    </div>
+  );
+}
+
 export function LoginForm({ lang, t }: Readonly<{ lang: PortalLang; t: PortalDict["login"] }>) {
   const router = useRouter();
   const search = useSearchParams();
@@ -248,16 +269,7 @@ export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
   }
 
   return (
-    <div className="p-auth">
-      <div className="p-auth-pane">
-        <div className="p-auth-box">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Brand />
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/portal/login" className="p-arrow-link" style={{ color: "var(--gray)" }}>{c.home}</a>
-              <LangToggle lang={lang} />
-            </div>
-          </div>
+    <AuthShell lang={lang} homeHref="/portal/login" homeLabel={c.home} sideTitle={c.sideTitle} sideItems={c.sideItems}>
           {sent === null ? (
             <>
               <h1 style={{ fontSize: 32, fontWeight: 700, marginTop: 36 }}>{c.title}</h1>
@@ -290,10 +302,7 @@ export function ForgotPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
           <p style={{ fontSize: 14, color: "var(--gray)", marginTop: 28 }}>
             <a href="/portal/login" className="p-arrow-link">{c.backToLogin}</a>
           </p>
-        </div>
-      </div>
-      <AuthSide title={c.sideTitle} items={c.sideItems} />
-    </div>
+    </AuthShell>
   );
 }
 
@@ -375,20 +384,8 @@ export function ResetPasswordForm({ lang }: Readonly<{ lang: PortalLang }>) {
   }
 
   return (
-    <div className="p-auth">
-      <div className="p-auth-pane">
-        <div className="p-auth-box">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Brand />
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/portal/login" className="p-arrow-link" style={{ color: "var(--gray)" }}>{c.home}</a>
-              <LangToggle lang={lang} />
-            </div>
-          </div>
+    <AuthShell lang={lang} homeHref="/portal/login" homeLabel={c.home} sideTitle={c.sideTitle} sideItems={c.sideItems}>
           {inner}
-        </div>
-      </div>
-      <AuthSide title={c.sideTitle} items={c.sideItems} />
-    </div>
+    </AuthShell>
   );
 }
