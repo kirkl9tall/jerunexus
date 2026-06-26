@@ -39,6 +39,10 @@ RUN npx prisma generate
 
 # Disable telemetry; build the standalone server.
 ENV NEXT_TELEMETRY_DISABLED=1
+# NEXT_PUBLIC_* vars are inlined by `next build`, so the Sentry DSN must be
+# present here (passed as a build arg from compose) for client-side reporting.
+ARG NEXT_PUBLIC_SENTRY_DSN=""
+ENV NEXT_PUBLIC_SENTRY_DSN=$NEXT_PUBLIC_SENTRY_DSN
 RUN npm run build
 
 # ---- runner -----------------------------------------------------------------
