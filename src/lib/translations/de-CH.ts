@@ -9,7 +9,7 @@ export const deCH = {
     cta: "Loslegen / Login",
   },
 
-  top: { addr:"Zürich, Schweiz", phone:"+41 XX XXX XX XX", email:"info@jerumed-nexus.ch" },
+  top: { addr:"Zürich, Schweiz", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Kontakt",
@@ -197,7 +197,7 @@ export const deCH = {
     title:"Kontaktieren Sie uns für\nprofessionelle IT-Unterstützung",
     p:"Unser Team steht Ihnen für fachkundige Beratung und zuverlässigen technischen Support zur Verfügung — massgeschneidert für Ihre Praxis.",
     phone:{ label:"TELEFON-SUPPORT", value:"+41 XX XXX XX XX" },
-    email:{ label:"E-MAIL-SUPPORT", value:"info@jerumed-nexus.ch" },
+    email:{ label:"E-MAIL-SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Jahre Erfahrung" },
   },
 
@@ -291,7 +291,7 @@ export const deCH = {
       title:"Impressum",
       company:"Jerumed Nexus",
       address:"[Adresse wird ergänzt]",
-      email:"info@jerumed-nexus.ch",
+      email:"support@jerumed-nexus.ch",
       phone:"+41 XX XXX XX XX",
     },
     datenschutz: {

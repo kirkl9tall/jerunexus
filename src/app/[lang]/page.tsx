@@ -596,15 +596,25 @@ export default function Home() {
       {/* ══════════════════════════════════════
           TOOLS
       ══════════════════════════════════════ */}
-      <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "64px 40px" }}>
+      <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "100px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <R>
-            <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#9CA3AF", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: 24 }}>{t.tools.tag}</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.tools.tag}</span>
+            </div>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", marginBottom: 44, whiteSpace: "pre-line", maxWidth: 640 }}>{t.tools.title}</h2>
           </R>
           <R delay={.05}>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-              {t.tools.items.map((tool) => (
-                <div key={tool} style={{ padding: "9px 18px", background: "#fff", border: "1px solid #E5E7EB", fontSize: 13, fontWeight: 600, color: "#374151", letterSpacing: ".02em" }}>{tool}</div>
+            <div style={{ borderTop: "1px solid #E5E7EB" }}>
+              {t.tools.groups.map((s, i) => (
+                <div key={s.cat} className="tech-row" style={{ display: "grid", gridTemplateColumns: "minmax(200px,340px) 1fr", gap: 32, padding: "26px 0", borderBottom: "1px solid #E5E7EB", alignItems: "baseline" }}>
+                  <div style={{ display: "flex", gap: 14, alignItems: "baseline" }}>
+                    <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, color: B, flexShrink: 0 }}>{String(i + 1).padStart(2, "0")}</span>
+                    <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 19, fontWeight: 700, color: INK, letterSpacing: "-.01em" }}>{s.cat}</h3>
+                  </div>
+                  <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#374151", lineHeight: 1.75 }}>{s.val}</p>
+                </div>
               ))}
             </div>
           </R>
@@ -616,7 +626,7 @@ export default function Home() {
       ══════════════════════════════════════ */}
       <section style={{ background: INK, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: 0, top: 0, width: "40%", height: "100%", opacity: .08, overflow: "hidden" }}>
-          <Image src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=70" alt="" fill style={{ objectFit: "cover" }} />
+          <Image src="/sheildit.webp" alt="" fill style={{ objectFit: "cover" }} />
         </div>
         <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative" }}>
           <R>
@@ -649,8 +659,8 @@ export default function Home() {
             <div style={{ flex: "0 0 44%", minWidth: 280 }}>
               <R>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
-                  <Image src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=70" alt="Team" width={400} height={500} style={{ width: "100%", display: "block", gridRow: "1/3", height: "100%", objectFit: "cover" }} />
-                  <Image src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&q=70" alt="Office" width={400} height={240} style={{ width: "100%", display: "block" }} />
+                  <Image src="/hqq.webp" alt="" width={400} height={500} style={{ width: "100%", display: "block", gridRow: "1/3", height: "100%", objectFit: "cover" }} />
+                  <Image src="/digitalisation.webp" alt="" width={400} height={240} style={{ width: "100%", display: "block", height: 240, objectFit: "cover" }} />
                   <div style={{ background: B, padding: "28px 20px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 6 }}>
                     <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 44, fontWeight: 700, color: "#fff", lineHeight: 1 }}>{t.help.exp.n}</span>
                     <span style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,.65)", textAlign: "center", lineHeight: 1.4 }}>{t.help.exp.l}</span>

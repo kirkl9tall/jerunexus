@@ -192,3 +192,8 @@ body {
 /* Card that lightens on hover (CSS-only — keeps non-interactive divs accessible) */
 .hover-card { background: #fff; transition: background .2s; }
 .hover-card:hover { background: #F5F5F3; }
+
+/* Editorial spec-sheet rows collapse to one column on mobile */
+@media (max-width: 640px) {
+  .tech-row { grid-template-columns: 1fr !important; gap: 8px !important; }
+}
