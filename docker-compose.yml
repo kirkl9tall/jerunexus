@@ -83,6 +83,10 @@ services:
     build:
       context: ./caddy
     restart: unless-stopped
+    # Lets Caddy reach apps running on the host (e.g. the voice/Twilio app on
+    # :5000) via `host.docker.internal` from inside the container.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - app
     ports:
