@@ -57,3 +57,15 @@
 	# ---- reverse proxy to the Next.js standalone server --------------------
 	reverse_proxy app:3000
 }
+
+###############################################################################
+# Co-hosted voice/Twilio app (separate project, runs directly on the host —
+# not a container — on 0.0.0.0:5000). Caddy reaches it through the host gateway
+# (see `extra_hosts` on the caddy service in docker-compose.yml). Caddy
+# auto-provisions a TLS cert for this domain too, since its DNS points here.
+# If the app is actually on :5002, change the port below.
+###############################################################################
+voice.jerumed-health.ch {
+	encode gzip zstd
+	reverse_proxy host.docker.internal:5000
+}
