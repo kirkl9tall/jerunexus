@@ -122,6 +122,85 @@ docker compose down -v                # ⚠️ also deletes the database AND cer
 
 ---
 
+## Backups
+
+`scripts/backup-db.sh` dumps the database nightly. It always writes a **local**
+gzip to `~/backups` (14-day retention) and — when configured — also pushes an
+**encrypted off-site copy** so a lost/wiped server doesn't take the backups with
+it.
+
+```
+pg_dump ─▶ gzip ─▶ ~/backups (local, 14d)
+                 └▶ age-encrypt ─▶ rclone ─▶ off-site bucket (30d)   [optional]
+```
+
+### Local-only (minimum)
+```bash
+crontab -e
+# nightly at 03:00:
+0 3 * * * /home/ubuntu/nexus-jerumed/jerunexus/scripts/backup-db.sh >> /home/ubuntu/backups/backup.log 2>&1
+```
+
+### Off-site, encrypted (recommended for patient data)
+
+The dump is encrypted with **age** *before* upload, so the storage provider only
+ever holds ciphertext. The **private key stays offline** (not on the VPS) — even
+a fully compromised server cannot decrypt the off-site backups.
+
+**1. Install the two tools on the VPS**
+```bash
+sudo apt-get update && sudo apt-get install -y age rclone
+```
+
+**2. Generate an age keypair — on your LAPTOP, not the server**
+```bash
+age-keygen -o jerumed-backup.key
+# prints: Public key: age1xxxxxxxx...
+```
+- Keep `jerumed-backup.key` (the **private** key) somewhere safe and OFFLINE
+  (password manager / encrypted USB). **If you lose it, the off-site backups are
+  unrecoverable.** Do **not** put it on the VPS.
+- Copy only the **public** key (`age1...`) — that goes on the server.
+
+**3. Create an off-site bucket + S3 credentials**
+Any S3-compatible object storage works. For Swiss/EU data residency prefer a
+Swiss (Exoscale, Infomaniak) or EU (Hetzner) provider; Backblaze B2 / Cloudflare
+R2 are cheap and have free tiers (data is encrypted regardless, so the provider
+sees only ciphertext). Create a **private** bucket, e.g. `jerumed-backups`, and
+generate an application key (key id + secret).
+
+**4. Configure rclone on the VPS**
+```bash
+rclone config        # → n (new remote), name it e.g. "b2", pick your provider,
+                     #   paste the key id + secret, leave the rest default
+rclone lsd b2:       # sanity check — should list your buckets
+```
+
+**5. Test the full path once (run it by hand)**
+```bash
+RCLONE_REMOTE=b2:jerumed-backups AGE_RECIPIENT=age1xxxxxxxx \
+  /home/ubuntu/nexus-jerumed/jerunexus/scripts/backup-db.sh
+# expect: "encrypting -> …", "uploading -> b2:jerumed-backups/", "off-site copies:"
+```
+
+**6. Schedule it (cron)**
+```bash
+crontab -e
+0 3 * * * RCLONE_REMOTE=b2:jerumed-backups AGE_RECIPIENT=age1xxxxxxxx /home/ubuntu/nexus-jerumed/jerunexus/scripts/backup-db.sh >> /home/ubuntu/backups/backup.log 2>&1
+```
+
+### Restore drill (do this once so you know it works)
+```bash
+# Off-site copy → needs your offline private key:
+rclone copy b2:jerumed-backups/jerunexus-YYYY-MM-DD_HH-MM.sql.gz.age .
+age -d -i jerumed-backup.key jerunexus-YYYY-MM-DD_HH-MM.sql.gz.age \
+  | gunzip | docker compose exec -T db sh -c 'psql -U "$POSTGRES_USER" "$POSTGRES_DB"'
+```
+> A backup you've never restored is a hope, not a backup. Run the drill once
+> against a throwaway database to confirm the dump + key actually work.
+
+---
+
 ## Scaling later (Docker → Kubernetes)
 
 This single-host Docker setup comfortably serves a medical-practice portal.
