@@ -9,6 +9,11 @@ import ProcessSection from "@/components/home/ProcessSection";
 const B  = "#2563EB";
 const BD = "#1d4ed8";
 const INK = "#0A0A0A";
+const MUTED = "#6B7280";
+const LINE  = "#E5E7EB";
+// Deep navy gradient + subtle grid — for the dark landing sections (matches the reference).
+const NAVY_BG = "linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),radial-gradient(900px 520px at 12% 12%,rgba(37,99,235,.20),transparent 60%),linear-gradient(160deg,#0c1f3d 0%,#0a1830 55%,#081326 100%)";
+const NAVY_SIZE = "44px 44px,44px 44px,100% 100%,100% 100%";
 
 // Medical practice solutions we integrate & support.
 const PARTNER_LOGOS = [
@@ -148,17 +153,19 @@ export default function Home() {
 
   const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenu(false); };
   const navClick = (i: number) => { i === 0 ? go("hero") : router.push(`/${lang}/${t.nav.links[i]}`); setMenu(false); };
+  // Nav is transparent over the hero; turns solid white once scrolled (sticky) or when the mobile menu is open.
+  const solid = scrolled || menu;
 
   return (
     <div style={{ background: "#fff", color: INK, fontFamily: "'Inter',system-ui,sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
       {/* ── NAV ── */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: scrolled ? "rgba(10,10,10,.97)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,.07)" : "none", transition: "all .3s" }}>
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(255,255,255,.92)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: solid ? `1px solid ${LINE}` : "1px solid transparent", boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,.06)" : "none", transition: "all .3s" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
 
           <button style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: 0 }} onClick={() => go("hero")}>
-            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: "#fff", letterSpacing: "-.01em" }}>
+            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: solid ? INK : "#fff", letterSpacing: "-.01em" }}>
               jerumed<span style={{ color: B }}>nexus</span>
             </span>
           </button>
@@ -167,24 +174,24 @@ export default function Home() {
           <div className="hide-m show-d" style={{ display: "none", alignItems: "center", gap: 36 }}>
             {t.nav.items.map((n, i) => (
               <button key={n} onClick={() => navClick(i)}
-                style={{ background: "none", border: "none", color: "rgba(255,255,255,.55)", fontSize: 14, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".01em", transition: "color .2s" }}
-                onMouseOver={(e) => (e.currentTarget.style.color = "#fff")}
-                onFocus={(e) => (e.currentTarget.style.color = "#fff")}
-                onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.55)")}
-                onBlur={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.55)")}>{n}</button>
+                style={{ background: "none", border: "none", color: solid ? MUTED : "rgba(255,255,255,.55)", fontSize: 14, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".01em", transition: "color .2s" }}
+                onMouseOver={(e) => (e.currentTarget.style.color = solid ? INK : "#fff")}
+                onFocus={(e) => (e.currentTarget.style.color = solid ? INK : "#fff")}
+                onMouseOut={(e) => (e.currentTarget.style.color = solid ? MUTED : "rgba(255,255,255,.55)")}
+                onBlur={(e) => (e.currentTarget.style.color = solid ? MUTED : "rgba(255,255,255,.55)")}>{n}</button>
             ))}
             <div style={{ position: "relative" }}>
               <button onClick={() => setLm(!lm)}
-                style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.1)", padding: "6px 14px", color: "rgba(255,255,255,.7)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
+                style={{ background: solid ? "rgba(10,10,10,.04)" : "rgba(255,255,255,.08)", border: solid ? `1px solid ${LINE}` : "1px solid rgba(255,255,255,.1)", padding: "6px 14px", color: solid ? "#374151" : "rgba(255,255,255,.7)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
                 {t.langLabel} <span style={{ fontSize: 8 }}>▾</span>
               </button>
               {lm && (
-                <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, background: "#1a1a1a", border: "1px solid rgba(255,255,255,.1)", padding: 4, minWidth: 160, zIndex: 10 }}>
+                <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, background: "#fff", border: `1px solid ${LINE}`, boxShadow: "0 10px 30px rgba(0,0,0,.1)", padding: 4, minWidth: 160, zIndex: 10 }}>
                   {locales.map((l) => {
                     const ld = getDictionary(l);
                     return (
                       <button key={l} onClick={() => { router.push(`/${l}`); setLm(false); }}
-                        style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", background: lang === l ? "rgba(37,99,235,.15)" : "none", border: "none", color: lang === l ? B : "rgba(255,255,255,.6)", fontSize: 13, fontFamily: "inherit", cursor: "pointer" }}>
+                        style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", background: lang === l ? "rgba(37,99,235,.1)" : "none", border: "none", color: lang === l ? B : "#374151", fontSize: 13, fontFamily: "inherit", cursor: "pointer" }}>
                         {ld.langFull}
                       </button>
                     );
@@ -207,7 +214,7 @@ export default function Home() {
               if (menu && i === 0) transform = "rotate(45deg) translateY(7.5px)";
               else if (menu && i === 2) transform = "rotate(-45deg) translateY(-7.5px)";
               return (
-                <div key={i} style={{ width: 22, height: 1.5, background: "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
+                <div key={i} style={{ width: 22, height: 1.5, background: solid ? INK : "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
                   opacity: menu && i === 1 ? 0 : 1, transform }} />
               );
             })}
@@ -215,16 +222,16 @@ export default function Home() {
         </div>
 
         {menu && (
-          <div style={{ background: INK, padding: "20px 40px 28px", borderTop: "1px solid rgba(255,255,255,.07)" }}>
+          <div style={{ background: "#fff", padding: "20px 40px 28px", borderTop: `1px solid ${LINE}` }}>
             {t.nav.items.map((n, i) => (
-              <button key={n} onClick={() => navClick(i)} style={{ display: "block", width: "100%", textAlign: "left", padding: "13px 0", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,.06)", color: "#fff", fontSize: 15, fontFamily: "inherit", cursor: "pointer" }}>{n}</button>
+              <button key={n} onClick={() => navClick(i)} style={{ display: "block", width: "100%", textAlign: "left", padding: "13px 0", background: "none", border: "none", borderBottom: `1px solid ${LINE}`, color: INK, fontSize: 15, fontFamily: "inherit", cursor: "pointer" }}>{n}</button>
             ))}
             <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
               {locales.map((l) => {
                 const ld = getDictionary(l);
                 return (
                   <button key={l} onClick={() => { router.push(`/${l}`); setMenu(false); }}
-                    style={{ padding: "7px 14px", border: `1px solid ${lang === l ? B : "rgba(255,255,255,.15)"}`, background: "none", color: lang === l ? B : "rgba(255,255,255,.5)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>
+                    style={{ padding: "7px 14px", border: `1px solid ${lang === l ? B : LINE}`, background: "none", color: lang === l ? B : MUTED, fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>
                     {ld.langLabel}
                   </button>
                 );
@@ -430,7 +437,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           CHECKLIST — dark
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "100px 40px" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -532,7 +539,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           SLA
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "100px 40px" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -624,7 +631,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           CTA BANNER — dark full-bleed
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: 0, top: 0, width: "40%", height: "100%", opacity: .08, overflow: "hidden" }}>
           <Image src="/sheildit.webp" alt="" fill style={{ objectFit: "cover" }} />
         </div>
