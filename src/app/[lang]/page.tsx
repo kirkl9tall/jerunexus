@@ -153,17 +153,19 @@ export default function Home() {
 
   const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenu(false); };
   const navClick = (i: number) => { i === 0 ? go("hero") : router.push(`/${lang}/${t.nav.links[i]}`); setMenu(false); };
+  // Nav is transparent over the hero; turns solid white once scrolled (sticky) or when the mobile menu is open.
+  const solid = scrolled || menu;
 
   return (
     <div style={{ background: "#fff", color: INK, fontFamily: "'Inter',system-ui,sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
       {/* ── NAV ── */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: scrolled ? "rgba(255,255,255,.9)" : "#fff", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: `1px solid ${LINE}`, boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,.06)" : "none", transition: "all .3s" }}>
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(255,255,255,.92)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: solid ? `1px solid ${LINE}` : "1px solid transparent", boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,.06)" : "none", transition: "all .3s" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
 
           <button style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: 0 }} onClick={() => go("hero")}>
-            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: INK, letterSpacing: "-.01em" }}>
+            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: solid ? INK : "#fff", letterSpacing: "-.01em" }}>
               jerumed<span style={{ color: B }}>nexus</span>
             </span>
           </button>
@@ -172,15 +174,15 @@ export default function Home() {
           <div className="hide-m show-d" style={{ display: "none", alignItems: "center", gap: 36 }}>
             {t.nav.items.map((n, i) => (
               <button key={n} onClick={() => navClick(i)}
-                style={{ background: "none", border: "none", color: MUTED, fontSize: 14, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".01em", transition: "color .2s" }}
-                onMouseOver={(e) => (e.currentTarget.style.color = INK)}
-                onFocus={(e) => (e.currentTarget.style.color = INK)}
-                onMouseOut={(e) => (e.currentTarget.style.color = MUTED)}
-                onBlur={(e) => (e.currentTarget.style.color = MUTED)}>{n}</button>
+                style={{ background: "none", border: "none", color: solid ? MUTED : "rgba(255,255,255,.55)", fontSize: 14, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".01em", transition: "color .2s" }}
+                onMouseOver={(e) => (e.currentTarget.style.color = solid ? INK : "#fff")}
+                onFocus={(e) => (e.currentTarget.style.color = solid ? INK : "#fff")}
+                onMouseOut={(e) => (e.currentTarget.style.color = solid ? MUTED : "rgba(255,255,255,.55)")}
+                onBlur={(e) => (e.currentTarget.style.color = solid ? MUTED : "rgba(255,255,255,.55)")}>{n}</button>
             ))}
             <div style={{ position: "relative" }}>
               <button onClick={() => setLm(!lm)}
-                style={{ background: "rgba(10,10,10,.04)", border: `1px solid ${LINE}`, padding: "6px 14px", color: "#374151", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
+                style={{ background: solid ? "rgba(10,10,10,.04)" : "rgba(255,255,255,.08)", border: solid ? `1px solid ${LINE}` : "1px solid rgba(255,255,255,.1)", padding: "6px 14px", color: solid ? "#374151" : "rgba(255,255,255,.7)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
                 {t.langLabel} <span style={{ fontSize: 8 }}>▾</span>
               </button>
               {lm && (
@@ -212,7 +214,7 @@ export default function Home() {
               if (menu && i === 0) transform = "rotate(45deg) translateY(7.5px)";
               else if (menu && i === 2) transform = "rotate(-45deg) translateY(-7.5px)";
               return (
-                <div key={i} style={{ width: 22, height: 1.5, background: INK, margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
+                <div key={i} style={{ width: 22, height: 1.5, background: solid ? INK : "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
                   opacity: menu && i === 1 ? 0 : 1, transform }} />
               );
             })}
