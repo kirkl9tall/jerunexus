@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 import { getDictionary } from "@/lib/translations";
 import PageLayout from "@/components/PageLayout";
+import CapabilitiesCatalog from "@/components/CapabilitiesCatalog";
 
 const B   = "#2563EB";
 const INK = "#0A0A0A";
@@ -84,6 +85,14 @@ export default function ServicesPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Specialised solutions & productized add-ons */}
+      <section style={{ borderTop: "1px solid #E5E7EB", padding: "90px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          {/* Shared capabilities catalog (the same block also appears on the Technology page). */}
+          <CapabilitiesCatalog data={t.pages.technology.capabilities} />
         </div>
       </section>
 
