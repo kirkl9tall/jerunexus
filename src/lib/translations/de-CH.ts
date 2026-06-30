@@ -286,6 +286,36 @@ export const deCH = {
         { cat:"Monitoring", val:"Uptime Kuma · Zabbix · Grafana" },
         { cat:"Medizin & Integration", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
       ],
+      capabilities:{
+        tag:"LÖSUNGEN & MODULE",
+        title:"Was wir für Ihre\nPraxis entwickeln können",
+        sub:"Ein modulares Portfolio spezialisierter Lösungen für das Schweizer Gesundheitswesen — von der Patientenbindung über klinische Systeme bis zu Compliance und Betrieb.",
+        groups:[
+          { label:"Patientenerlebnis", items:[
+            { title:"Online-Terminbuchung & Patientenportal", desc:"Markenkonformes Self-Service-Buchungsmodul, integriert in Ihr PVS (tomedo u.a.) — mit Wartezimmer-Anzeigen, automatischen SMS-/E-Mail-Erinnerungen und Umbuchung oder Stornierung direkt durch Patienten." },
+            { title:"E-Rezept & Medikamenten-Nachbestellung", desc:"Sicheres Online-Bestellformular für Medikamente mit HIN-kompatibler Signatur, vollständig in Ihr Praxissystem integriert." },
+            { title:"Telemedizin & Video-Sprechstunde", desc:"In der Schweiz gehostete Video-Sprechstunde für Nachkontrollen, Coaching und reisemedizinische Vorabklärungen — die datenresidente Alternative zu internationalen Anbietern." },
+            { title:"KI-Sprachassistent für die Réception", desc:"Mehrsprachiger Telefonassistent (DE/FR/IT/EN) für Terminbuchung, Triage-Weiterleitung, Rezept-Nachbestellungen und Notfall-Rückrufschlangen." },
+            { title:"Praxis-Website, SEO & mehrsprachige Inhalte", desc:"Professionell erstellte, mehrsprachige Praxis-Websites mit Suchmaschinenoptimierung und laufender Content-Pflege — Ihr kompletter digitaler Auftritt." },
+          ]},
+          { label:"Klinische Systeme & Integration", items:[
+            { title:"PACS- & Ultraschall-Bildspeicherung", desc:"DICOM-kompatible Speicherung medizinischer Bilddaten, in der Schweiz gehostet — ausgelegt auf hohe Ultraschall- und Radiologie-Volumen." },
+            { title:"Compliance-Paket für OP & Kleinchirurgie", desc:"Digitale Sterilisationsprotokolle, Instrumenten-Tracking und Anbindung an das Geräteregister — EQUAM-konform für chirurgische Praxen." },
+            { title:"HIN- & mediX-Netzwerk-Integration", desc:"Konnektoren für das mediX Gesundheitsdossier, e-Mediplan, HIN-Mail und Überweisungs-Workflows von und zu Spitälern." },
+          ]},
+          { label:"Sicherheit, Identität & Compliance", items:[
+            { title:"Identity & Access für Gruppenpraxen", desc:"Single Sign-On, rollenbasierte Zugriffe (Arzt / MPA / Spezialist / externe Konsiliarärzte), 2FA und Audit-Logs gemäss nDSG- und FMH-Vorgaben." },
+            { title:"Compliance-Paket: nDSG · revDSG · EQUAM", desc:"Dokumentierte Prozesse, DPIA-Vorlagen, ISMS-lite, Backup-/Restore-Drills und ein Incident-Response-Runbook für den Erhalt Ihrer Zertifizierungen." },
+            { title:"Cybersecurity-Bundle für Praxen", desc:"Phishing-Simulationen, Mitarbeiterschulungen, Endpoint-Schutz und FMH-konformer jährlicher Penetrationstest." },
+          ]},
+          { label:"Betrieb & Ausfallsicherheit", items:[
+            { title:"24/7 Managed Monitoring & On-Call-SLA", desc:"Rund-um-die-Uhr-Überwachung Ihrer Infrastruktur mit vertraglich zugesicherten Reaktionszeiten — 1 Std. während der Geschäftszeit, 4 Std. ausserhalb." },
+            { title:"Backup & Disaster Recovery (Swiss-hosted)", desc:"Täglich verschlüsselte Backups, georedundante Kopien in der Schweiz, vierteljährlich getestete Wiederherstellung und vertragliche RPO/RTO-Zusagen." },
+            { title:"Workflow-Automatisierung für Praxen", desc:"Automatisiertes Patienten-Onboarding, Laborbefund-Routing, No-Show-Nachfassen, Recall-Kampagnen (Impfungen, Vorsorge) und Versicherungs-Vorabklärungen." },
+            { title:"Inventar- & Kühlketten-Überwachung", desc:"IoT-Temperatursensoren mit Echtzeit-Alarmen für die Lagerung von Impfstoffen und Medikamenten — ideal für Reisemedizin und Pädiatrie." },
+          ]},
+        ],
+      },
     },
     impressum: {
       title:"Impressum",

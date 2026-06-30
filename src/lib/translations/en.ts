@@ -282,6 +282,36 @@ export const en = {
         { cat:"Monitoring", val:"Uptime Kuma · Zabbix · Grafana" },
         { cat:"Medical & Integration", val:"HL7 · ASTM · LOINC · tomedo · 3CX" },
       ],
+      capabilities:{
+        tag:"CAPABILITIES & MODULES",
+        title:"What we can build\nfor your practice",
+        sub:"A modular portfolio of specialised solutions for Swiss healthcare — from patient engagement through clinical systems to compliance and operations.",
+        groups:[
+          { label:"Patient Experience", items:[
+            { title:"Online Appointment Booking & Patient Portal", desc:"Branded self-service booking integrated with your PMS (tomedo and others) — waiting-room displays, automated SMS/email reminders, and patient-managed rescheduling and cancellation." },
+            { title:"E-Prescription & Medication Refills", desc:"Secure online medication-ordering with HIN-compatible signing, fully integrated into your practice management system." },
+            { title:"Telemedicine & Video Consultation", desc:"Swiss-hosted video consultations for follow-ups, coaching, and pre-travel checks — a data-resident alternative to international platforms." },
+            { title:"AI Voice Agent for Reception", desc:"Multilingual (DE/FR/IT/EN) phone agent that books appointments, routes triage, handles refill requests, and manages emergency callback queues." },
+            { title:"Practice Website, SEO & Multilingual Content", desc:"Professionally built, multilingual practice websites with search optimisation and ongoing content — your complete digital presence." },
+          ]},
+          { label:"Clinical Systems & Integration", items:[
+            { title:"PACS & Ultrasound Imaging Storage", desc:"DICOM-compatible medical imaging storage hosted in Switzerland, built for high-volume ultrasound and radiology." },
+            { title:"OR / Minor-Surgery Compliance Pack", desc:"Digital sterilisation logs, instrument tracking, and device-register integration — EQUAM-aligned for surgical practices." },
+            { title:"HIN & mediX Network Integration", desc:"Connectors for the mediX Gesundheitsdossier, e-Mediplan, HIN mail, and hospital referral-letter workflows." },
+          ]},
+          { label:"Security, Identity & Compliance", items:[
+            { title:"Group-Practice Identity & Access", desc:"Single sign-on, role-based access (physician / MPA / specialist / external consultant), 2FA, and audit logs aligned with nDSG and FMH requirements." },
+            { title:"Compliance Pack: nDSG · revDSG · EQUAM", desc:"Documented processes, DPIA templates, ISMS-lite, backup/restore drills, and an incident-response runbook to keep your certifications current." },
+            { title:"Cybersecurity Bundle for Practices", desc:"Phishing simulations, staff security training, endpoint protection, and FMH-aligned annual penetration testing." },
+          ]},
+          { label:"Operations & Resilience", items:[
+            { title:"24/7 Managed Monitoring & On-Call SLA", desc:"Round-the-clock infrastructure monitoring with contractual response times — 1h during business hours, 4h after-hours." },
+            { title:"Backup & Disaster Recovery (Swiss-hosted)", desc:"Daily encrypted backups, geo-redundant copies within Switzerland, quarterly tested restores, and contractual RPO/RTO commitments." },
+            { title:"Workflow Automation for Practices", desc:"Automated patient onboarding, lab-result routing, no-show follow-up, recall campaigns (vaccination, screening), and insurance pre-authorisation." },
+            { title:"Inventory & Cold-Chain Monitoring", desc:"IoT temperature sensors with real-time alerts for vaccine and medication storage — built for travel medicine and pediatrics." },
+          ]},
+        ],
+      },
     },
     impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
     datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website.", note:"This page is being finalized." },
