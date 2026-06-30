@@ -29,7 +29,7 @@ export const en = {
   highlights: [
     { t:"IT Security & Compliance", d:"FMH IT-Grundschutz audits, DSG compliance, firewalls and endpoint protection for medical practices." },
     { t:"Network & Infrastructure", d:"VLAN segmentation, OPNsense firewall, WireGuard VPN for multi-site practices." },
-    { t:"Practice Software Integration", d:"tomedo EMR, online booking, Viollier V-Box and laboratory middleware connectivity." },
+    { t:"Practice Software Integration", d:"tomedo EMR, online booking, nexus-connect and laboratory middleware connectivity." },
   ],
 
   about: {
