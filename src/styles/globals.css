@@ -74,6 +74,9 @@ body {
 .svc-card:hover { background: var(--off); }
 .svc-card:hover .svc-ico { background: var(--blue) !important; }
 .svc-card:hover .svc-ico svg { stroke: #fff !important; }
+/* Number badge: blue by default, flips to white when the icon box turns blue on hover. */
+.svc-num { color: var(--blue); transition: color .2s; }
+.svc-card:hover .svc-num { color: #fff; }
 
 /* ── Pricing ── */
 .pg-card {

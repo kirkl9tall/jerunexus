@@ -2,7 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const B = "#2563EB";
-const INK = "#0A0A0A";
+// Deep navy gradient + subtle grid — matches the other dark landing sections.
+const NAVY_BG = "linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),radial-gradient(900px 520px at 12% 12%,rgba(37,99,235,.20),transparent 60%),linear-gradient(160deg,#0c1f3d 0%,#0a1830 55%,#081326 100%)";
+const NAVY_SIZE = "44px 44px,44px 44px,100% 100%,100% 100%";
 
 type Step = { n: string; t: string; d: string };
 type Props = Readonly<{ tag: string; title: string; steps: ReadonlyArray<Step> }>;
@@ -38,7 +40,7 @@ export default function ProcessSection({ tag, title, steps }: Props) {
   const litFor = (i: number) => clamp((lineP * n - i) / 0.7);
 
   return (
-    <section ref={ref} style={{ background: INK, padding: "100px 40px" }}>
+    <section ref={ref} style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 64 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 20 }}>
