@@ -272,6 +272,81 @@ export const deCH = {
       },
       mission:{ tag:"MISSION", title:"Unsere Mission", p:"Schweizer Arztpraxen mit zuverlässiger, sicherer und moderner IT-Infrastruktur zu stärken — damit sich Ärztinnen und Ärzte auf ihre Patienten konzentrieren können." },
       vision:{ tag:"VISION", title:"Unsere Vision", p:"Der führende spezialisierte IT-Partner für Arztpraxen in der Schweiz zu werden, anerkannt für technische Exzellenz und proaktiven Service." },
+      stats:[
+        { n:"5+", l:"betreute Kliniken" },
+        { n:"60+", l:"unterstützte Fachkräfte" },
+        { n:"99.9%", l:"Uptime-Ziel" },
+        { n:"100%", l:"Swiss-hosted Daten" },
+        { n:"24/7", l:"Monitoring" },
+      ],
+      pillars:{
+        tag:"WAS WIR TUN",
+        title:"Vier Säulen der Praxis-IT",
+        items:[
+          { title:"Sichere IT-Infrastruktur", desc:"Firewalls, Netzwerksegmentierung, VPN und Endpoint-Schutz — konzipiert für Arztpraxen. Wir bauen widerstandsfähige, überwachte Infrastruktur, die Ihre Praxis am Laufen hält." },
+          { title:"Integration medizinischer Software", desc:"tomedo, Labor-Middleware, HIN- und EPD-Anbindung — durchgängig integriert. Wir sprechen HL7 und den Praxisalltag gleichermassen." },
+          { title:"Automatisierung & KI für Praxen", desc:"Workflow-Automatisierung und mehrsprachige KI-Sprachassistenten, die Ihrem Team Routinearbeit abnehmen. Von der Terminbuchung bis zum Laborbefund-Routing." },
+          { title:"Compliance & Sicherheit", desc:"nDSG-, revDSG- und FMH-konforme Prozesse mit Verschlüsselung und Audit-Logging von Haus aus. Sicherheit ist eingebaut, nicht nachgerüstet." },
+        ],
+      },
+      journey:{
+        tag:"UNSER WEG",
+        title:"Wie wir hierher kamen",
+        items:[
+          { title:"Jahre Erfahrung in der Praxis-IT", text:"Praktische Arbeit an der Integration medizinischer Systeme in Schweizer Praxen — Labore, EMR, Netzwerke und alles dazwischen." },
+          { title:"Aufbau des Jerumed-Kliniknetzwerks", text:"Die Betreuung einer wachsenden Gruppe von Praxen gab uns tiefen Einblick, wie Arztpraxen im Alltag wirklich funktionieren." },
+          { title:"Standardisierung der Infrastruktur", text:"Wir haben Hosting, Backups, Monitoring und Sicherheit zu einem wiederholbaren, in der Schweiz gehosteten Stack standardisiert." },
+          { title:"KI-Sprachassistenten im Einsatz", text:"Mehrsprachige Sprachassistenten gingen in Produktion, übernehmen Réception-Abläufe und entlasten das Personal für die Patientenbetreuung." },
+          { title:"Start von Jerumed Nexus", text:"Wir haben jahrelange Erfahrung in einen dedizierten IT-Partner für Arztpraxen in der ganzen Schweiz gebündelt." },
+        ],
+      },
+      why:{
+        tag:"WARUM JERUMED NEXUS",
+        title:"Was uns auszeichnet",
+        items:[
+          { title:"Swiss-hosted by default", text:"Ihre Daten bleiben in der Schweiz, auf Schweizer Infrastruktur. Datenhaltung ist kein Zusatz — sie ist der Standard." },
+          { title:"Medizin zuerst, nicht IT zuerst", text:"Wir beginnen bei klinischen Abläufen und Regulierung und setzen dann die Technik ein. Sie erhalten IT, die zur Medizin passt — nicht umgekehrt." },
+          { title:"Open Source, wo es zählt", text:"Wir bevorzugen transparente, prüfbare Open-Source-Werkzeuge gegenüber Blackboxes. Kein Lock-in, keine versteckten Abhängigkeiten." },
+          { title:"Moderne DevOps-Disziplin", text:"CI/CD, Infrastructure as Code, Monitoring und getestete Backups in jedem Projekt. Die Zuverlässigkeit eines modernen Software-Teams." },
+          { title:"KI & Automatisierung als Standard", text:"Sprachassistenten und Workflow-Automatisierung gehören zum Werkzeugkasten, nicht zum teuren Extra. Wir automatisieren die Routine, damit Ihr Team es nicht muss." },
+          { title:"Ein Partner, voller Stack", text:"Von der Firewall über die Website bis zum KI-Assistenten — ein verantwortlicher Partner. Kein Fingerzeigen zwischen Anbietern." },
+        ],
+      },
+      compliance:{
+        tag:"COMPLIANCE & STANDARDS",
+        title:"Nach Schweizer Standards gebaut",
+        badges:["nDSG / revDSG","EQUAM-ready","FMH-Audit-konform","HIN-kompatibel","Schweizer Datenhaltung","ISO-27001-orientierte Prozesse"],
+        disclaimer:"Jerumed Nexus arbeitet im Einklang mit diesen Rahmenwerken. Einzelne Zertifizierungen können für spezifische Projekte gelten.",
+      },
+      team:{
+        tag:"UNSER TEAM",
+        title:"Die Menschen hinter Jerumed Nexus",
+        members:[
+          { role:"Gründer & CEO", bio:"Gründer von Jerumed Nexus mit jahrelanger Erfahrung in der Integration medizinischer Systeme für Schweizer Praxen. Spezialisiert auf Netzwerkarchitektur, Systemadministration und medizinische IT. Verbindet klinische Anforderungen mit technischen Lösungen." },
+          { role:"Cybersecurity-Berater", bio:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response. Hält die Praxis-Infrastruktur gegen moderne Bedrohungen abgesichert. Sorgt dafür, dass die Compliance jederzeit audit-bereit bleibt." },
+          { role:"DevOps & Web Developer", bio:"Verantwortlich für DevOps, Cloud-Infrastruktur und Automatisierung über die gesamte Plattform. Entwickelt und betreibt die zweisprachigen Web-Plattformen und CI/CD-Pipelines. Fokussiert auf Zuverlässigkeit, Sicherheit und moderne Entwicklungspraktiken." },
+          { role:"Technischer Support", bio:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb. Übernimmt Remote- und Vor-Ort-Support, damit Ihre Praxis nie ins Stocken gerät. Schnell, freundlich und praxisnah." },
+        ],
+      },
+      partners:{
+        tag:"PARTNER & ÖKOSYSTEM",
+        title:"Mit wem wir arbeiten",
+        groups:{ hosting:"Hosting-Partner", software:"Praxissoftware-Partner", network:"Netzwerk" },
+      },
+      testimonials:{
+        tag:"FALLNOTIZEN",
+        title:"In ihren Worten",
+        items:[
+          { quote:"Zweisprachige Klinik-Website mit Schema.org-Markup für Medizin und umfassendem SEO umgesetzt — organischer Traffic innerhalb von 6 Monaten deutlich gestiegen.", attribution:"Jerumed Klinik-Netzwerk, Schweiz" },
+          { quote:"KI-Sprachassistent-Infrastruktur von US-Google-Cloud auf einen Schweizer Infomaniak-VPS migriert für nDSG-Konformität — keine Patientendaten verlassen die Schweiz.", attribution:"JeruHealth GmbH" },
+        ],
+      },
+      cta:{
+        tag:"LOSLEGEN",
+        title:"Bauen wir Ihre Praxis-IT",
+        primary:"Discovery-Call buchen",
+        secondary:"Unsere Pakete ansehen",
+      },
     },
     technology: {
       heroTitle:"Technologie-Stack",

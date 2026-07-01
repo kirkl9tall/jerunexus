@@ -268,6 +268,81 @@ export const en = {
       },
       mission:{ tag:"MISSION", title:"Our Mission", p:"To empower Swiss medical practices with reliable, secure and modern IT infrastructure — so that doctors can focus on their patients." },
       vision:{ tag:"VISION", title:"Our Vision", p:"To become the leading specialized IT partner for medical practices in Switzerland, recognized for technical excellence and proactive service." },
+      stats:[
+        { n:"5+", l:"clinics under management" },
+        { n:"60+", l:"medical staff supported" },
+        { n:"99.9%", l:"uptime target" },
+        { n:"100%", l:"Swiss-hosted data" },
+        { n:"24/7", l:"monitoring" },
+      ],
+      pillars:{
+        tag:"WHAT WE DO",
+        title:"Four pillars of practice IT",
+        items:[
+          { title:"Secure IT Infrastructure", desc:"Firewalls, network segmentation, VPN and endpoint protection engineered for medical practices. We build resilient, monitored infrastructure that keeps your practice running." },
+          { title:"Medical Software Integration", desc:"tomedo, lab middleware, HIN and EPD connectivity, integrated end to end. We speak both HL7 and the daily reality of your practice." },
+          { title:"Automation & AI for Practices", desc:"Workflow automation and multilingual AI voice agents that take routine work off your team. From appointment booking to lab-result routing." },
+          { title:"Compliance & Security", desc:"nDSG, revDSG and FMH-aligned processes with encryption and audit logging by default. Security is built in, not bolted on." },
+        ],
+      },
+      journey:{
+        tag:"OUR JOURNEY",
+        title:"How we got here",
+        items:[
+          { title:"Years of practice IT experience", text:"Hands-on work integrating medical systems across Swiss practices — labs, EMRs, networks and everything in between." },
+          { title:"Jerumed clinic network launch", text:"Supporting a growing group of clinics gave us deep insight into how medical practices actually run day to day." },
+          { title:"Infrastructure standardization", text:"We standardized hosting, backups, monitoring and security into a repeatable, Swiss-hosted stack." },
+          { title:"AI voice agents in production", text:"Multilingual voice agents went live, handling reception workflows and freeing staff for patient care." },
+          { title:"Jerumed Nexus launched", text:"We packaged years of experience into a dedicated IT partner for medical practices across Switzerland." },
+        ],
+      },
+      why:{
+        tag:"WHY JERUMED NEXUS",
+        title:"What sets us apart",
+        items:[
+          { title:"Swiss-hosted by default", text:"Your data stays in Switzerland, on Swiss infrastructure. Data residency isn't an add-on — it's the default." },
+          { title:"Medical-first, not IT-first", text:"We start from clinical workflows and regulation, then apply the technology. You get IT that fits medicine, not the other way around." },
+          { title:"Open source where it matters", text:"We favour transparent, auditable open-source tools over black boxes. No lock-in, no hidden dependencies." },
+          { title:"Modern DevOps discipline", text:"CI/CD, infrastructure as code, monitoring and tested backups on every project. The reliability of a modern software team." },
+          { title:"AI & automation as standard", text:"Voice agents and workflow automation are part of the toolkit, not a costly extra. We automate the routine so your team doesn't have to." },
+          { title:"One partner, full stack", text:"From firewall to website to AI agent — one accountable partner. No finger-pointing between vendors." },
+        ],
+      },
+      compliance:{
+        tag:"COMPLIANCE & STANDARDS",
+        title:"Built to Swiss standards",
+        badges:["nDSG / revDSG","EQUAM-ready","FMH audit-aligned","HIN-compatible","Swiss data residency","ISO 27001-aligned practices"],
+        disclaimer:"Jerumed Nexus operates in alignment with these frameworks. Individual certifications may apply to specific engagements.",
+      },
+      team:{
+        tag:"OUR TEAM",
+        title:"The people behind Jerumed Nexus",
+        members:[
+          { role:"Founder & CEO", bio:"Founder of Jerumed Nexus with years of experience integrating medical systems for Swiss practices. Specialises in network architecture, system administration and medical IT. Bridges the gap between clinical needs and technical solutions." },
+          { role:"Cybersecurity Consultant", bio:"External specialist for penetration testing, FMH audits and incident response. Keeps practice infrastructure hardened against modern threats. Ensures compliance stays audit-ready." },
+          { role:"DevOps & Web Developer", bio:"Responsible for DevOps, cloud infrastructure and automation across the platform. Builds and ships the bilingual web platforms and CI/CD pipelines. Focused on reliability, security and modern developer practices." },
+          { role:"Technical Support", bio:"Your direct contact for daily IT operations. Handles remote and on-site support so your practice never skips a beat. Fast, friendly and practice-aware." },
+        ],
+      },
+      partners:{
+        tag:"PARTNERS & ECOSYSTEM",
+        title:"Who we work with",
+        groups:{ hosting:"Hosting Partners", software:"Medical Software Partners", network:"Network" },
+      },
+      testimonials:{
+        tag:"CASE NOTES",
+        title:"In their words",
+        items:[
+          { quote:"Deployed a bilingual clinic website with Schema.org medical markup and full SEO — organic traffic up significantly within 6 months.", attribution:"Jerumed clinic network, Switzerland" },
+          { quote:"Migrated AI voice agent infrastructure from US Google Cloud to Swiss Infomaniak VPS for nDSG compliance — zero patient data leaves Switzerland.", attribution:"JeruHealth GmbH" },
+        ],
+      },
+      cta:{
+        tag:"GET STARTED",
+        title:"Let's build your practice IT",
+        primary:"Book a discovery call",
+        secondary:"See our packages",
+      },
     },
     technology: {
       heroTitle:"Technology Stack",
