@@ -29,7 +29,7 @@ export const deCH = {
   highlights: [
     { t:"IT-Sicherheit & Compliance", d:"FMH IT-Grundschutz Audits, DSG-Konformität, Firewall und Endpoint-Schutz für Arztpraxen." },
     { t:"Netzwerk & Infrastruktur", d:"VLAN-Segmentierung, OPNsense Firewall, WireGuard VPN für Multi-Standort-Praxen." },
-    { t:"Praxissoftware Integration", d:"tomedo EMR, Online-Terminbuchung, Viollier V-Box und Labor-Middleware-Anbindung." },
+    { t:"Praxissoftware Integration", d:"tomedo EMR, Online-Terminbuchung, nexus-connect und Labor-Middleware-Anbindung." },
   ],
 
   about: {

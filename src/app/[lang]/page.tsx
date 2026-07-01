@@ -2,13 +2,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { getDictionary, locales } from "@/lib/translations";
+import { getDictionary } from "@/lib/translations";
+import Navbar from "@/components/Navbar";
 import ComplianceSection from "@/components/home/ComplianceSection";
 import ProcessSection from "@/components/home/ProcessSection";
 
 const B  = "#2563EB";
 const BD = "#1d4ed8";
 const INK = "#0A0A0A";
+// Deep navy gradient + subtle grid — for the dark landing sections (matches the reference).
+const NAVY_BG = "linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),radial-gradient(900px 520px at 12% 12%,rgba(37,99,235,.20),transparent 60%),linear-gradient(160deg,#0c1f3d 0%,#0a1830 55%,#081326 100%)";
+const NAVY_SIZE = "44px 44px,44px 44px,100% 100%,100% 100%";
 
 // Medical practice solutions we integrate & support.
 const PARTNER_LOGOS = [
@@ -133,106 +137,18 @@ export default function Home() {
   const lang   = String(params.lang ?? "de-CH");
   const t      = getDictionary(lang);
 
-  const [menu, setMenu]     = useState(false);
-  const [lm, setLm]         = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [checks, setChecks] = useState([false,false,false,false,false,false]);
   const score = checks.filter(Boolean).length;
   const tier = scoreTier(score);
 
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", h, { passive: true });
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-
-  const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenu(false); };
-  const navClick = (i: number) => { i === 0 ? go("hero") : router.push(`/${lang}/${t.nav.links[i]}`); setMenu(false); };
+  const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
 
   return (
     <div style={{ background: "#fff", color: INK, fontFamily: "'Inter',system-ui,sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-      {/* ── NAV ── */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: scrolled ? "rgba(10,10,10,.97)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,.07)" : "none", transition: "all .3s" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-
-          <button style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: 0 }} onClick={() => go("hero")}>
-            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: "#fff", letterSpacing: "-.01em" }}>
-              jerumed<span style={{ color: B }}>nexus</span>
-            </span>
-          </button>
-
-          {/* Desktop links */}
-          <div className="hide-m show-d" style={{ display: "none", alignItems: "center", gap: 36 }}>
-            {t.nav.items.map((n, i) => (
-              <button key={n} onClick={() => navClick(i)}
-                style={{ background: "none", border: "none", color: "rgba(255,255,255,.55)", fontSize: 14, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".01em", transition: "color .2s" }}
-                onMouseOver={(e) => (e.currentTarget.style.color = "#fff")}
-                onFocus={(e) => (e.currentTarget.style.color = "#fff")}
-                onMouseOut={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.55)")}
-                onBlur={(e) => (e.currentTarget.style.color = "rgba(255,255,255,.55)")}>{n}</button>
-            ))}
-            <div style={{ position: "relative" }}>
-              <button onClick={() => setLm(!lm)}
-                style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.1)", padding: "6px 14px", color: "rgba(255,255,255,.7)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, transition: "all .2s" }}>
-                {t.langLabel} <span style={{ fontSize: 8 }}>▾</span>
-              </button>
-              {lm && (
-                <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, background: "#1a1a1a", border: "1px solid rgba(255,255,255,.1)", padding: 4, minWidth: 160, zIndex: 10 }}>
-                  {locales.map((l) => {
-                    const ld = getDictionary(l);
-                    return (
-                      <button key={l} onClick={() => { router.push(`/${l}`); setLm(false); }}
-                        style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", background: lang === l ? "rgba(37,99,235,.15)" : "none", border: "none", color: lang === l ? B : "rgba(255,255,255,.6)", fontSize: 13, fontFamily: "inherit", cursor: "pointer" }}>
-                        {ld.langFull}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-            <button onClick={() => router.push("/portal/login")}
-              style={{ background: B, border: "none", padding: "10px 24px", color: "#fff", fontSize: 13, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".04em", transition: "background .2s" }}
-              onMouseOver={(e) => (e.currentTarget.style.background = BD)}
-              onFocus={(e) => (e.currentTarget.style.background = BD)}
-              onMouseOut={(e) => (e.currentTarget.style.background = B)}
-              onBlur={(e) => (e.currentTarget.style.background = B)}>{t.nav.cta}</button>
-          </div>
-
-          {/* Hamburger — mobile only */}
-          <button className="show-m" style={{ background: "none", border: "none", padding: 8, cursor: "pointer" }} onClick={() => setMenu(!menu)} aria-label="Menu">
-            {[0,1,2].map((i) => {
-              let transform = "none";
-              if (menu && i === 0) transform = "rotate(45deg) translateY(7.5px)";
-              else if (menu && i === 2) transform = "rotate(-45deg) translateY(-7.5px)";
-              return (
-                <div key={i} style={{ width: 22, height: 1.5, background: "#fff", margin: i === 1 ? "6px 0" : "0", transition: "all .25s",
-                  opacity: menu && i === 1 ? 0 : 1, transform }} />
-              );
-            })}
-          </button>
-        </div>
-
-        {menu && (
-          <div style={{ background: INK, padding: "20px 40px 28px", borderTop: "1px solid rgba(255,255,255,.07)" }}>
-            {t.nav.items.map((n, i) => (
-              <button key={n} onClick={() => navClick(i)} style={{ display: "block", width: "100%", textAlign: "left", padding: "13px 0", background: "none", border: "none", borderBottom: "1px solid rgba(255,255,255,.06)", color: "#fff", fontSize: 15, fontFamily: "inherit", cursor: "pointer" }}>{n}</button>
-            ))}
-            <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
-              {locales.map((l) => {
-                const ld = getDictionary(l);
-                return (
-                  <button key={l} onClick={() => { router.push(`/${l}`); setMenu(false); }}
-                    style={{ padding: "7px 14px", border: `1px solid ${lang === l ? B : "rgba(255,255,255,.15)"}`, background: "none", color: lang === l ? B : "rgba(255,255,255,.5)", fontSize: 12, fontFamily: "'DM Mono',monospace", cursor: "pointer" }}>
-                    {ld.langLabel}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </nav>
+      {/* Shared site nav — transparent over the hero, white when sticky */}
+      <Navbar />
 
       {/* ══════════════════════════════════════
           HERO — full dark, editorial headline
@@ -430,7 +346,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           CHECKLIST — dark
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "100px 40px" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -532,7 +448,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           SLA
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "100px 40px" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
@@ -624,7 +540,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           CTA BANNER — dark full-bleed
       ══════════════════════════════════════ */}
-      <section style={{ background: INK, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: 0, top: 0, width: "40%", height: "100%", opacity: .08, overflow: "hidden" }}>
           <Image src="/sheildit.webp" alt="" fill style={{ objectFit: "cover" }} />
         </div>

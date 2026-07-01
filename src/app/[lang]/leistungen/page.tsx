@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 import { getDictionary } from "@/lib/translations";
 import PageLayout from "@/components/PageLayout";
+import CapabilitiesCatalog from "@/components/CapabilitiesCatalog";
 
 const B   = "#2563EB";
 const INK = "#0A0A0A";
@@ -63,16 +64,17 @@ export default function ServicesPage() {
                 <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
               </div>
 
-              <div className="sg" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0, border: "1px solid #E5E7EB" }}>
-                {g.indices.map((idx, ci) => {
+              {/* Container draws the top + left edges; every cell draws its right + bottom.
+                  This keeps the grid lines complete even when a group's last row is partial. */}
+              <div className="sg" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0, borderTop: "1px solid #E5E7EB", borderLeft: "1px solid #E5E7EB" }}>
+                {g.indices.map((idx) => {
                   const s = t.services.items[idx];
                   if (!s) return null;
-                  const cols = g.indices.length;
                   return (
                     <a key={idx} href={`/${lang}/leistungen/${slugs[idx]}`} style={{ textDecoration: "none", color: "inherit" }}>
-                      <div className="svc-card" style={{ borderRight: ci < cols - 1 ? "1px solid #E5E7EB" : "none", height: "100%" }}>
+                      <div className="svc-card" style={{ borderTop: "none", borderRight: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", height: "100%" }}>
                         <div className="svc-ico" style={{ width: 44, height: 44, background: "#F3F4F6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, transition: "background .2s" }}>
-                          <span style={{ fontFamily: "'DM Mono',monospace", fontWeight: 500, fontSize: 13, color: B }}>{String(idx + 1).padStart(2, "0")}</span>
+                          <span className="svc-num" style={{ fontFamily: "'DM Mono',monospace", fontWeight: 500, fontSize: 13 }}>{String(idx + 1).padStart(2, "0")}</span>
                         </div>
                         <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 16, fontWeight: 600, color: INK, marginBottom: 10 }}>{s.t}</h3>
                         <p style={{ fontSize: 13, lineHeight: 1.65, color: "#6B7280", marginBottom: 20 }}>{s.d}</p>
@@ -84,6 +86,14 @@ export default function ServicesPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Specialised solutions & productized add-ons */}
+      <section style={{ borderTop: "1px solid #E5E7EB", padding: "90px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          {/* Shared capabilities catalog (the same block also appears on the Technology page). */}
+          <CapabilitiesCatalog data={t.pages.technology.capabilities} />
         </div>
       </section>
 
