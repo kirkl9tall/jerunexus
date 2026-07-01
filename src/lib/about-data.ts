@@ -4,12 +4,13 @@
 // ordering ids, and partner entities. The page zips each array with the
 // matching dictionary array by index.
 
+// `icon` is a key into the ICONS map in the About page (stroke SVGs, site style).
 export type Pillar = { id: string; icon: string };
 export const pillars: Pillar[] = [
-  { id: "infra", icon: "🖥️" },
-  { id: "software", icon: "🔗" },
-  { id: "automation", icon: "🤖" },
-  { id: "compliance", icon: "🛡️" },
+  { id: "infra", icon: "server" },
+  { id: "software", icon: "link" },
+  { id: "automation", icon: "cpu" },
+  { id: "compliance", icon: "shield" },
 ];
 
 export type JourneyMilestone = { id: string };
@@ -23,12 +24,12 @@ export const journey: JourneyMilestone[] = [
 
 export type Differentiator = { id: string; icon: string };
 export const differentiators: Differentiator[] = [
-  { id: "swiss", icon: "🇨🇭" },
-  { id: "medical-first", icon: "🩺" },
-  { id: "open-source", icon: "🧩" },
-  { id: "devops", icon: "⚙️" },
-  { id: "ai", icon: "✨" },
-  { id: "one-partner", icon: "🤝" },
+  { id: "swiss", icon: "pin" },
+  { id: "medical-first", icon: "pulse" },
+  { id: "open-source", icon: "code" },
+  { id: "devops", icon: "gear" },
+  { id: "ai", icon: "zap" },
+  { id: "one-partner", icon: "layers" },
 ];
 
 // Labels live in the dictionary (compliance.badges), same order as this array.

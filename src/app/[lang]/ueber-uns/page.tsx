@@ -11,6 +11,30 @@ const OFF  = "#F5F5F3";
 const LINE  = "#E5E7EB";
 const MUTED = "#6B7280";
 
+// Stroke-icon set (lucide-style, matching the site's Services icons). Keyed by
+// the `icon` field on pillars/differentiators in lib/about-data.ts.
+const ICONS: Record<string, React.ReactNode> = {
+  server: <><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><line x1="6" y1="7" x2="6.01" y2="7"/><line x1="6" y1="17" x2="6.01" y2="17"/></>,
+  link:   <><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></>,
+  cpu:    <><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></>,
+  shield: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></>,
+  pin:    <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></>,
+  pulse:  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>,
+  code:   <><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></>,
+  gear:   <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></>,
+  zap:    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/>,
+  layers: <><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>,
+};
+
+/** Icon in a square tile — turns blue with a white glyph when its card is hovered. */
+function IconTile({ name }: Readonly<{ name: string }>) {
+  return (
+    <div className="ab-ico" style={{ width: 48, height: 48, background: OFF, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, flexShrink: 0, transition: "background .2s" }}>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={B} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "stroke .2s" }} aria-hidden="true">{ICONS[name]}</svg>
+    </div>
+  );
+}
+
 /** Blue mono eyebrow used above each section (matches the rest of the site). */
 function Eyebrow({ children, center = false }: Readonly<{ children: React.ReactNode; center?: boolean }>) {
   return (
@@ -86,7 +110,7 @@ export default function AboutPage() {
               if (!it) return null;
               return (
                 <div key={pl.id} className="ab-card" style={{ padding: "32px 28px", background: "#fff", border: `1px solid ${LINE}` }}>
-                  <div style={{ fontSize: 30, marginBottom: 18 }}>{pl.icon}</div>
+                  <IconTile name={pl.icon} />
                   <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 18, fontWeight: 700, color: INK, marginBottom: 12, letterSpacing: "-.01em" }}>{it.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.7, color: MUTED }}>{it.desc}</p>
                 </div>
@@ -154,7 +178,7 @@ export default function AboutPage() {
               if (!it) return null;
               return (
                 <div key={d.id} className="ab-card" style={{ padding: "30px 26px", background: "#fff", border: `1px solid ${LINE}` }}>
-                  <div style={{ fontSize: 26, marginBottom: 16 }}>{d.icon}</div>
+                  <IconTile name={d.icon} />
                   <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 17, fontWeight: 700, color: INK, marginBottom: 10, letterSpacing: "-.01em" }}>{it.title}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.7, color: MUTED }}>{it.text}</p>
                 </div>
@@ -271,6 +295,8 @@ export default function AboutPage() {
       <style>{`
         .ab-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
         .ab-card:hover { border-color: #2563EB; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.06); }
+        .ab-card:hover .ab-ico { background: #2563EB; }
+        .ab-card:hover .ab-ico svg { stroke: #fff; }
         .ab-social { transition: color .2s ease; }
         .ab-social:hover { color: #2563EB; }
         .ab-logo { filter: grayscale(100%); opacity: .6; transition: filter .3s ease, opacity .3s ease; }
