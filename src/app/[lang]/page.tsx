@@ -242,28 +242,26 @@ export default function Home() {
 
         <div style={{ position: "relative", zIndex: 1, maxWidth: 1400, margin: "0 auto", padding: "120px 40px", width: "100%" }}>
           <R>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(72px,10vw,140px)", fontWeight: 700, color: "#fff", lineHeight: .88, letterSpacing: "-.04em", marginBottom: 20, textTransform: "uppercase" }}>{t.about.tag}</h2>
-            <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(18px,2vw,26px)", fontWeight: 500, color: "rgba(255,255,255,.75)", lineHeight: 1.3, marginBottom: 28, whiteSpace: "pre-line", maxWidth: 640, letterSpacing: "-.01em" }}>{t.about.title}</p>
-            <p style={{ fontSize: "clamp(14px,1.4vw,16px)", color: "rgba(255,255,255,.6)", lineHeight: 1.8, maxWidth: 520, marginBottom: 52 }}>{t.about.p}</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
+              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.pages.about.hero.eyebrow}</span>
+            </div>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(34px,5vw,64px)", fontWeight: 700, color: "#fff", lineHeight: 1.02, letterSpacing: "-.04em", marginBottom: 26, maxWidth: 860 }}>{t.pages.about.hero.title}</h2>
+            <p style={{ fontSize: "clamp(14px,1.4vw,16px)", color: "rgba(255,255,255,.62)", lineHeight: 1.8, maxWidth: 720, marginBottom: 44 }}>{t.pages.about.hero.description}</p>
           </R>
           <R delay={.1}>
-            <div style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-              {t.about.cards.map((c, i) => (
-                <div key={c.t} style={{ padding: "28px 32px", background: i === 0 ? "rgba(37,99,235,.15)" : "rgba(255,255,255,.07)", border: `1px solid ${i === 0 ? "rgba(37,99,235,.4)" : "rgba(255,255,255,.12)"}`, minWidth: 220 }}>
-                  <div style={{ width: 36, height: 36, background: i === 0 ? B : "rgba(255,255,255,.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5">
-                      {i === 0 ? <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></> : <><circle cx="12" cy="12" r="3"/><path d="M5.63 5.63l1.41 1.41M2 12h2M5.63 18.37l1.41-1.41M12 22v-2M18.37 18.37l-1.41-1.41M22 12h-2M18.37 5.63l-1.41 1.41M12 2v2"/></>}
-                    </svg>
-                  </div>
-                  <h4 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{c.t}</h4>
-                  <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,.7)" }}>{c.d}</p>
+            <div className="sg" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16, maxWidth: 860, marginBottom: 32 }}>
+              {t.pages.about.hero.cards.map((c) => (
+                <div key={c.title} style={{ padding: "26px 24px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)" }}>
+                  <h4 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10, letterSpacing: "-.01em" }}>{c.title}</h4>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: "rgba(255,255,255,.6)" }}>{c.body}</p>
                 </div>
               ))}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", padding: "28px 32px", border: "1px solid rgba(255,255,255,.08)", background: "rgba(255,255,255,.04)" }}>
-                {t.about.values.map((v) => (
-                  <span key={v} style={{ background: "rgba(37,99,235,.2)", border: "1px solid rgba(37,99,235,.35)", padding: "5px 12px", fontSize: 11, color: "#fff", fontWeight: 600, letterSpacing: ".06em", textTransform: "uppercase" }}>{v}</span>
-                ))}
-              </div>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {t.pages.about.hero.badges.map((bd) => (
+                <span key={bd} style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "rgba(255,255,255,.7)", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.14)", borderRadius: 6, padding: "8px 14px", letterSpacing: ".1em", textTransform: "uppercase" }}>{bd}</span>
+              ))}
             </div>
           </R>
         </div>
