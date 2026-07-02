@@ -246,7 +246,7 @@ export default function Home() {
               <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
               <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.pages.about.hero.eyebrow}</span>
             </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(34px,5vw,64px)", fontWeight: 700, color: "#fff", lineHeight: 1.02, letterSpacing: "-.04em", marginBottom: 26, maxWidth: 860 }}>{t.pages.about.hero.title}</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(44px,7vw,96px)", fontWeight: 700, color: "#fff", lineHeight: .98, letterSpacing: "-.04em", marginBottom: 30, maxWidth: 1040 }}>{t.pages.about.hero.title}</h2>
             <p style={{ fontSize: "clamp(14px,1.4vw,16px)", color: "rgba(255,255,255,.62)", lineHeight: 1.8, maxWidth: 720, marginBottom: 44 }}>{t.pages.about.hero.description}</p>
           </R>
           <R delay={.1}>
