@@ -14,15 +14,24 @@ export async function POST(req: Request) {
   if (!plan) return NextResponse.json({ error: apiMsg("planNotFound") }, { status: 404 });
 
   const sub = await prisma.subscription.findUnique({ where: { userId } });
-  if (!sub) return NextResponse.json({ error: apiMsg("noSubscription") }, { status: 404 });
 
-  if (sub.planId === plan.id) {
+  if (sub?.planId === plan.id) {
     return NextResponse.json({ error: apiMsg("alreadyOnPlan") }, { status: 400 });
   }
 
-  await prisma.subscription.update({
+  // Record the upgrade request. If the client has no subscription yet (never
+  // assigned a plan), start them on the free tier with the requested plan
+  // pending — mirrors the admin setPlan upsert so the request always goes through.
+  const freePlan = sub ? null : await prisma.plan.findUnique({ where: { key: "free" } });
+  await prisma.subscription.upsert({
     where: { userId },
-    data: { requestedPlanId: plan.id, status: "pending_upgrade" },
+    update: { requestedPlanId: plan.id, status: "pending_upgrade" },
+    create: {
+      userId,
+      planId: freePlan?.id ?? plan.id,
+      requestedPlanId: plan.id,
+      status: "pending_upgrade",
+    },
   });
 
   return NextResponse.json({ ok: true });
