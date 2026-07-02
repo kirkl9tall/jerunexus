@@ -262,6 +262,16 @@ export const en = {
     about: {
       heroTitle:"About Jerumed Nexus",
       heroSub:"Where healthcare meets technology",
+      hero:{
+        eyebrow:"WHY CHOOSE US",
+        title:"One partner for every layer of your practice IT",
+        description:"Jerumed Nexus is the specialized IT partner Swiss medical practices have been missing. We design, deploy, and operate the full stack behind a modern clinic — secure Swiss-hosted infrastructure, medical software integration (tomedo, HL7/ASTM/LOINC labs, DICOM/PACS, HIN), practice websites and patient portals, telemedicine, AI voice receptionists, and n8n-powered workflow automation. From a solo practice to a 60-person group clinic, we bring hyperscaler-grade DevOps discipline — CI/CD, monitoring, tested backups, 24/7 uptime — while keeping every byte of patient data inside Switzerland and aligned with nDSG, EQUAM, and FMH standards. One partner, one accountable team, zero coordination overhead.",
+        cards:[
+          { title:"Swiss-Hosted & nDSG-Compliant", body:"All patient data stays in Switzerland on Infomaniak infrastructure. Aligned with nDSG/revDSG, FMH IT-Grundschutz, and EQUAM-ready processes." },
+          { title:"Medical-First, Not IT-First", body:"Built by engineers who've integrated tomedo, wired HL7 labs, and configured HIN — not generalist MSPs learning healthcare on your dime." },
+        ],
+        badges:["MEDICAL EXPERTISE","SWISS-HOSTED","DEVOPS DISCIPLINE","AI & AUTOMATION","24/7 MONITORING","OPEN SOURCE"],
+      },
       story:{ tag:"OUR STORY", title:"Founded on experience,\nbuilt on trust",
         p1:"Jerumed Nexus was born from direct experience with the IT challenges of medical practices in Switzerland. Our founder has worked for years integrating medical systems — from laboratory connectivity to EMR configuration to network architecture.",
         p2:"Today we offer a complete IT services portfolio specifically tailored to the requirements of the Swiss healthcare sector. We understand not just the technology, but also the medical processes, regulatory requirements and daily practice operations.",

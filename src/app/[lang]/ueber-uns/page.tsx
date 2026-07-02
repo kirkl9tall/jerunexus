@@ -75,15 +75,39 @@ export default function AboutPage() {
 
   return (
     <PageLayout>
-      {/* 1 · Hero */}
-      <section style={{ background: INK, padding: "140px 40px 80px" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+      {/* 1 · Hero — Why choose us */}
+      <section style={{ position: "relative", background: INK, padding: "160px 40px 90px", overflow: "hidden" }}>
+        {/* Background image + gradient overlay (same treatment as the home hero) */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", backgroundImage: "url('/digitalisation.webp')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(10,10,10,.82) 0%, rgba(10,10,10,.7) 55%, rgba(10,10,10,.9) 100%)" }} />
+        </div>
+
+        <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
             <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{p.story.tag}</span>
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{p.hero.eyebrow}</span>
           </div>
-          <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(40px,6vw,80px)", fontWeight: 700, color: "#fff", lineHeight: .95, letterSpacing: "-.04em", marginBottom: 20 }}>{p.heroTitle}</h1>
-          <p style={{ fontSize: 18, color: "rgba(255,255,255,.4)", maxWidth: 560 }}>{p.heroSub}</p>
+
+          <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(36px,5.5vw,68px)", fontWeight: 700, color: "#fff", lineHeight: 1, letterSpacing: "-.04em", marginBottom: 28, maxWidth: 920 }}>{p.hero.title}</h1>
+
+          <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,.62)", maxWidth: 780, marginBottom: 44 }}>{p.hero.description}</p>
+
+          {/* Feature cards */}
+          <div className="ab-hero-cards" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 920, marginBottom: 36 }}>
+            {p.hero.cards.map((c) => (
+              <div key={c.title} style={{ padding: "26px 24px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)" }}>
+                <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 16.5, fontWeight: 700, color: "#fff", marginBottom: 10, letterSpacing: "-.01em" }}>{c.title}</h3>
+                <p style={{ fontSize: 13.5, lineHeight: 1.7, color: "rgba(255,255,255,.6)" }}>{c.body}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Badge row */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {p.hero.badges.map((bd) => (
+              <span key={bd} style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "rgba(255,255,255,.7)", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.14)", borderRadius: 6, padding: "8px 14px", letterSpacing: ".1em", textTransform: "uppercase" }}>{bd}</span>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -308,7 +332,7 @@ export default function AboutPage() {
         }
         @media (max-width: 720px) {
           .ab-stats { grid-template-columns: repeat(2,1fr) !important; gap: 32px 16px !important; }
-          .ab-4, .ab-3, .ab-2 { grid-template-columns: 1fr !important; }
+          .ab-4, .ab-3, .ab-2, .ab-hero-cards { grid-template-columns: 1fr !important; }
           .ab-prow { align-items: flex-start !important; }
         }
       `}</style>

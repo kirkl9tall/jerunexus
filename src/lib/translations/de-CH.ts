@@ -264,6 +264,16 @@ export const deCH = {
     about: {
       heroTitle:"Über Jerumed Nexus",
       heroSub:"Wo Gesundheitswesen auf Technologie trifft",
+      hero:{
+        eyebrow:"WARUM WIR",
+        title:"Ein Partner für jede Ebene Ihrer Praxis-IT",
+        description:"Jerumed Nexus ist der spezialisierte IT-Partner, den Schweizer Arztpraxen bisher vermisst haben. Wir konzipieren, implementieren und betreiben den gesamten Stack einer modernen Praxis — sichere Swiss-hosted Infrastruktur, medizinische Software-Integration (tomedo, HL7/ASTM/LOINC-Labore, DICOM/PACS, HIN), Praxis-Websites und Patientenportale, Telemedizin, KI-Telefonassistenten und n8n-basierte Workflow-Automatisierung. Von der Einzelpraxis bis zur Gruppenpraxis mit 60 Mitarbeitenden bringen wir Hyperscaler-Grade DevOps — CI/CD, Monitoring, getestete Backups, 24/7 Uptime — und halten jedes Byte an Patientendaten in der Schweiz, konform mit nDSG, EQUAM und FMH.",
+        cards:[
+          { title:"Swiss-Hosted & nDSG-konform", body:"Alle Patientendaten bleiben in der Schweiz auf Infomaniak-Infrastruktur. Konform mit nDSG/revDSG, FMH IT-Grundschutz und EQUAM-ready Prozessen." },
+          { title:"Medizin zuerst, nicht IT zuerst", body:"Von Ingenieuren gebaut, die tomedo integriert, HL7-Labore verkabelt und HIN konfiguriert haben — keine generalistischen MSPs, die Healthcare auf Ihre Kosten lernen." },
+        ],
+        badges:["MEDIZINISCHE EXPERTISE","SWISS-HOSTED","DEVOPS-DISZIPLIN","KI & AUTOMATION","24/7 MONITORING","OPEN SOURCE"],
+      },
       story:{
         tag:"UNSERE GESCHICHTE",
         title:"Gegründet aus Erfahrung,\ngebaut auf Vertrauen",
