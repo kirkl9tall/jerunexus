@@ -162,9 +162,9 @@ export default function Home() {
         <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px 80px", width: "100%", paddingTop: 160, position: "relative", zIndex: 1 }}>
 
           {/* Eyebrow */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 40 }}>
-            <span style={{ display: "inline-block", width: 32, height: 1, background: B }} />
-            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: "#fff", letterSpacing: ".14em", textTransform: "uppercase" }}>{t.hero.pre}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 40 }}>
+            <span style={{ display: "inline-block", width: 44, height: 2, background: B }} />
+            <span style={{ fontFamily: "'DM Mono',monospace", fontSize: "clamp(16px,1.9vw,24px)", fontWeight: 500, color: "#fff", letterSpacing: ".16em", textTransform: "uppercase" }}>{t.hero.pre}</span>
           </div>
 
           {/* Headline — massive */}
