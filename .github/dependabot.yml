@@ -1,0 +1,37 @@
+# Dependabot keeps dependencies current and opens PRs when updates are available.
+# Security alerts + auto-fix PRs for *vulnerable* deps are enabled separately in
+# the repo UI (Settings → Code security and analysis) — this file controls the
+# regular version-update PRs. Docs: https://docs.github.com/code-security/dependabot
+version: 2
+updates:
+  # ── Node / npm (the Next.js app) ─────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels: ["dependencies"]
+    groups:
+      # Bundle low-risk minor/patch bumps into one PR to cut noise; majors stay separate.
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+
+  # ── GitHub Actions used in the CI/deploy workflows ───────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["ci"]
+
+  # ── Docker base images ───────────────────────────────────────────────────
+  - package-ecosystem: "docker"
+    directory: "/"          # app Dockerfile (node, etc.)
+    schedule:
+      interval: "weekly"
+    labels: ["docker"]
+
+  - package-ecosystem: "docker"
+    directory: "/caddy"     # custom Caddy image
+    schedule:
+      interval: "weekly"
+    labels: ["docker"]
