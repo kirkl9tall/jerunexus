@@ -9,11 +9,11 @@
 # HTTPS via Let's Encrypt, reverse proxy, compression) ships with Caddy.
 ###############################################################################
 
-FROM caddy:2.8-builder AS builder
+FROM caddy:2.11-builder AS builder
 RUN xcaddy build \
     --with github.com/mholt/caddy-ratelimit
 
-FROM caddy:2.8-alpine
+FROM caddy:2.11-alpine
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
 # Run as an unprivileged user. `cap_net_bind_service` lets the binary still bind
