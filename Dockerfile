@@ -16,7 +16,7 @@
 ###############################################################################
 
 # ---- deps -------------------------------------------------------------------
-FROM node:20-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /app
 
 # libc compat for some npm postinstall scripts on Alpine
@@ -26,7 +26,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # ---- builder ----------------------------------------------------------------
-FROM node:20-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
 
@@ -46,7 +46,7 @@ ENV NEXT_PUBLIC_SENTRY_DSN=$NEXT_PUBLIC_SENTRY_DSN
 RUN npm run build
 
 # ---- runner -----------------------------------------------------------------
-FROM node:20-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production \
