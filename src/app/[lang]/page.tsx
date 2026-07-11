@@ -554,7 +554,7 @@ export default function Home() {
       {/* ══════════════════════════════════════
           FOOTER
       ══════════════════════════════════════ */}
-      <footer style={{ background: INK, padding: "72px 40px 36px" }}>
+      <footer className="navy-hero" style={{ padding: "72px 40px 36px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div className="fb" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 56, marginBottom: 56 }}>
             <div>
