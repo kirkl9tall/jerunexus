@@ -22,7 +22,7 @@ export default function ServiceDetail() {
 
   return (
     <PageLayout>
-      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+      <section className="navy-hero" style={{ padding: "140px 40px 80px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div style={{ display: "flex", gap: 8, marginBottom: 28, flexWrap: "wrap", alignItems: "center" }}>
             <a href={`/${lang}`} style={{ fontFamily: "'DM Mono',monospace", color: "rgba(255,255,255,.35)", fontSize: 11, textDecoration: "none", letterSpacing: ".08em" }}>Home</a>

@@ -4,8 +4,6 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { getDictionary } from "@/lib/translations";
 import Navbar from "@/components/Navbar";
-import ComplianceSection from "@/components/home/ComplianceSection";
-import ProcessSection from "@/components/home/ProcessSection";
 
 const B  = "#2563EB";
 const BD = "#1d4ed8";
@@ -30,6 +28,8 @@ const PARTNER_LOGOS = [
 // Technology vendors in our stack.
 const TECH_LOGOS = [
   { src: "/logos/tech/aws.svg", alt: "Amazon Web Services" },
+  { src: "/logos/tech/docker.svg", alt: "Docker" },
+  { src: "/logos/tech/kubernetes.svg", alt: "Kubernetes" },
   { src: "/logos/tech/cisco.png", alt: "Cisco" },
   { src: "/logos/tech/cloudflare.png", alt: "Cloudflare" },
   { src: "/logos/tech/fortinet.png", alt: "Fortinet" },
@@ -43,21 +43,6 @@ const TECH_LOGOS = [
   { src: "/logos/tech/teamviewer.png", alt: "TeamViewer" },
   { src: "/logos/tech/twilio.png", alt: "Twilio" },
 ];
-
-function LogoMarquee({ logos, reverse = false }: Readonly<{ logos: ReadonlyArray<{ src: string; alt: string }>; reverse?: boolean }>) {
-  return (
-    <div className="marquee-wrap">
-      <div className={`marquee-track${reverse ? " reverse" : ""}`}>
-        {[...logos, ...logos].map((l, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <div className="logo-item" key={`${l.alt}-${i}`}>
-            <img src={l.src} alt={l.alt} loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function R({ children, delay = 0 }: Readonly<{ children: React.ReactNode; delay?: number }>) {
   const ref = useRef<HTMLDivElement>(null);
@@ -107,14 +92,6 @@ function scoreTier(score: number): { color: string; bg: string; level: "good" | 
   if (score >= 3) return { color: "#F59E0B", bg: "rgba(245,158,11,.08)", level: "warn" };
   return { color: "#EF4444", bg: "rgba(239,68,68,.08)", level: "bad" };
 }
-
-// Icons for the "why choose us" feature list (indexed by position).
-const FEATURE_ICONS = [
-  <polygon key="p" points="13 2 3 14 12 14 11 22 21 10 12 10"/>,
-  <><rect key="r" x="3" y="11" width="18" height="11" rx="2"/><path key="p" d="M7 11V7a5 5 0 0110 0v4"/></>,
-  <><path key="p" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle key="c" cx="9" cy="7" r="4"/></>,
-  <><path key="p" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline key="pl" points="9 12 11 14 15 10"/></>,
-];
 
 const SVG_ICONS = [
   <><rect key="r" x="3" y="11" width="18" height="11" rx="2"/><path key="p" d="M7 11V7a5 5 0 0110 0v4"/><circle key="c" cx="12" cy="16" r="1"/></>,
@@ -266,39 +243,6 @@ export default function Home() {
           </R>
         </div>
       </section>
-
-      {/* ══════════════════════════════════════
-          PARTNERS
-      ══════════════════════════════════════ */}
-      <section style={{ background: B, padding: 0 }}>
-        {/* Top slider — medical practice solutions */}
-        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
-          <LogoMarquee logos={PARTNER_LOGOS} />
-        </div>
-
-        {/* Blue title in the middle — sandwiched between the two sliders */}
-        <R>
-          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "56px 40px", textAlign: "center" }}>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3.5vw,35px)", fontWeight: 700, color: "#fff", letterSpacing: "-.02em", lineHeight: 1.1, whiteSpace: "pre-line" }}>{t.partners.title}</h2>
-          </div>
-        </R>
-
-        {/* Bottom slider — technology vendors (scrolls the other way) */}
-        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
-          <LogoMarquee logos={TECH_LOGOS} reverse />
-        </div>
-
-      </section>
-
-      {/* ══════════════════════════════════════
-          COMPLIANCE — pinned scrollytelling
-      ══════════════════════════════════════ */}
-      <ComplianceSection tag={t.compliance.tag} title={t.compliance.title} badges={t.compliance.badges} />
-
-      {/* ══════════════════════════════════════
-          PROCESS — scroll-driven glowing timeline
-      ══════════════════════════════════════ */}
-      <ProcessSection tag={t.process.tag} title={t.process.title} steps={t.process.steps} />
 
       {/* ══════════════════════════════════════
           SERVICES
@@ -508,6 +452,22 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
+          LOGO WALL — trusted partners & technologies
+      ══════════════════════════════════════ */}
+      <section style={{ background: "#fff", borderTop: "1px solid #E5E7EB", padding: "56px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div className="logo-wall">
+            {[...PARTNER_LOGOS, ...TECH_LOGOS].map((l) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <div className="logo-wall-item" key={l.alt}>
+                <img src={l.src} alt={l.alt} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
           TOOLS
       ══════════════════════════════════════ */}
       <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "100px 40px" }}>
@@ -530,35 +490,6 @@ export default function Home() {
                   <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#374151", lineHeight: 1.75 }}>{s.val}</p>
                 </div>
               ))}
-            </div>
-          </R>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          CTA BANNER — dark full-bleed
-      ══════════════════════════════════════ */}
-      <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "120px 40px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", right: 0, top: 0, width: "40%", height: "100%", opacity: .08, overflow: "hidden" }}>
-          <Image src="/sheildit.webp" alt="" fill style={{ objectFit: "cover" }} />
-        </div>
-        <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative" }}>
-          <R>
-            <div style={{ maxWidth: 700 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-                <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.ctaBanner.title.split("\n")[0]}</span>
-              </div>
-              <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(36px,5vw,64px)", fontWeight: 700, color: "#fff", lineHeight: .95, letterSpacing: "-.04em", marginBottom: 28 }}>
-                {t.ctaBanner.title.split("\n").slice(1).join(" ") || t.ctaBanner.title}
-              </h2>
-              <p style={{ fontSize: 16, color: "rgba(255,255,255,.4)", lineHeight: 1.7, marginBottom: 40 }}>{t.ctaBanner.p}</p>
-              <button onClick={() => router.push(`/${lang}/kontakt`)}
-                style={{ background: B, border: "none", padding: "15px 36px", color: "#fff", fontSize: 15, fontWeight: 600, fontFamily: "inherit", cursor: "pointer", letterSpacing: ".04em", transition: "background .2s" }}
-                onMouseOver={(e) => (e.currentTarget.style.background = BD)}
-                onFocus={(e) => (e.currentTarget.style.background = BD)}
-                onMouseOut={(e) => (e.currentTarget.style.background = B)}
-                onBlur={(e) => (e.currentTarget.style.background = B)}>{t.ctaBanner.btn} →</button>
             </div>
           </R>
         </div>
@@ -621,30 +552,9 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          FEATURES BAR
-      ══════════════════════════════════════ */}
-      <div style={{ borderTop: "1px solid #E5E7EB", background: "#F5F5F3", padding: "32px 40px" }}>
-        <div className="fg" style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 32 }}>
-          {t.features.map((f, i) => (
-            <div key={f.t} style={{ display: "flex", gap: 14 }}>
-              <div style={{ width: 36, height: 36, background: B, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5">
-                  {FEATURE_ICONS[i] ?? FEATURE_ICONS[FEATURE_ICONS.length - 1]}
-                </svg>
-              </div>
-              <div>
-                <h4 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, color: INK, marginBottom: 4 }}>{f.t}</h4>
-                <p style={{ fontSize: 12, color: "#9CA3AF", lineHeight: 1.5 }}>{f.d}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════
           FOOTER
       ══════════════════════════════════════ */}
-      <footer style={{ background: INK, padding: "72px 40px 36px" }}>
+      <footer className="navy-hero" style={{ padding: "72px 40px 36px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div className="fb" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 56, marginBottom: 56 }}>
             <div>

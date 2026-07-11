@@ -13,7 +13,7 @@ export default function PrivacyPage() {
 
   return (
     <PageLayout>
-      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+      <section className="navy-hero" style={{ padding: "140px 40px 80px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
             <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />

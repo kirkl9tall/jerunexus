@@ -3,7 +3,6 @@ import { useParams } from "next/navigation";
 import { getDictionary } from "@/lib/translations";
 
 const B   = "#2563EB";
-const INK = "#0A0A0A";
 
 export default function Footer() {
   const params = useParams();
@@ -20,7 +19,7 @@ export default function Footer() {
   const colLinks = [l1Links, l2Links, l3Links];
 
   return (
-    <footer style={{ background: INK, padding: "72px 40px 36px" }}>
+    <footer className="navy-hero" style={{ padding: "72px 40px 36px" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto" }}>
         <div className="fb" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 56, marginBottom: 56 }}>
           <div>

@@ -49,6 +49,17 @@ body {
   background: var(--border);
 }
 
+/* Deep navy gradient + subtle grid — shared page-hero background (replaces the
+   flat black on inner-page heroes). Matches the SLA section on the landing page. */
+.navy-hero {
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+    radial-gradient(900px 520px at 12% 12%, rgba(37,99,235,.20), transparent 60%),
+    linear-gradient(160deg, #0c1f3d 0%, #0a1830 55%, #081326 100%);
+  background-size: 44px 44px, 44px 44px, 100% 100%, 100% 100%;
+}
+
 /* ── Highlight cards ── */
 .hl-card {
   padding: 40px 36px;
@@ -191,6 +202,33 @@ body {
   transition: filter .3s ease, opacity .3s ease;
 }
 .logo-item:hover img { filter: grayscale(0); opacity: 1; }
+
+/* Static logo wall (replaces the marquee slider on the landing page) — 4 per row */
+.logo-wall {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 24px;
+  align-items: center;
+}
+.logo-wall-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px;
+  height: 88px;
+  border: 1px solid #F0F0F0;
+}
+.logo-wall-item img {
+  max-height: 42px;
+  max-width: 170px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: .55;
+  transition: filter .3s ease, opacity .3s ease;
+}
+.logo-wall-item:hover img { filter: grayscale(0); opacity: 1; }
+@media (max-width: 640px) { .logo-wall { grid-template-columns: repeat(2, 1fr); } }
 
 /* Card that lightens on hover (CSS-only — keeps non-interactive divs accessible) */
 .hover-card { background: #fff; transition: background .2s; }

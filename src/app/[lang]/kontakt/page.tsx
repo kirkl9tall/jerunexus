@@ -49,7 +49,7 @@ export default function ContactPage() {
   return (
     <PageLayout>
       {/* Hero */}
-      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+      <section className="navy-hero" style={{ padding: "140px 40px 80px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
             <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
@@ -141,7 +141,7 @@ export default function ContactPage() {
             </div>
 
             {/* ── RIGHT: live chat connect / register ───────────────────────── */}
-            <div style={{ background: INK, padding: "44px 40px", color: "#fff", position: "sticky", top: 24 }}>
+            <div className="navy-hero" style={{ padding: "44px 40px", color: "#fff", position: "sticky", top: 24 }}>
               {/* online status */}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 28 }}>
                 <span className="live-dot" style={{ width: 9, height: 9, borderRadius: "50%", background: "#10B981", display: "inline-block", flexShrink: 0 }} />
