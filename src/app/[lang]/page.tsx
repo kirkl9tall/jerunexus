@@ -28,6 +28,8 @@ const PARTNER_LOGOS = [
 // Technology vendors in our stack.
 const TECH_LOGOS = [
   { src: "/logos/tech/aws.svg", alt: "Amazon Web Services" },
+  { src: "/logos/tech/docker.svg", alt: "Docker" },
+  { src: "/logos/tech/kubernetes.svg", alt: "Kubernetes" },
   { src: "/logos/tech/cisco.png", alt: "Cisco" },
   { src: "/logos/tech/cloudflare.png", alt: "Cloudflare" },
   { src: "/logos/tech/fortinet.png", alt: "Fortinet" },
