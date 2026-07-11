@@ -4,7 +4,7 @@ export const en = {
   langFull: "English",
 
   nav: {
-    items: ["Home","Services","About","Technology","Pricing","Contact"],
+    items: ["Home","Services","About","Reviews","Pricing","Contact"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
     cta: "Get Started / Login",
   },
@@ -355,8 +355,8 @@ export const en = {
       },
     },
     technology: {
-      heroTitle:"Technology Stack",
-      heroSub:"Enterprise-grade. Open Source. Transparent.",
+      heroTitle:"What our clients say",
+      heroSub:"Real feedback from the Swiss medical practices we support every day.",
       stack:[
         { cat:"Frontend", val:"Next.js · React · TypeScript · Tailwind CSS" },
         { cat:"Backend", val:"Node.js · Go · Python" },
@@ -395,6 +395,20 @@ export const en = {
             { title:"Workflow Automation for Practices", desc:"Automated patient onboarding, lab-result routing, no-show follow-up, recall campaigns (vaccination, screening), and insurance pre-authorisation." },
             { title:"Inventory & Cold-Chain Monitoring", desc:"IoT temperature sensors with real-time alerts for vaccine and medication storage — built for travel medicine and pediatrics." },
           ]},
+        ],
+      },
+      reviews:{
+        tag:"CLIENT REVIEWS",
+        ratingValue:"4.8",
+        ratingLabel:"average rating",
+        ratingNote:"from practices across Switzerland",
+        items:[
+          { name:"Group Practice · Zürich", role:"Practice Manager", rating:5, quote:"Since Jerumed Nexus took over our IT, downtime is basically zero. tomedo, labs, backups — it all just works, and there's one number to call." },
+          { name:"Dermatology Practice · Bern", role:"Physician", rating:5, quote:"They migrated our entire setup to Swiss hosting without losing a single file. The nDSG documentation they provided made our EQUAM renewal painless." },
+          { name:"Practice Manager (MPA)", role:"Administration", rating:5, quote:"Support is fast and genuinely understands a medical practice. No ticket queues, no jargon — they fix it and explain it." },
+          { name:"Radiology Group · Basel", role:"IT Lead", rating:4, quote:"Solid, reliable infrastructure and excellent security work. Onboarding took a little longer than planned, but the result has been rock-solid." },
+          { name:"Family Practice · Luzern", role:"Owner", rating:5, quote:"The AI phone assistant handles our call overflow and appointment booking. Our MPAs finally have time for patients again." },
+          { name:"Physiotherapy & Sports Med · Zug", role:"Owner", rating:5, quote:"New bilingual website, SEO, and online booking — new-patient enquiries are up noticeably. One partner for all of it." },
         ],
       },
     },

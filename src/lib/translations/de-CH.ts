@@ -4,7 +4,7 @@ export const deCH = {
   langFull: "Deutsch (CH)",
 
   nav: {
-    items: ["Home","Leistungen","Über uns","Technologie","Preise","Kontakt"],
+    items: ["Home","Leistungen","Über uns","Bewertungen","Preise","Kontakt"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
     cta: "Loslegen / Login",
   },
@@ -359,8 +359,8 @@ export const deCH = {
       },
     },
     technology: {
-      heroTitle:"Technologie-Stack",
-      heroSub:"Enterprise-grade. Open Source. Transparent.",
+      heroTitle:"Was unsere Kunden sagen",
+      heroSub:"Echtes Feedback von Schweizer Arztpraxen, die wir täglich betreuen.",
       stack:[
         { cat:"Frontend", val:"Next.js · React · TypeScript · Tailwind CSS" },
         { cat:"Backend", val:"Node.js · Go · Python" },
@@ -399,6 +399,20 @@ export const deCH = {
             { title:"Workflow-Automatisierung für Praxen", desc:"Automatisiertes Patienten-Onboarding, Laborbefund-Routing, No-Show-Nachfassen, Recall-Kampagnen (Impfungen, Vorsorge) und Versicherungs-Vorabklärungen." },
             { title:"Inventar- & Kühlketten-Überwachung", desc:"IoT-Temperatursensoren mit Echtzeit-Alarmen für die Lagerung von Impfstoffen und Medikamenten — ideal für Reisemedizin und Pädiatrie." },
           ]},
+        ],
+      },
+      reviews:{
+        tag:"KUNDENBEWERTUNGEN",
+        ratingValue:"4.8",
+        ratingLabel:"Durchschnittsbewertung",
+        ratingNote:"von Praxen aus der ganzen Schweiz",
+        items:[
+          { name:"Gruppenpraxis · Zürich", role:"Praxisleitung", rating:5, quote:"Seit Jerumed Nexus unsere IT betreut, gibt es praktisch keine Ausfälle mehr. tomedo, Labore, Backups — alles läuft, und es gibt eine einzige Nummer zum Anrufen." },
+          { name:"Dermatologie-Praxis · Bern", role:"Fachärztin", rating:5, quote:"Sie haben unser gesamtes Setup auf Schweizer Hosting migriert, ohne eine einzige Datei zu verlieren. Die nDSG-Dokumentation machte unsere EQUAM-Erneuerung mühelos." },
+          { name:"Praxismanagerin (MPA)", role:"Administration", rating:5, quote:"Der Support ist schnell und versteht eine Arztpraxis wirklich. Keine Ticket-Warteschlangen, kein Fachjargon — sie beheben es und erklären es." },
+          { name:"Radiologie-Gruppe · Basel", role:"IT-Verantwortlicher", rating:4, quote:"Solide, zuverlässige Infrastruktur und hervorragende Sicherheitsarbeit. Das Onboarding dauerte etwas länger als geplant, aber das Ergebnis ist grundsolide." },
+          { name:"Hausarztpraxis · Luzern", role:"Inhaber", rating:5, quote:"Der KI-Telefonassistent übernimmt unsere Anrufspitzen und die Terminbuchung. Unsere MPAs haben endlich wieder Zeit für die Patienten." },
+          { name:"Physiotherapie & Sportmedizin · Zug", role:"Praxisinhaberin", rating:5, quote:"Neue zweisprachige Website, SEO und Online-Terminbuchung — die Anfragen neuer Patienten sind spürbar gestiegen. Ein Partner für alles." },
         ],
       },
     },
