@@ -49,6 +49,17 @@ body {
   background: var(--border);
 }
 
+/* Deep navy gradient + subtle grid — shared page-hero background (replaces the
+   flat black on inner-page heroes). Matches the SLA section on the landing page. */
+.navy-hero {
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+    radial-gradient(900px 520px at 12% 12%, rgba(37,99,235,.20), transparent 60%),
+    linear-gradient(160deg, #0c1f3d 0%, #0a1830 55%, #081326 100%);
+  background-size: 44px 44px, 44px 44px, 100% 100%, 100% 100%;
+}
+
 /* ── Highlight cards ── */
 .hl-card {
   padding: 40px 36px;

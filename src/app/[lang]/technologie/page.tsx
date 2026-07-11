@@ -48,7 +48,7 @@ export default function TechnologyPage() {
   return (
     <PageLayout>
       {/* Hero */}
-      <section style={{ background: INK, padding: "140px 40px 80px" }}>
+      <section className="navy-hero" style={{ padding: "140px 40px 80px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <SectionLabel>{t.nav.items[3]}</SectionLabel>
           <h1 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(40px,6vw,80px)", fontWeight: 700, color: "#fff", lineHeight: .95, letterSpacing: "-.04em", marginBottom: 20 }}>{p.heroTitle}</h1>
