@@ -42,21 +42,6 @@ const TECH_LOGOS = [
   { src: "/logos/tech/twilio.png", alt: "Twilio" },
 ];
 
-function LogoMarquee({ logos, reverse = false }: Readonly<{ logos: ReadonlyArray<{ src: string; alt: string }>; reverse?: boolean }>) {
-  return (
-    <div className="marquee-wrap">
-      <div className={`marquee-track${reverse ? " reverse" : ""}`}>
-        {[...logos, ...logos].map((l, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <div className="logo-item" key={`${l.alt}-${i}`}>
-            <img src={l.src} alt={l.alt} loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function R({ children, delay = 0 }: Readonly<{ children: React.ReactNode; delay?: number }>) {
   const ref = useRef<HTMLDivElement>(null);
   const [v, setV] = useState(false);
@@ -255,29 +240,6 @@ export default function Home() {
             </div>
           </R>
         </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          PARTNERS
-      ══════════════════════════════════════ */}
-      <section style={{ background: B, padding: 0 }}>
-        {/* Top slider — medical practice solutions */}
-        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
-          <LogoMarquee logos={PARTNER_LOGOS} />
-        </div>
-
-        {/* Blue title in the middle — sandwiched between the two sliders */}
-        <R>
-          <div style={{ maxWidth: 1400, margin: "0 auto", padding: "56px 40px", textAlign: "center" }}>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(24px,3.5vw,35px)", fontWeight: 700, color: "#fff", letterSpacing: "-.02em", lineHeight: 1.1, whiteSpace: "pre-line" }}>{t.partners.title}</h2>
-          </div>
-        </R>
-
-        {/* Bottom slider — technology vendors (scrolls the other way) */}
-        <div style={{ borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB", background: "#fff", padding: "26px 0" }}>
-          <LogoMarquee logos={TECH_LOGOS} reverse />
-        </div>
-
       </section>
 
       {/* ══════════════════════════════════════
@@ -482,6 +444,22 @@ export default function Home() {
                   <p style={{ fontSize: 13, lineHeight: 1.65, color: "#6B7280" }}>{m.desc}</p>
                 </div>
               </R>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          LOGO WALL — trusted partners & technologies
+      ══════════════════════════════════════ */}
+      <section style={{ background: "#fff", borderTop: "1px solid #E5E7EB", padding: "56px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div className="logo-wall">
+            {[...PARTNER_LOGOS, ...TECH_LOGOS].map((l) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <div className="logo-wall-item" key={l.alt}>
+                <img src={l.src} alt={l.alt} loading="lazy" />
+              </div>
             ))}
           </div>
         </div>

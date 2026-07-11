@@ -203,6 +203,33 @@ body {
 }
 .logo-item:hover img { filter: grayscale(0); opacity: 1; }
 
+/* Static logo wall (replaces the marquee slider on the landing page) — 4 per row */
+.logo-wall {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 24px;
+  align-items: center;
+}
+.logo-wall-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px;
+  height: 88px;
+  border: 1px solid #F0F0F0;
+}
+.logo-wall-item img {
+  max-height: 42px;
+  max-width: 170px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: .55;
+  transition: filter .3s ease, opacity .3s ease;
+}
+.logo-wall-item:hover img { filter: grayscale(0); opacity: 1; }
+@media (max-width: 640px) { .logo-wall { grid-template-columns: repeat(2, 1fr); } }
+
 /* Card that lightens on hover (CSS-only — keeps non-interactive divs accessible) */
 .hover-card { background: #fff; transition: background .2s; }
 .hover-card:hover { background: #F5F5F3; }
