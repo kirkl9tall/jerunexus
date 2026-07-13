@@ -51,7 +51,7 @@ export const deCH = {
   ],
 
   partners: {
-    title:"Technologien und Partner, denen\nArztpraxen in der Schweiz vertrauen",
+    title:"Technologien, die wir einsetzen",
     logos:["tomedo","vitomed","Axenita","AESKULAP","HIN","MediData","Viollier","Ärztekasse","BlueCare","Doctolib","OneDoc","FMH","Swisscom Health","Sysmex","Roche"],
   },
 
