@@ -457,7 +457,7 @@ export default function Home() {
       <section style={{ background: "#fff", borderTop: "1px solid #E5E7EB", padding: "80px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <R>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", marginBottom: 40, whiteSpace: "pre-line", maxWidth: 640 }}>{t.partners.title}</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", whiteSpace: "pre-line", maxWidth: 760, margin: "0 auto 44px", textAlign: "center" }}>{t.partners.title}</h2>
           </R>
           <div className="logo-wall">
             {[...PARTNER_LOGOS, ...TECH_LOGOS].map((l) => (
@@ -470,33 +470,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          TOOLS
-      ══════════════════════════════════════ */}
-      <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "100px 40px" }}>
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <R>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-              <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.tools.tag}</span>
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", marginBottom: 44, whiteSpace: "pre-line", maxWidth: 640 }}>{t.tools.title}</h2>
-          </R>
-          <R delay={.05}>
-            <div style={{ borderTop: "1px solid #E5E7EB" }}>
-              {t.tools.groups.map((s, i) => (
-                <div key={s.cat} className="tech-row" style={{ display: "grid", gridTemplateColumns: "minmax(200px,340px) 1fr", gap: 32, padding: "26px 0", borderBottom: "1px solid #E5E7EB", alignItems: "baseline" }}>
-                  <div style={{ display: "flex", gap: 14, alignItems: "baseline" }}>
-                    <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, color: B, flexShrink: 0 }}>{String(i + 1).padStart(2, "0")}</span>
-                    <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 19, fontWeight: 700, color: INK, letterSpacing: "-.01em" }}>{s.cat}</h3>
-                  </div>
-                  <p style={{ fontFamily: "'DM Mono',monospace", fontSize: 14, color: "#374151", lineHeight: 1.75 }}>{s.val}</p>
-                </div>
-              ))}
-            </div>
-          </R>
-        </div>
-      </section>
 
       {/* ══════════════════════════════════════
           CONTACT
