@@ -454,8 +454,11 @@ export default function Home() {
       {/* ══════════════════════════════════════
           LOGO WALL — trusted partners & technologies
       ══════════════════════════════════════ */}
-      <section style={{ background: "#fff", borderTop: "1px solid #E5E7EB", padding: "56px 40px" }}>
+      <section style={{ background: "#fff", borderTop: "1px solid #E5E7EB", padding: "80px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <R>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", marginBottom: 40, whiteSpace: "pre-line", maxWidth: 640 }}>{t.partners.title}</h2>
+          </R>
           <div className="logo-wall">
             {[...PARTNER_LOGOS, ...TECH_LOGOS].map((l) => (
               // eslint-disable-next-line @next/next/no-img-element
