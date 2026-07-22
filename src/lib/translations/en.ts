@@ -50,6 +50,7 @@ export const en = {
 
   partners: {
     title:"Technologies we use",
+    ourPartners:"Our Partners",
     logos:["tomedo","vitomed","Axenita","AESKULAP","HIN","MediData","Viollier","Ärztekasse","BlueCare","Doctolib","OneDoc","FMH","Swisscom Health","Sysmex","Roche"],
   },
 

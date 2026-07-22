@@ -14,7 +14,6 @@ const NAVY_SIZE = "44px 44px,44px 44px,100% 100%,100% 100%";
 
 // Medical practice solutions we integrate & support.
 const PARTNER_LOGOS = [
-  { src: "/logos/partners/tomedo.webp", alt: "tomedo" },
   { src: "/logos/partners/vitodata.png", alt: "Vitodata" },
   { src: "/logos/partners/axenita.jpg", alt: "Axenita" },
   { src: "/logos/partners/ametiq.png", alt: "amétiq medical" },
@@ -23,6 +22,15 @@ const PARTNER_LOGOS = [
   { src: "/logos/partners/sysmex.jpg", alt: "Sysmex" },
   { src: "/logos/partners/roche.jpg", alt: "Roche" },
   { src: "/logos/partners/swisscom.png", alt: "Swisscom" },
+];
+
+// Featured partners — shown as containers in the "Our Partners" section.
+// Empty `logo` renders a placeholder slot; drop the file in
+// /public/logos/partners/ and set `logo` to fill it.
+const PARTNERS = [
+  { name: "tomedo", logo: "/logos/partners/tomedo.webp" },
+  { name: "Partner 2", logo: "" },
+  { name: "Partner 3", logo: "" },
 ];
 
 // Technology vendors in our stack.
@@ -467,6 +475,29 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          OUR PARTNERS
+      ══════════════════════════════════════ */}
+      <section style={{ background: "#F5F5F3", borderTop: "1px solid #E5E7EB", padding: "80px 40px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <R>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700, color: INK, lineHeight: 1.05, letterSpacing: "-.03em", margin: "0 auto 44px", textAlign: "center" }}>{t.partners.ourPartners}</h2>
+          </R>
+          <R delay={.05}>
+            <div className="partner-grid">
+              {PARTNERS.map((p) => (
+                <div key={p.name} className={`partner-card${p.logo ? "" : " empty"}`}>
+                  {p.logo && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.logo} alt={p.name} loading="lazy" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </R>
         </div>
       </section>
 
