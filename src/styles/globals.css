@@ -228,6 +228,61 @@ body {
   transition: filter .3s ease, opacity .3s ease;
 }
 .logo-wall-item:hover img { filter: grayscale(0); opacity: 1; }
+
+/* Our Partners — featured logo containers (empty slots await logos) */
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.partner-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.partner-card:hover { border-color: #2563EB; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+.partner-card.empty { border-style: dashed; }
+.partner-card img { max-height: 60px; max-width: 190px; width: auto; object-fit: contain; }
+/* "fill" cards (e.g. tomedo) — logo fills the container */
+.partner-card.fill { padding: 12px; }
+.partner-card.fill img { max-height: 100%; max-width: 100%; }
+
+/* Sectors we work with — bordered grid on the navy band */
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid rgba(255,255,255,.13);
+  border-left: 1px solid rgba(255,255,255,.13);
+}
+.sector-cell {
+  border-right: 1px solid rgba(255,255,255,.13);
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  padding: 30px 24px;
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  transition: background .2s ease;
+}
+.sector-cell:hover { background: rgba(255,255,255,.05); }
+.sector-cell h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+}
+@media (max-width: 1024px) { .sector-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { .sector-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .partner-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .logo-wall { grid-template-columns: repeat(2, 1fr); } }
 
 /* Card that lightens on hover (CSS-only — keeps non-interactive divs accessible) */

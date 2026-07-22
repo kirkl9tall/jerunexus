@@ -7,6 +7,9 @@ export const en = {
     items: ["Home","Services","About","Reviews","Pricing","Contact"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
     cta: "Get Started / Login",
+    portal: "Go to portal",
+    settings: "Settings",
+    logout: "Log out",
   },
 
   top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
@@ -50,6 +53,7 @@ export const en = {
 
   partners: {
     title:"Technologies we use",
+    ourPartners:"Our Partners",
     logos:["tomedo","vitomed","Axenita","AESKULAP","HIN","MediData","Viollier","Ärztekasse","BlueCare","Doctolib","OneDoc","FMH","Swisscom Health","Sysmex","Roche"],
   },
 
@@ -137,6 +141,13 @@ export const en = {
     ],
     getStarted:"Request a quote",
     vatNote:"*Individual terms available upon request",
+  },
+
+  sectors: {
+    tag:"SECTORS",
+    title:"Sectors we work with",
+    intro:"Every corner of healthcare has its own workflows and rules. We tailor infrastructure, software and security to fit — from a solo practice to a multi-site clinic.",
+    items:["Medical Practices","Group Practices","Medical Centers","Laboratories","Radiology & Imaging","Pharmacies","Physiotherapy","Dental Practices","Telemedicine","Travel Medicine"],
   },
 
   sla: {

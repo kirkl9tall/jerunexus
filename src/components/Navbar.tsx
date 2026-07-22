@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getDictionary, locales } from "@/lib/translations";
+import AccountMenu from "./AccountMenu";
 
 const B   = "#2563EB";
-const BD  = "#1d4ed8";
 const INK = "#0A0A0A";
 const MUTED = "#6B7280";
 const LINE  = "#E5E7EB";
@@ -70,12 +70,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <a href="/portal/login"
-            style={{ background: B, border: "none", padding: "10px 24px", color: "#fff", fontSize: 13, fontWeight: 600, fontFamily: "'Inter',sans-serif", textDecoration: "none", letterSpacing: ".04em", transition: "background .2s", display: "inline-block" }}
-            onMouseOver={(e) => (e.currentTarget.style.background = BD)}
-            onFocus={(e) => (e.currentTarget.style.background = BD)}
-            onMouseOut={(e) => (e.currentTarget.style.background = B)}
-            onBlur={(e) => (e.currentTarget.style.background = B)}>{t.nav.cta}</a>
+          <AccountMenu lang={lang} solid={solid} ctaLabel={t.nav.cta} labels={{ portal: t.nav.portal, settings: t.nav.settings, logout: t.nav.logout }} />
         </div>
 
         {/* Hamburger — mobile only */}
