@@ -140,6 +140,13 @@ export const en = {
     vatNote:"*Individual terms available upon request",
   },
 
+  sectors: {
+    tag:"SECTORS",
+    title:"Sectors we work with",
+    intro:"Every corner of healthcare has its own workflows and rules. We tailor infrastructure, software and security to fit — from a solo practice to a multi-site clinic.",
+    items:["Medical Practices","Group Practices","Medical Centers","Laboratories","Radiology & Imaging","Pharmacies","Physiotherapy","Dental Practices","Telemedicine","Travel Medicine"],
+  },
+
   sla: {
     uptimeLabel:"UPTIME GUARANTEE",
     tag:"SERVICE LEVEL AGREEMENT",

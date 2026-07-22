@@ -30,7 +30,7 @@ const PARTNER_LOGOS = [
 const PARTNERS = [
   { name: "tomedo", logo: "/logos/partners/tomedo.webp", fill: true },
   { name: "Fonio", logo: "/logos/partners/fonio.webp", fill: false },
-  { name: "Securepoint", logo: "/logos/partners/securepoint.webp", fill: false },
+  { name: "Securepoint", logo: "/logos/partners/securepoint.webp", fill: true },
 ];
 
 // Technology vendors in our stack.
@@ -396,32 +396,23 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          SLA
+          SECTORS WE WORK WITH
       ══════════════════════════════════════ */}
       <section style={{ background: NAVY_BG, backgroundSize: NAVY_SIZE, padding: "100px 40px" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <R>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <span style={{ display: "inline-block", width: 24, height: 1, background: B }} />
-              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.sla.tag}</span>
+              <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 11, color: B, letterSpacing: ".14em", textTransform: "uppercase" }}>{t.sectors.tag}</span>
             </div>
-            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", marginBottom: 64 }}>{t.sla.title}</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,48px)", fontWeight: 700, color: "#fff", letterSpacing: "-.03em", marginBottom: 20 }}>{t.sectors.title}</h2>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,.55)", lineHeight: 1.8, maxWidth: 640, marginBottom: 56 }}>{t.sectors.intro}</p>
           </R>
-          <div className="sg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 0 }}>
-            {t.sla.items.map((s, i) => (
-              <R key={s.t} delay={i * .06}>
-                <div style={{ padding: "0 32px 0 0", borderRight: i < 3 ? "1px solid #fff" : "none", paddingRight: i < 3 ? 32 : 0, paddingLeft: i > 0 ? 32 : 0 }}>
-                  <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 44, fontWeight: 700, color: s.color, marginBottom: 12, letterSpacing: "-.03em", lineHeight: 1 }}>{s.time}</div>
-                  <span style={{ display: "inline-block", fontFamily: "'DM Mono',monospace", fontSize: 10, fontWeight: 500, letterSpacing: ".14em", textTransform: "uppercase", color: s.color, marginBottom: 14, borderBottom: `1px solid ${s.color}`, paddingBottom: 4 }}>{s.t}</span>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,.35)", lineHeight: 1.65 }}>{s.d}</p>
-                </div>
-              </R>
-            ))}
-          </div>
-          <R delay={.2}>
-            <div style={{ marginTop: 56, display: "flex", alignItems: "center", gap: 14, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 32 }}>
-              <span style={{ color: "#10B981", fontSize: 20, flexShrink: 0 }}>✓</span>
-              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 18, fontWeight: 600, color: "#fff" }}>{t.sla.guarantee}</span>
+          <R delay={.05}>
+            <div className="sector-grid">
+              {t.sectors.items.map((s) => (
+                <div key={s} className="sector-cell"><h3>{s}</h3></div>
+              ))}
             </div>
           </R>
         </div>

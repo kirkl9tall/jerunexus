@@ -142,6 +142,13 @@ export const deCH = {
     vatNote:"*Individuelle Konditionen nach Absprache",
   },
 
+  sectors: {
+    tag:"BRANCHEN",
+    title:"Branchen, mit denen wir arbeiten",
+    intro:"Jeder Bereich des Gesundheitswesens hat eigene Abläufe und Vorschriften. Wir schneidern Infrastruktur, Software und Sicherheit passgenau zu — von der Einzelpraxis bis zum Ärztezentrum.",
+    items:["Arztpraxen","Gruppenpraxen","Ärztezentren","Labore","Radiologie & Bildgebung","Apotheken","Physiotherapie","Zahnarztpraxen","Telemedizin","Reisemedizin"],
+  },
+
   sla: {
     uptimeLabel:"UPTIME-GARANTIE",
     tag:"SERVICE LEVEL AGREEMENT",
