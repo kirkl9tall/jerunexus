@@ -7,6 +7,9 @@ export const en = {
     items: ["Home","Services","About","Reviews","Pricing","Contact"],
     links: ["/","leistungen","ueber-uns","technologie","preise","kontakt"],
     cta: "Get Started / Login",
+    portal: "Go to portal",
+    settings: "Settings",
+    logout: "Log out",
   },
 
   top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
