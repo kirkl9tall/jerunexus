@@ -28,9 +28,9 @@ const PARTNER_LOGOS = [
 // Empty `logo` renders a placeholder slot; drop the file in
 // /public/logos/partners/ and set `logo` to fill it.
 const PARTNERS = [
-  { name: "tomedo", logo: "/logos/partners/tomedo.webp" },
-  { name: "Partner 2", logo: "" },
-  { name: "Partner 3", logo: "" },
+  { name: "tomedo", logo: "/logos/partners/tomedo.webp", fill: true },
+  { name: "Fonio", logo: "/logos/partners/fonio.webp", fill: false },
+  { name: "Securepoint", logo: "/logos/partners/securepoint.webp", fill: false },
 ];
 
 // Technology vendors in our stack.
@@ -489,7 +489,7 @@ export default function Home() {
           <R delay={.05}>
             <div className="partner-grid">
               {PARTNERS.map((p) => (
-                <div key={p.name} className={`partner-card${p.logo ? "" : " empty"}`}>
+                <div key={p.name} className={`partner-card${p.fill ? " fill" : ""}${p.logo ? "" : " empty"}`}>
                   {p.logo && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={p.logo} alt={p.name} loading="lazy" />

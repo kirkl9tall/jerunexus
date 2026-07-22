@@ -251,6 +251,9 @@ body {
 .partner-card:hover { border-color: #2563EB; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
 .partner-card.empty { border-style: dashed; }
 .partner-card img { max-height: 60px; max-width: 190px; width: auto; object-fit: contain; }
+/* "fill" cards (e.g. tomedo) — logo fills the container */
+.partner-card.fill { padding: 12px; }
+.partner-card.fill img { max-height: 100%; max-width: 100%; }
 @media (max-width: 640px) { .partner-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .logo-wall { grid-template-columns: repeat(2, 1fr); } }
 
