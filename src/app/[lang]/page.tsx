@@ -178,11 +178,6 @@ export default function Home() {
                   onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,.2)"; }}>{t.hero.btn2}</button>
               </div>
             </div>
-
-            <button className="quote-btn" onClick={() => router.push(`/${lang}/kontakt`)}>
-              {t.hero.quote.split("\n").map((l) => <span key={l}>{l}</span>)}
-              <span style={{ marginTop: 6, fontSize: 16 }}>↗</span>
-            </button>
           </div>
         </div>
 
