@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { locales } from "@/lib/translations";
+import LocalePersist from "@/components/LocalePersist";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -65,6 +66,7 @@ export default async function LangLayout({ children, params }: Readonly<{ childr
     <>
       {/* eslint-disable-next-line react/no-danger */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <LocalePersist lang={lang} />
       {children}
     </>
   );
