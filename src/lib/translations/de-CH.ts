@@ -171,8 +171,8 @@ export const deCH = {
     members:[
       { name:"A. Abuawad", role:"Gründer & CEO", desc:"Spezialist für medizinische IT-Integration, Netzwerkarchitektur und Systemadministration.", img:"AA", photo:"/team/doc2.jpeg" },
       { name:"IT-Sicherheit", role:"Cybersecurity-Berater", desc:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response.", img:"CS", photo:"" },
-      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Web Developer", desc:"Verantwortlich für DevOps, Cloud-Infrastruktur, Automatisierung und die Entwicklung Ihrer Web-Plattformen.", img:"AI", photo:"/team/1757854645138.jpeg" },
-      { name:"Support", role:"Technischer Support", desc:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb Ihrer Praxis.", img:"TS", photo:"" },
+      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Fullstack Web Dev", desc:"Verantwortlich für DevOps, Cloud-Infrastruktur, Automatisierung und die Entwicklung Ihrer Web-Plattformen.", img:"AI", photo:"/team/1757854645138.jpeg" },
+      { name:"Mohammed Laidi", role:"Fullstack Web Dev & SEO Analyst/Manager", desc:"Entwickelt und pflegt Ihre Web-Plattformen und optimiert deren Sichtbarkeit in Suchmaschinen — von der Full-Stack-Entwicklung bis zur SEO-Strategie.", img:"ML", photo:"" },
     ],
   },
 
@@ -345,8 +345,8 @@ export const deCH = {
         members:[
           { role:"Gründer & CEO", bio:"Gründer von Jerumed Nexus mit jahrelanger Erfahrung in der Integration medizinischer Systeme für Schweizer Praxen. Spezialisiert auf Netzwerkarchitektur, Systemadministration und medizinische IT. Verbindet klinische Anforderungen mit technischen Lösungen." },
           { role:"Cybersecurity-Berater", bio:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response. Hält die Praxis-Infrastruktur gegen moderne Bedrohungen abgesichert. Sorgt dafür, dass die Compliance jederzeit audit-bereit bleibt." },
-          { role:"DevOps & Web Developer", bio:"Verantwortlich für DevOps, Cloud-Infrastruktur und Automatisierung über die gesamte Plattform. Entwickelt und betreibt die zweisprachigen Web-Plattformen und CI/CD-Pipelines. Fokussiert auf Zuverlässigkeit, Sicherheit und moderne Entwicklungspraktiken." },
-          { role:"Technischer Support", bio:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb. Übernimmt Remote- und Vor-Ort-Support, damit Ihre Praxis nie ins Stocken gerät. Schnell, freundlich und praxisnah." },
+          { role:"DevOps & Fullstack Web Dev", bio:"Verantwortlich für DevOps, Cloud-Infrastruktur und Automatisierung über die gesamte Plattform. Entwickelt und betreibt die zweisprachigen Web-Plattformen und CI/CD-Pipelines. Fokussiert auf Zuverlässigkeit, Sicherheit und moderne Entwicklungspraktiken." },
+          { role:"Fullstack Web Dev & SEO Analyst/Manager", bio:"Full-Stack-Entwickler und SEO-Verantwortlicher. Baut performante, sichere Web-Plattformen vom Frontend bis zur API und sorgt dafür, dass sie in Suchmaschinen gefunden werden. Verantwortlich für technisches SEO, Keyword-Strategie, Analytics und laufende Content-Optimierung." },
         ],
       },
       partners:{
