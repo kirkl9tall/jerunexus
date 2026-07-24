@@ -35,5 +35,10 @@ export async function GET() {
     return !readAt || last.createdAt > readAt;
   }).length;
 
-  return NextResponse.json({ count });
+  // Admins are also notified of clients who have requested a plan upgrade.
+  const upgrades = isAdmin
+    ? await prisma.subscription.count({ where: { status: "pending_upgrade" } })
+    : 0;
+
+  return NextResponse.json({ count, upgrades });
 }

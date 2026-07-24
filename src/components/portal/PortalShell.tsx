@@ -52,19 +52,24 @@ export function LangToggle({ lang, dark = false }: Readonly<{ lang: "de" | "en";
 
 export type NavItem = { href: string; label: string; icon: string };
 
-export default function PortalShell({ user, lang, t, items, rootHref = "/portal", notifyHref, children }: Readonly<{ user: UserInfo; lang: "de" | "en"; t: ShellDict; items?: NavItem[]; rootHref?: string; notifyHref?: string; children: React.ReactNode }>) {
+export default function PortalShell({ user, lang, t, items, rootHref = "/portal", notifyHref, upgradeHref, children }: Readonly<{ user: UserInfo; lang: "de" | "en"; t: ShellDict; items?: NavItem[]; rootHref?: string; notifyHref?: string; upgradeHref?: string; children: React.ReactNode }>) {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifyCount, setNotifyCount] = useState(0);
+  const [upgradeCount, setUpgradeCount] = useState(0);
 
   useEffect(() => {
-    if (!notifyHref) return;
+    if (!notifyHref && !upgradeHref) return;
     let active = true;
     const poll = async () => {
       try {
         const res = await fetch("/api/portal/notifications");
-        if (res.ok && active) setNotifyCount((await res.json()).count ?? 0);
+        if (res.ok && active) {
+          const data = await res.json();
+          setNotifyCount(data.count ?? 0);
+          setUpgradeCount(data.upgrades ?? 0);
+        }
       } catch {
         /* ignore transient errors */
       }
@@ -72,7 +77,7 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
     poll();
     const iv = setInterval(poll, 10000);
     return () => { active = false; clearInterval(iv); };
-  }, [notifyHref, pathname]);
+  }, [notifyHref, upgradeHref, pathname]);
 
   const NAV: NavItem[] = items ?? [
     { href: "/portal", label: t.nav.overview, icon: "▦" },
@@ -107,14 +112,15 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
   );
 
   const navLinks = NAV.map((n) => {
-    const showBadge = notifyHref === n.href && notifyCount > 0;
+    const badgeCount = (n.href === notifyHref ? notifyCount : 0) + (n.href === upgradeHref ? upgradeCount : 0);
+    const showBadge = badgeCount > 0;
     return (
       <a key={n.href} href={n.href} className={`p-nav-link${isActive(n.href) ? " active" : ""}`}>
         <span aria-hidden style={{ width: 18, textAlign: "center", fontSize: 13 }}>{n.icon}</span>
         {n.label}
         {showBadge && (
           <span
-            aria-label={`${notifyCount}`}
+            aria-label={`${badgeCount}`}
             style={{
               marginLeft: "auto", minWidth: 18, height: 18, padding: "0 5px",
               borderRadius: 9, background: "var(--crit)", color: "#fff",
@@ -122,7 +128,7 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
               alignItems: "center", justifyContent: "center", lineHeight: 1,
             }}
           >
-            {notifyCount}
+            {badgeCount}
           </span>
         )}
       </a>

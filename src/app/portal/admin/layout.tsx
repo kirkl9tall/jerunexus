@@ -24,6 +24,7 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
   const items = [
     { href: "/portal/admin", label: a.nav.overview, icon: "▦" },
     { href: "/portal/admin/inbox", label: a.nav.inbox, icon: "✉" },
+    { href: "/portal/admin/upgrades", label: a.nav.upgrades, icon: "↑" },
     { href: "/portal/admin/clients", label: a.nav.clients, icon: "◷" },
   ];
 
@@ -35,6 +36,7 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
       items={items}
       rootHref="/portal/admin"
       notifyHref="/portal/admin/inbox"
+      upgradeHref="/portal/admin/upgrades"
     >
       {children}
     </PortalShell>
