@@ -12,7 +12,7 @@ export const en = {
     logout: "Log out",
   },
 
-  top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
+  top: { addr:"Zurich, Switzerland", phone:"+41 44 50 56 207", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Contact",
@@ -188,13 +188,6 @@ export const en = {
     ],
   },
 
-  emergency: {
-    label:"IT EMERGENCY?",
-    title:"IT emergency at your practice?",
-    sub:"Server down, cyber attack or data loss? Our emergency team is ready.",
-    phone:"+41 XX XXX XX XX", btn:"Report emergency", note:"Mon–Fri 07:00–22:00 · Sat 08:00–18:00",
-  },
-
   ctaBanner: {
     title:"Begin Your IT\nConsultation Today",
     p:"Book a free initial consultation and discover how we can optimize your practice IT infrastructure.",
@@ -205,7 +198,7 @@ export const en = {
     tag:"NEED MORE HELP?",
     title:"Reach Out For Professional\nTechnical Assistance",
     p:"Contact our team for expert guidance and reliable technical support tailored to your practice needs.",
-    phone:{ label:"SALES SUPPORT", value:"+41 XX XXX XX XX" },
+    phone:{ label:"SALES SUPPORT", value:"+41 44 50 56 207" },
     email:{ label:"EMAIL SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Years of Experience" },
   },
@@ -423,7 +416,7 @@ export const en = {
         ],
       },
     },
-    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
+    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 44 50 56 207" },
     datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website.", note:"This page is being finalized." },
   },
 

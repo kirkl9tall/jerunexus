@@ -82,11 +82,6 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              <div style={{ padding: "16px 20px", borderLeft: "3px solid #EF4444", background: "#FEF2F2", display: "flex", alignItems: "center", gap: 12, marginBottom: 40 }}>
-                <span style={{ color: "#EF4444", fontWeight: 700, fontSize: 12, letterSpacing: ".06em", textTransform: "uppercase", whiteSpace: "nowrap" }}>{t.emergency.label}</span>
-                <span style={{ fontSize: 13, color: "#6B7280" }}>{t.emergency.phone} · {t.emergency.note}</span>
-              </div>
-
               {/* Form */}
               <div style={{ border: "1px solid #E5E7EB", padding: 36 }}>
                 {state === "sent" ? (

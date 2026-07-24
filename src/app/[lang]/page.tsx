@@ -533,12 +533,6 @@ export default function Home() {
                   ))}
                 </div>
               </R>
-              <R delay={.12}>
-                <div style={{ padding: "16px 20px", background: "#FEF2F2", borderLeft: "3px solid #EF4444", display: "flex", alignItems: "center", gap: 12 }}>
-                  <span style={{ color: "#EF4444", fontWeight: 700, fontSize: 13, letterSpacing: ".06em", textTransform: "uppercase", whiteSpace: "nowrap" }}>{t.emergency.label}</span>
-                  <span style={{ fontSize: 13, color: "#6B7280" }}>{t.emergency.phone} · {t.emergency.note}</span>
-                </div>
-              </R>
             </div>
           </div>
         </div>

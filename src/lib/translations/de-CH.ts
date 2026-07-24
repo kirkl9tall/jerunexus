@@ -12,7 +12,7 @@ export const deCH = {
     logout: "Abmelden",
   },
 
-  top: { addr:"Zürich, Schweiz", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
+  top: { addr:"Zürich, Schweiz", phone:"+41 44 50 56 207", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Kontakt",
@@ -190,13 +190,6 @@ export const deCH = {
     ],
   },
 
-  emergency: {
-    label:"IT-NOTFALL?",
-    title:"IT-Notfall in Ihrer Praxis?",
-    sub:"Serverausfall, Cyberangriff oder Datenverlust? Unser Notfall-Team ist sofort für Sie da.",
-    phone:"+41 XX XXX XX XX", btn:"Notfall melden", note:"Mo–Fr 07:00–22:00 · Sa 08:00–18:00",
-  },
-
   ctaBanner: {
     title:"Starten Sie Ihre\nIT-Beratung jetzt",
     p:"Vereinbaren Sie ein kostenloses Erstgespräch und erfahren Sie, wie wir Ihre Praxis-IT optimieren können.",
@@ -207,7 +200,7 @@ export const deCH = {
     tag:"BRAUCHEN SIE HILFE?",
     title:"Kontaktieren Sie uns für\nprofessionelle IT-Unterstützung",
     p:"Unser Team steht Ihnen für fachkundige Beratung und zuverlässigen technischen Support zur Verfügung — massgeschneidert für Ihre Praxis.",
-    phone:{ label:"TELEFON-SUPPORT", value:"+41 XX XXX XX XX" },
+    phone:{ label:"TELEFON-SUPPORT", value:"+41 44 50 56 207" },
     email:{ label:"E-MAIL-SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Jahre Erfahrung" },
   },
@@ -432,7 +425,7 @@ export const deCH = {
       company:"Jerumed Nexus",
       address:"[Adresse wird ergänzt]",
       email:"support@jerumed-nexus.ch",
-      phone:"+41 XX XXX XX XX",
+      phone:"+41 44 50 56 207",
     },
     datenschutz: {
       title:"Datenschutzerklärung",
