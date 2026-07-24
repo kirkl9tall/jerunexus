@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 type PlanInfo = {
   key: string;
   name: string;
-  priceLabel: string;
   description: string;
   features: string[];
 };
@@ -75,9 +74,6 @@ export default function UpgradeGrid({ plans, currentKey, pendingKey, t }: Readon
                 {cardLabel(isCurrent, isPending)}
               </div>
               <h3 style={{ fontSize: 22, fontWeight: 700, marginTop: 10 }}>{plan.name}</h3>
-              <div style={{ fontFamily: "'Libre Franklin',sans-serif", fontSize: 17, fontWeight: 600, color: "var(--green)", marginTop: 6 }}>
-                {plan.priceLabel}
-              </div>
               <p style={{ fontSize: 13, color: "var(--gray)", lineHeight: 1.6, margin: "12px 0 18px" }}>{plan.description}</p>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 9, flex: 1 }}>
                 {plan.features.map((f) => (

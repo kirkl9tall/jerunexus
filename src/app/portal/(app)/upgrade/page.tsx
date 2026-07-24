@@ -12,7 +12,6 @@ export default async function UpgradePage() {
 
   const lang = getPortalLang();
   const t = getPortalDict(lang).upgrade;
-  const locale = lang === "de" ? "de-CH" : "en-GB";
 
   const [allPlans, sub] = await Promise.all([
     prisma.plan.findMany({ orderBy: { sortOrder: "asc" } }),
@@ -40,7 +39,6 @@ export default async function UpgradePage() {
           return {
             key: p.key,
             name: text.name,
-            priceLabel: t.perMonth(p.priceChf.toLocaleString(locale)),
             description: text.description,
             features: text.features,
           };
