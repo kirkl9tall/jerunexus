@@ -358,19 +358,19 @@ export default function Home() {
             {t.pricing.plans.map((p, i) => (
               <R key={p.tag} delay={i * .07}>
                 <div className={`pg-card${p.featured ? " featured" : ""}`} style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, fontWeight: 500, letterSpacing: ".14em", color: p.featured ? "rgba(255,255,255,.35)" : "#9CA3AF", display: "block", marginBottom: 12 }}>{p.tag}</span>
-                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: p.featured ? "#fff" : INK, marginBottom: 28, letterSpacing: "-.02em" }}>{p.name}</h3>
+                  <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, fontWeight: 500, letterSpacing: ".14em", color: p.featured ? "rgba(10,10,10,.5)" : "#9CA3AF", display: "block", marginBottom: 12 }}>{p.tag}</span>
+                  <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: INK, marginBottom: 28, letterSpacing: "-.02em" }}>{p.name}</h3>
                   <div style={{ marginBottom: 32 }}>
-                    <span style={{ fontSize: 12, color: p.featured ? "rgba(255,255,255,.35)" : "#9CA3AF", display: "block", marginBottom: 6 }}>{p.prefix}</span>
+                    <span style={{ fontSize: 12, color: p.featured ? "rgba(10,10,10,.5)" : "#9CA3AF", display: "block", marginBottom: 6 }}>{p.prefix}</span>
                     <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                      <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 52, fontWeight: 700, color: p.featured ? "#fff" : INK, letterSpacing: "-.04em", lineHeight: 1 }}>{p.price}</span>
-                      <span style={{ fontSize: 13, color: p.featured ? "rgba(255,255,255,.3)" : "#9CA3AF" }}>{p.unit}</span>
+                      <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 52, fontWeight: 700, color: INK, letterSpacing: "-.04em", lineHeight: 1 }}>{p.price}</span>
+                      <span style={{ fontSize: 13, color: p.featured ? "rgba(10,10,10,.45)" : "#9CA3AF" }}>{p.unit}</span>
                     </div>
                   </div>
-                  <div style={{ borderTop: `1px solid ${p.featured ? "rgba(255,255,255,.08)" : "#E5E7EB"}`, paddingTop: 24, flex: 1 }}>
+                  <div style={{ borderTop: `1px solid ${p.featured ? "rgba(10,10,10,.12)" : "#E5E7EB"}`, paddingTop: 24, flex: 1 }}>
                     {p.features.map((f) => (
-                      <div key={f} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "9px 0", borderBottom: `1px solid ${p.featured ? "rgba(255,255,255,.05)" : "#F3F4F6"}`, fontSize: 14, color: p.featured ? "rgba(255,255,255,.7)" : "#374151" }}>
-                        <span style={{ color: p.featured ? "#10B981" : B, flexShrink: 0, fontWeight: 700, fontSize: 13, lineHeight: "1.4" }}>✓</span>
+                      <div key={f} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "9px 0", borderBottom: `1px solid ${p.featured ? "rgba(10,10,10,.1)" : "#F3F4F6"}`, fontSize: 14, color: p.featured ? "#1F2937" : "#374151" }}>
+                        <span style={{ color: p.featured ? INK : B, flexShrink: 0, fontWeight: 700, fontSize: 13, lineHeight: "1.4" }}>✓</span>
                         {f}
                       </div>
                     ))}
@@ -382,7 +382,7 @@ export default function Home() {
                     onMouseOut={(e) => { e.currentTarget.style.background = p.featured ? B : "transparent"; if (!p.featured) e.currentTarget.style.color = INK; }}
                     onBlur={(e) => { e.currentTarget.style.background = p.featured ? B : "transparent"; }}
                     onClick={() => router.push(`/${lang}/kontakt`)}>{t.pricing.getStarted}</button>
-                  <p style={{ fontSize: 11, color: p.featured ? "rgba(255,255,255,.2)" : "#9CA3AF", marginTop: 12, textAlign: "center" }}>{t.pricing.vatNote}</p>
+                  <p style={{ fontSize: 11, color: p.featured ? "rgba(10,10,10,.4)" : "#9CA3AF", marginTop: 12, textAlign: "center" }}>{t.pricing.vatNote}</p>
                 </div>
               </R>
             ))}

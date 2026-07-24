@@ -97,8 +97,8 @@ body {
   transition: all .25s;
 }
 .pg-card.featured {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: #38CAFC;
+  border-color: #38CAFC;
 }
 .pg-card:not(.featured):hover { background: var(--off); }
 
