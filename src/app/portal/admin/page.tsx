@@ -49,7 +49,7 @@ export default async function AdminOverview() {
             {pendingUpgrades > 0 && <span className="p-dot warn" style={{ width: 14, height: 14 }} />}
             {pendingUpgrades}
           </div>
-          <a href="/portal/admin/clients" className="p-arrow-link" style={{ marginTop: 14, display: "inline-flex" }}>{t.toClients}</a>
+          <a href="/portal/admin/upgrades" className="p-arrow-link" style={{ marginTop: 14, display: "inline-flex" }}>{t.toUpgrades}</a>
         </div>
       </div>
 

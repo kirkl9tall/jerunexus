@@ -302,7 +302,7 @@ export const PORTAL_DICT = {
     },
     admin: {
       portal: "Admin-Konsole",
-      nav: { overview: "Übersicht", inbox: "Posteingang", clients: "Kunden" },
+      nav: { overview: "Übersicht", inbox: "Posteingang", upgrades: "Upgrades", clients: "Kunden" },
       overview: {
         label: "Übersicht",
         title: "Admin-Konsole",
@@ -312,6 +312,7 @@ export const PORTAL_DICT = {
         pendingUpgrades: "Offene Upgrades",
         toInbox: "Zum Posteingang →",
         toClients: "Zu den Kunden →",
+        toUpgrades: "Zu den Upgrades →",
         recentTickets: "Neueste Anfragen",
         noTickets: "Keine Anfragen vorhanden.",
       },
@@ -334,6 +335,15 @@ export const PORTAL_DICT = {
         reply: "Antwort schreiben…",
         send: "Senden",
         viewClient: "Kundenprofil →",
+      },
+      upgrades: {
+        label: "Upgrades",
+        title: "Upgrade-Anfragen",
+        intro: "Alle Kunden, die ein Upgrade ihres Plans angefragt haben.",
+        current: "Aktueller Plan",
+        requested: "Gewünschter Plan",
+        viewClient: "Kundenprofil →",
+        empty: "Keine offenen Upgrade-Anfragen.",
       },
       clients: {
         label: "Kunden",
@@ -566,7 +576,7 @@ export const PORTAL_DICT = {
     },
     admin: {
       portal: "Admin Console",
-      nav: { overview: "Overview", inbox: "Inbox", clients: "Clients" },
+      nav: { overview: "Overview", inbox: "Inbox", upgrades: "Upgrades", clients: "Clients" },
       overview: {
         label: "Overview",
         title: "Admin Console",
@@ -576,6 +586,7 @@ export const PORTAL_DICT = {
         pendingUpgrades: "Pending Upgrades",
         toInbox: "Go to inbox →",
         toClients: "Go to clients →",
+        toUpgrades: "Go to upgrades →",
         recentTickets: "Recent requests",
         noTickets: "No requests yet.",
       },
@@ -598,6 +609,15 @@ export const PORTAL_DICT = {
         reply: "Write a reply…",
         send: "Send",
         viewClient: "Client profile →",
+      },
+      upgrades: {
+        label: "Upgrades",
+        title: "Upgrade requests",
+        intro: "All clients who have requested a plan upgrade.",
+        current: "Current plan",
+        requested: "Requested plan",
+        viewClient: "Client profile →",
+        empty: "No pending upgrade requests.",
       },
       clients: {
         label: "Clients",
