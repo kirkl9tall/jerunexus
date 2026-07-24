@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/translations";
 
-const BASE = "https://www.jerumed-nexus.ch";
+const BASE = "https://jerumed-nexus.ch";
 
 // Public marketing routes (portal + api are excluded — see robots.ts).
 const PAGES = ["", "leistungen", "ueber-uns", "technologie", "preise", "kontakt", "datenschutz", "impressum"];
