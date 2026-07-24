@@ -133,10 +133,9 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
     <div className="p-shell">
       <aside className="p-side">
         <div className="p-side-brand">
-          <a href="/" style={{ textDecoration: "none" }}>
-            <span style={{ fontFamily: "'Libre Franklin',sans-serif", fontWeight: 800, fontSize: 17, color: "var(--ink)", letterSpacing: "-.01em" }}>
-              jerumed<span style={{ color: "var(--green)" }}>nexus</span>
-            </span>
+          <a href="/" style={{ textDecoration: "none", display: "inline-flex" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-horizontal.svg" alt="Jerumed Nexus" style={{ height: 34, width: "auto", display: "block" }} />
           </a>
           <div className="p-label" style={{ marginTop: 6 }}>{t.portal}</div>
         </div>

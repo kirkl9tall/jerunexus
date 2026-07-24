@@ -25,10 +25,9 @@ function AuthSide({ title, items }: Readonly<{ title: string; items: readonly st
 
 function Brand() {
   return (
-    <a href="/" style={{ textDecoration: "none" }}>
-      <span style={{ fontFamily: "'Libre Franklin',sans-serif", fontWeight: 800, fontSize: 20, color: "var(--ink)" }}>
-        jerumed<span style={{ color: "var(--green)" }}>nexus</span>
-      </span>
+    <a href="/" style={{ textDecoration: "none", display: "inline-flex" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/logo-horizontal.svg" alt="Jerumed Nexus" style={{ height: 40, width: "auto", display: "block" }} />
     </a>
   );
 }
