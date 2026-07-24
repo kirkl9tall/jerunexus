@@ -14,7 +14,10 @@ type ShellDict = {
 type UserInfo = { name: string; email: string; avatarUrl: string | null };
 
 export function setPortalLang(lang: "de" | "en") {
-  document.cookie = `jn_lang=${lang};path=/;max-age=${60 * 60 * 24 * 365}`;
+  const maxAge = 60 * 60 * 24 * 365;
+  document.cookie = `jn_lang=${lang};path=/;max-age=${maxAge}`;
+  // Keep the marketing-site locale in sync, so "back to site" matches the portal.
+  document.cookie = `jn_locale=${lang === "en" ? "en" : "de-CH"};path=/;max-age=${maxAge}`;
 }
 
 export function LangToggle({ lang, dark = false }: Readonly<{ lang: "de" | "en"; dark?: boolean }>) {
@@ -97,7 +100,7 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
     .toUpperCase();
 
   const homeLink = (
-    <a href="/de-CH" className="p-nav-link" style={{ borderBottom: "1px solid var(--hairline)" }}>
+    <a href="/" className="p-nav-link" style={{ borderBottom: "1px solid var(--hairline)" }}>
       <span aria-hidden style={{ width: 18, textAlign: "center", fontSize: 13 }}>⌂</span>
       {t.home}
     </a>
@@ -130,10 +133,9 @@ export default function PortalShell({ user, lang, t, items, rootHref = "/portal"
     <div className="p-shell">
       <aside className="p-side">
         <div className="p-side-brand">
-          <a href="/de-CH" style={{ textDecoration: "none" }}>
-            <span style={{ fontFamily: "'Libre Franklin',sans-serif", fontWeight: 800, fontSize: 17, color: "var(--ink)", letterSpacing: "-.01em" }}>
-              jerumed<span style={{ color: "var(--green)" }}>nexus</span>
-            </span>
+          <a href="/" style={{ textDecoration: "none", display: "inline-flex" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-horizontal.svg" alt="Jerumed Nexus" style={{ height: 34, width: "auto", display: "block" }} />
           </a>
           <div className="p-label" style={{ marginTop: 6 }}>{t.portal}</div>
         </div>

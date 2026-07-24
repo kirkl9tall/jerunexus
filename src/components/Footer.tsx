@@ -2,8 +2,6 @@
 import { useParams } from "next/navigation";
 import { getDictionary } from "@/lib/translations";
 
-const B   = "#2563EB";
-
 export default function Footer() {
   const params = useParams();
   const lang = (params.lang as string) || "de-CH";
@@ -24,9 +22,8 @@ export default function Footer() {
         <div className="fb" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 56, marginBottom: 56 }}>
           <div>
             <a href={`/${lang}`} style={{ display: "flex", alignItems: "center", marginBottom: 20, textDecoration: "none" }}>
-              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: "#fff", letterSpacing: "-.01em" }}>
-                jerumed<span style={{ color: B }}>nexus</span>
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brand/logo-horizontal-white.svg" alt="Jerumed Nexus" style={{ height: 42, width: "auto", display: "block" }} />
             </a>
             <p style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.75, maxWidth: 280 }}>{t.footer.desc}</p>
             <div style={{ display: "flex", gap: 2, marginTop: 24 }}>

@@ -25,10 +25,9 @@ function AuthSide({ title, items }: Readonly<{ title: string; items: readonly st
 
 function Brand() {
   return (
-    <a href="/de-CH" style={{ textDecoration: "none" }}>
-      <span style={{ fontFamily: "'Libre Franklin',sans-serif", fontWeight: 800, fontSize: 20, color: "var(--ink)" }}>
-        jerumed<span style={{ color: "var(--green)" }}>nexus</span>
-      </span>
+    <a href="/" style={{ textDecoration: "none", display: "inline-flex" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/logo-horizontal.svg" alt="Jerumed Nexus" style={{ height: 40, width: "auto", display: "block" }} />
     </a>
   );
 }
@@ -93,7 +92,7 @@ export function LoginForm({ lang, t }: Readonly<{ lang: PortalLang; t: PortalDic
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <Brand />
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/de-CH" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
+              <a href="/" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
               <LangToggle lang={lang} />
             </div>
           </div>
@@ -169,7 +168,7 @@ export function RegisterForm({ lang, t }: Readonly<{ lang: PortalLang; t: Portal
           <div className="p-auth-box">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Brand />
-              <a href="/de-CH" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
+              <a href="/" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
             </div>
             <div style={{ width: 56, height: 56, background: "var(--green-soft)", display: "flex", alignItems: "center", justifyContent: "center", margin: "40px 0 24px", fontSize: 26, color: "var(--green)" }}>✉</div>
             <h1 style={{ fontSize: 28, fontWeight: 700 }}>{t.checkInboxTitle}</h1>
@@ -199,7 +198,7 @@ export function RegisterForm({ lang, t }: Readonly<{ lang: PortalLang; t: Portal
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <Brand />
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/de-CH" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
+              <a href="/" className="p-arrow-link" style={{ color: "var(--gray)" }}>{t.home}</a>
               <LangToggle lang={lang} />
             </div>
           </div>

@@ -12,7 +12,7 @@ export const deCH = {
     logout: "Abmelden",
   },
 
-  top: { addr:"Zürich, Schweiz", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
+  top: { addr:"Zürich, Schweiz", phone:"+41 44 50 56 207", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Kontakt",
@@ -171,8 +171,8 @@ export const deCH = {
     members:[
       { name:"A. Abuawad", role:"Gründer & CEO", desc:"Spezialist für medizinische IT-Integration, Netzwerkarchitektur und Systemadministration.", img:"AA", photo:"/team/doc2.jpeg" },
       { name:"IT-Sicherheit", role:"Cybersecurity-Berater", desc:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response.", img:"CS", photo:"" },
-      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Web Developer", desc:"Verantwortlich für DevOps, Cloud-Infrastruktur, Automatisierung und die Entwicklung Ihrer Web-Plattformen.", img:"AI", photo:"/team/1757854645138.jpeg" },
-      { name:"Support", role:"Technischer Support", desc:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb Ihrer Praxis.", img:"TS", photo:"" },
+      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Fullstack Web Dev", desc:"Verantwortlich für DevOps, Cloud-Infrastruktur, Automatisierung und die Entwicklung Ihrer Web-Plattformen.", img:"AI", photo:"/team/1757854645138.jpeg" },
+      { name:"Mohammed Laidi", role:"Fullstack Web Dev & SEO Analyst/Manager", desc:"Entwickelt und pflegt Ihre Web-Plattformen und optimiert deren Sichtbarkeit in Suchmaschinen — von der Full-Stack-Entwicklung bis zur SEO-Strategie.", img:"ML", photo:"" },
     ],
   },
 
@@ -190,13 +190,6 @@ export const deCH = {
     ],
   },
 
-  emergency: {
-    label:"IT-NOTFALL?",
-    title:"IT-Notfall in Ihrer Praxis?",
-    sub:"Serverausfall, Cyberangriff oder Datenverlust? Unser Notfall-Team ist sofort für Sie da.",
-    phone:"+41 XX XXX XX XX", btn:"Notfall melden", note:"Mo–Fr 07:00–22:00 · Sa 08:00–18:00",
-  },
-
   ctaBanner: {
     title:"Starten Sie Ihre\nIT-Beratung jetzt",
     p:"Vereinbaren Sie ein kostenloses Erstgespräch und erfahren Sie, wie wir Ihre Praxis-IT optimieren können.",
@@ -207,7 +200,7 @@ export const deCH = {
     tag:"BRAUCHEN SIE HILFE?",
     title:"Kontaktieren Sie uns für\nprofessionelle IT-Unterstützung",
     p:"Unser Team steht Ihnen für fachkundige Beratung und zuverlässigen technischen Support zur Verfügung — massgeschneidert für Ihre Praxis.",
-    phone:{ label:"TELEFON-SUPPORT", value:"+41 XX XXX XX XX" },
+    phone:{ label:"TELEFON-SUPPORT", value:"+41 44 50 56 207" },
     email:{ label:"E-MAIL-SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Jahre Erfahrung" },
   },
@@ -345,8 +338,8 @@ export const deCH = {
         members:[
           { role:"Gründer & CEO", bio:"Gründer von Jerumed Nexus mit jahrelanger Erfahrung in der Integration medizinischer Systeme für Schweizer Praxen. Spezialisiert auf Netzwerkarchitektur, Systemadministration und medizinische IT. Verbindet klinische Anforderungen mit technischen Lösungen." },
           { role:"Cybersecurity-Berater", bio:"Externer Spezialist für Penetration Testing, FMH-Audits und Incident Response. Hält die Praxis-Infrastruktur gegen moderne Bedrohungen abgesichert. Sorgt dafür, dass die Compliance jederzeit audit-bereit bleibt." },
-          { role:"DevOps & Web Developer", bio:"Verantwortlich für DevOps, Cloud-Infrastruktur und Automatisierung über die gesamte Plattform. Entwickelt und betreibt die zweisprachigen Web-Plattformen und CI/CD-Pipelines. Fokussiert auf Zuverlässigkeit, Sicherheit und moderne Entwicklungspraktiken." },
-          { role:"Technischer Support", bio:"Ihr direkter Ansprechpartner für den täglichen IT-Betrieb. Übernimmt Remote- und Vor-Ort-Support, damit Ihre Praxis nie ins Stocken gerät. Schnell, freundlich und praxisnah." },
+          { role:"DevOps & Fullstack Web Dev", bio:"Verantwortlich für DevOps, Cloud-Infrastruktur und Automatisierung über die gesamte Plattform. Entwickelt und betreibt die zweisprachigen Web-Plattformen und CI/CD-Pipelines. Fokussiert auf Zuverlässigkeit, Sicherheit und moderne Entwicklungspraktiken." },
+          { role:"Fullstack Web Dev & SEO Analyst/Manager", bio:"Full-Stack-Entwickler und SEO-Verantwortlicher. Baut performante, sichere Web-Plattformen vom Frontend bis zur API und sorgt dafür, dass sie in Suchmaschinen gefunden werden. Verantwortlich für technisches SEO, Keyword-Strategie, Analytics und laufende Content-Optimierung." },
         ],
       },
       partners:{
@@ -432,7 +425,7 @@ export const deCH = {
       company:"Jerumed Nexus",
       address:"[Adresse wird ergänzt]",
       email:"support@jerumed-nexus.ch",
-      phone:"+41 XX XXX XX XX",
+      phone:"+41 44 50 56 207",
     },
     datenschutz: {
       title:"Datenschutzerklärung",

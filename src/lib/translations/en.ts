@@ -12,7 +12,7 @@ export const en = {
     logout: "Log out",
   },
 
-  top: { addr:"Zurich, Switzerland", phone:"+41 XX XXX XX XX", email:"support@jerumed-nexus.ch" },
+  top: { addr:"Zurich, Switzerland", phone:"+41 44 50 56 207", email:"support@jerumed-nexus.ch" },
 
   finalCta: {
     tag:"Contact",
@@ -169,8 +169,8 @@ export const en = {
     members:[
       { name:"A. Abuawad", role:"Founder & CEO", desc:"Specialist in medical IT integration, network architecture and system administration.", img:"AA", photo:"/team/doc2.jpeg" },
       { name:"IT Security", role:"Cybersecurity Consultant", desc:"External specialist for penetration testing, FMH audits and incident response.", img:"CS", photo:"" },
-      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Web Developer", desc:"Responsible for DevOps, cloud infrastructure, automation and building your web platforms.", img:"AI", photo:"/team/1757854645138.jpeg" },
-      { name:"Support", role:"Technical Support", desc:"Your direct contact for daily IT operations at your practice.", img:"TS", photo:"" },
+      { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Fullstack Web Dev", desc:"Responsible for DevOps, cloud infrastructure, automation and building your web platforms.", img:"AI", photo:"/team/1757854645138.jpeg" },
+      { name:"Mohammed Laidi", role:"Fullstack Web Dev & SEO Analyst/Manager", desc:"Builds and maintains your web platforms and grows their search visibility — from full-stack development to SEO strategy.", img:"ML", photo:"" },
     ],
   },
 
@@ -188,13 +188,6 @@ export const en = {
     ],
   },
 
-  emergency: {
-    label:"IT EMERGENCY?",
-    title:"IT emergency at your practice?",
-    sub:"Server down, cyber attack or data loss? Our emergency team is ready.",
-    phone:"+41 XX XXX XX XX", btn:"Report emergency", note:"Mon–Fri 07:00–22:00 · Sat 08:00–18:00",
-  },
-
   ctaBanner: {
     title:"Begin Your IT\nConsultation Today",
     p:"Book a free initial consultation and discover how we can optimize your practice IT infrastructure.",
@@ -205,7 +198,7 @@ export const en = {
     tag:"NEED MORE HELP?",
     title:"Reach Out For Professional\nTechnical Assistance",
     p:"Contact our team for expert guidance and reliable technical support tailored to your practice needs.",
-    phone:{ label:"SALES SUPPORT", value:"+41 XX XXX XX XX" },
+    phone:{ label:"SALES SUPPORT", value:"+41 44 50 56 207" },
     email:{ label:"EMAIL SUPPORT", value:"support@jerumed-nexus.ch" },
     exp:{ n:"10+", l:"Years of Experience" },
   },
@@ -341,8 +334,8 @@ export const en = {
         members:[
           { role:"Founder & CEO", bio:"Founder of Jerumed Nexus with years of experience integrating medical systems for Swiss practices. Specialises in network architecture, system administration and medical IT. Bridges the gap between clinical needs and technical solutions." },
           { role:"Cybersecurity Consultant", bio:"External specialist for penetration testing, FMH audits and incident response. Keeps practice infrastructure hardened against modern threats. Ensures compliance stays audit-ready." },
-          { role:"DevOps & Web Developer", bio:"Responsible for DevOps, cloud infrastructure and automation across the platform. Builds and ships the bilingual web platforms and CI/CD pipelines. Focused on reliability, security and modern developer practices." },
-          { role:"Technical Support", bio:"Your direct contact for daily IT operations. Handles remote and on-site support so your practice never skips a beat. Fast, friendly and practice-aware." },
+          { role:"DevOps & Fullstack Web Dev", bio:"Responsible for DevOps, cloud infrastructure and automation across the platform. Builds and ships the bilingual web platforms and CI/CD pipelines. Focused on reliability, security and modern developer practices." },
+          { role:"Fullstack Web Dev & SEO Analyst/Manager", bio:"Full-stack developer and SEO lead. Builds fast, secure web platforms end-to-end — from frontend to API — and makes sure they get found. Owns technical SEO, keyword strategy, analytics and ongoing content optimisation." },
         ],
       },
       partners:{
@@ -423,7 +416,7 @@ export const en = {
         ],
       },
     },
-    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 XX XXX XX XX" },
+    impressum: { title:"Imprint", company:"Jerumed Nexus", address:"[Address to be added]", email:"support@jerumed-nexus.ch", phone:"+41 44 50 56 207" },
     datenschutz: { title:"Privacy Policy", intro:"Protecting your personal data is important to us. This privacy policy informs you about how we process personal data when you use our website.", note:"This page is being finalized." },
   },
 

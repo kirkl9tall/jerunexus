@@ -32,7 +32,7 @@ export default function PricingPage() {
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div className="pg" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}>
             {t.pricing.plans.map((p) => (
-              <div key={p.tag} style={{ padding: "44px 36px", border: "1px solid #E5E7EB", background: p.featured ? INK : "#fff", display: "flex", flexDirection: "column" }}>
+              <div key={p.tag} style={{ padding: "44px 36px", border: "1px solid #E5E7EB", background: p.featured ? "#005675" : "#fff", display: "flex", flexDirection: "column" }}>
                 <span style={{ fontFamily: "'DM Mono',monospace", fontSize: 10, fontWeight: 500, letterSpacing: ".14em", color: p.featured ? "rgba(255,255,255,.35)" : "#9CA3AF", display: "block", marginBottom: 12 }}>{p.tag}</span>
                 <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: p.featured ? "#fff" : INK, marginBottom: 28, letterSpacing: "-.02em" }}>{p.name}</h3>
                 <div style={{ marginBottom: 32 }}>
