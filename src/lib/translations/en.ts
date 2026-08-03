@@ -170,7 +170,7 @@ export const en = {
       { name:"A. Abuawad", role:"Founder & CEO", desc:"Specialist in medical IT integration, network architecture and system administration.", img:"AA", photo:"/team/doc2.jpeg" },
       { name:"IT Security", role:"Cybersecurity Consultant", desc:"External specialist for penetration testing, FMH audits and incident response.", img:"CS", photo:"" },
       { name:"Abdelilah Ismaili Alaoui", role:"DevOps & Fullstack Web Dev", desc:"Responsible for DevOps, cloud infrastructure, automation and building your web platforms.", img:"AI", photo:"/team/1757854645138.jpeg" },
-      { name:"Mohammed Laidi", role:"Fullstack Web Dev & SEO Analyst/Manager", desc:"Builds and maintains your web platforms and grows their search visibility — from full-stack development to SEO strategy.", img:"ML", photo:"" },
+      { name:"Mohammed Laidi", role:"Fullstack Web Dev & SEO Analyst/Manager", desc:"Builds and maintains your web platforms and grows their search visibility — from full-stack development to SEO strategy.", img:"ML", photo:"/team/fiska.jpeg" },
     ],
   },
 

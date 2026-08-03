@@ -39,6 +39,7 @@ export const team: TeamMember[] = [
     id: "mohammed",
     name: "Mohammed Laidi",
     initials: "ML",
+    photo: "/team/fiska.jpeg",
     expertise: ["Full-Stack Development", "React & Next.js", "SEO", "Web Analytics"],
   },
 ];
