@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     description: isEn
       ? "Professional IT services for medical practices in Switzerland. Cybersecurity, network, EMR integration, lab middleware and managed IT."
       : "Professionelle IT-Dienstleistungen für Arztpraxen in der Schweiz. Cybersecurity, Netzwerk, EMR-Integration, Labor-Middleware und Managed IT.",
-    metadataBase: new URL("https://www.jerumed-nexus.ch"),
+    metadataBase: new URL("https://jerumed-nexus.ch"),
     alternates: {
       canonical: `/${lang}`,
       languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
@@ -47,7 +47,7 @@ export default async function LangLayout({ children, params }: Readonly<{ childr
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Jerumed Nexus",
-    url: "https://www.jerumed-nexus.ch",
+    url: "https://jerumed-nexus.ch",
     description: isEn
       ? "Specialised IT partner for Swiss medical practices: secure Swiss-hosted infrastructure, medical software integration, automation and compliance."
       : "Spezialisierter IT-Partner für Schweizer Arztpraxen: sichere Swiss-hosted Infrastruktur, medizinische Software-Integration, Automatisierung und Compliance.",
