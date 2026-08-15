@@ -545,9 +545,12 @@ export default function Home() {
         <div style={{ maxWidth: 1400, margin: "0 auto" }}>
           <div className="fb" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 56, marginBottom: 56 }}>
             <div>
-              <div style={{ marginBottom: 20 }}>
+              <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/logo-horizontal-white.svg" alt="Jerumed Nexus" style={{ height: 42, width: "auto", display: "block" }} />
+                <img src="/brand/logo-mark-dark.png" alt="" style={{ height: 32, width: "auto", display: "block" }} />
+                <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, color: "#fff", letterSpacing: "-.01em" }}>
+                  jerumed<span style={{ color: B }}>nexus</span>
+                </span>
               </div>
               <p style={{ fontSize: 14, color: "#4B5563", lineHeight: 1.75, maxWidth: 280 }}>{t.footer.desc}</p>
               <div style={{ display: "flex", gap: 2, marginTop: 24 }}>
