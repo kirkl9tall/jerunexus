@@ -1,5 +1,11 @@
 import '@/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
+
+// Google Analytics 4. The measurement ID is public (it ships in the page
+// source), so it lives here rather than in an env var — that way analytics
+// keeps working on any deploy without extra server configuration.
+const GA_ID = 'G-H9BYQ4L49S';
 
 export const metadata: Metadata = {
   title: 'Jerumed Nexus — IT Solutions for Healthcare',
@@ -22,7 +28,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </Script>
+      </body>
     </html>
   );
 }
