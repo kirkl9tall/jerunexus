@@ -214,13 +214,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 24px;
-  height: 88px;
+  padding: 16px 20px;
+  height: 104px;
   border: 1px solid #F0F0F0;
 }
 .logo-wall-item img {
-  max-height: 42px;
-  max-width: 170px;
+  max-height: 60px;
+  max-width: 210px;
   width: auto;
   object-fit: contain;
   filter: grayscale(100%);

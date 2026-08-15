@@ -33,9 +33,12 @@ export default function Navbar() {
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(255,255,255,.92)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: solid ? `1px solid ${LINE}` : "1px solid transparent", boxShadow: scrolled ? "0 1px 24px rgba(0,0,0,.06)" : "none", transition: "all .3s" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
 
-        <a href={`/${lang}`} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+        <a href={`/${lang}`} style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={solid ? "/brand/logo-horizontal.svg" : "/brand/logo-horizontal-white.svg"} alt="Jerumed Nexus" style={{ height: 38, width: "auto", display: "block" }} />
+          <img src={solid ? "/brand/logo-mark.png" : "/brand/logo-mark-dark.png"} alt="" style={{ height: 30, width: "auto", display: "block" }} />
+          <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 17, color: solid ? INK : "#fff", letterSpacing: "-.01em" }}>
+            jerumed<span style={{ color: B }}>nexus</span>
+          </span>
         </a>
 
         {/* Desktop links */}

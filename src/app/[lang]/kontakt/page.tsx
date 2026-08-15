@@ -169,8 +169,9 @@ export default function ContactPage() {
                 <span style={{ flex: 1, height: 1, background: "rgba(255,255,255,.1)" }} />
               </div>
 
-              {/* Secondary: existing clients log in */}
-              <a href={`/portal/login`}
+              {/* Secondary: existing clients go straight to the portal chat
+                  (middleware sends them to login first if not signed in). */}
+              <a href={`/portal/support`}
                 style={{ display: "block", textAlign: "center", background: "transparent", padding: "15px", color: "#fff", fontSize: 14, fontWeight: 600, fontFamily: "inherit", textDecoration: "none", letterSpacing: ".04em", border: "1px solid rgba(255,255,255,.25)", transition: "all .2s" }}
                 onMouseOver={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = INK; }}
                 onFocus={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = INK; }}
