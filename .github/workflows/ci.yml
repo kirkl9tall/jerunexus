@@ -17,7 +17,7 @@ jobs:
       DATABASE_URL: "postgresql://user:pass@localhost:5432/db?schema=public"
       JWT_SECRET: "ci-placeholder-not-used-at-runtime"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -57,7 +57,7 @@ jobs:
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/jerunexus_test?schema=public"
       JWT_SECRET: "ci-placeholder-not-used-at-runtime"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
